@@ -14,7 +14,7 @@ body {
 /* HEADER */
 header {
   text-align: center;
-  // height: 9vw;
+  height: 9vw;
 }
 
 button:active {
@@ -38,11 +38,11 @@ button:active {
 .user-info-dropdown {
   background-color: #1F1F1F;
   color: white;
-  // margin-left: 60%;
-  // margin-top: -1.2%;
-  // position: relative;
+  margin-left: 60%;
+  margin-top: -1.2%;
+  position: relative;
   text-align: center;
-  // z-index: 100;
+  z-index: 100;
 }
 
 .dropdown-p {
@@ -103,7 +103,7 @@ main {
   grid-template-areas:
   'steps hydration'
   'stairs sleep';
-  // height: 100%;
+  height: 100%;
 }
 
 .main-card {
