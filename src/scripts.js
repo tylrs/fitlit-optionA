@@ -102,6 +102,9 @@ let stepsUserStepsToday = document.querySelector('#steps-user-steps-today');
 let trendingStepsPhraseContainer = document.querySelector('.trending-steps-phrase-container');
 let trendingStairsPhraseContainer = document.querySelector('.trending-stairs-phrase-container');
 let userInfoDropdown = document.querySelector('#user-info-dropdown');
+let adtlInfo = document.querySelector('#adtlInfo');
+
+window.addEventListener('load', populateUserCard);
 
 mainPage.addEventListener('click', showInfo);
 profileButton.addEventListener('click', showDropdown);
@@ -188,13 +191,25 @@ for (var i = 0; i < dailyOz.length; i++) {
   dailyOz[i].innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[i])[0])
 }
 
-dropdownGoal.innerText = `DAILY STEP GOAL | ${user.dailyStepGoal}`;
+function populateUserCard () {
+  headerName.innerText = `${user.getFirstName()}'S `;
+  
+  dropdownName.innerText = user.name.toUpperCase();
+  dropdownEmail.innerText = `EMAIL | ${user.email}`;
+  dropdownGoal.innerText = `DAILY STEP GOAL | ${user.dailyStepGoal}`;
+  populateFriends()
+  adtlInfo.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
+}
 
-dropdownEmail.innerText = `EMAIL | ${user.email}`;
+function populateFriends() {
+  //check out change in styling when this is outside of this function
+  user.friendsActivityRecords.forEach(friend => {
+    dropdownFriendsStepsContainer.innerHTML += `
+    <p class='dropdown-p friends-steps'>${friend.firstName} |  ${friend.totalWeeklySteps}</p>
+    `;
+  });
+}
 
-dropdownName.innerText = user.name.toUpperCase();
-
-headerName.innerText = `${user.getFirstName()}'S `;
 
 hydrationUserOuncesToday.innerText = hydrationData.find(hydration => {
   return hydration.userID === user.id && hydration.date === todayDate;
@@ -281,12 +296,6 @@ stepsUserStepsToday.innerText = activityData.find(activity => {
 }).numSteps;
 
 user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
-
-user.friendsActivityRecords.forEach(friend => {
-  dropdownFriendsStepsContainer.innerHTML += `
-  <p class='dropdown-p friends-steps'>${friend.firstName} |  ${friend.totalWeeklySteps}</p>
-  `;
-});
 
 let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
 
