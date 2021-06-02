@@ -196,7 +196,9 @@ function populateUserCard () {
   
   dropdownName.innerText = user.name.toUpperCase();
   dropdownEmail.innerText = `EMAIL | ${user.email}`;
-  dropdownGoal.innerText = `DAILY STEP GOAL | ${user.dailyStepGoal}`;
+  dropdownGoal.innerHTML = `DAILY STEP GOAL | ${user.dailyStepGoal}
+    <br>average step goal amongst all users | ${userRepository.calculateAverageStepGoal()}
+    <br>your goal/average of all users goal | ${((user.dailyStepGoal / userRepository.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
   populateFriends()
   adtlInfo.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
 }
