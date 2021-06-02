@@ -14,7 +14,7 @@ class UserRepository {
     })
   }
 
-//refactored to ES6 arrow functions - check for context?
+//refactored to ES6 arrow functions -double check context on DOM
   calculateAverageStepGoal() {
     const total = this.users.reduce((accumulator, currentUser) => {
       accumulator += currentUser.dailyStepGoal
