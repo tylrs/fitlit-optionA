@@ -22,7 +22,7 @@ button:active {
   outline: none;
 }
 
-#profile-button {
+.profile-button {
   background-image: url(../images/profile.png);
   background-position: center;
   background-size: 5.6vw;
@@ -126,25 +126,25 @@ main {
   width: 100%;
 }
 
-#steps-card-container {
+.steps-card-container {
   background-color: #F5634B;
   grid-area: steps;
   margin: .5vw;
 }
 
-#hydration-card-container {
+.hydration-card-container {
   background-color: #54C6BE;
   grid-area: hydration;
   margin: .5vw;
 }
 
-#stairs-card-container {
+.stairs-card-container {
   background-color: #8975B2;
   grid-area: stairs;
   margin: .5vw;
 }
 
-#sleep-card-container {
+.sleep-card-container {
   background-color: #FBD089;
   grid-area: sleep;
   margin: .5vw;
