@@ -1,6 +1,6 @@
 import './css/base.scss';
 import './css/styles.scss';
-import domUpdates from  './domUpdates';
+// import domUpdates from  './domUpdates';
 
 import userData from './data/users';
 import activityData from './data/activity';
