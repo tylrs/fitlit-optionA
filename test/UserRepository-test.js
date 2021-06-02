@@ -5,10 +5,7 @@ import User from '../src/User';
 import Sleep from '../src/Sleep';
 
 describe('UserRepository', function() {
-  let user1;
-  let user2;
-  let user3;
-  let userRepository;
+  let user1, user2, user3, userRepository, sleep1, sleep2, sleep3;
   beforeEach(() => {
     user1 = new User({
       'id': 1,
@@ -53,6 +50,24 @@ describe('UserRepository', function() {
     })
     userRepository = new UserRepository();
     userRepository.users.push(user1, user2, user3);
+    sleep1 = new Sleep({
+      "userID": 1,
+      "date": "2019/06/16",
+      "hoursSlept": 6.1,
+      "sleepQuality": 1000
+    }, userRepository);
+    sleep2 = new Sleep({
+      "userID": 2,
+      "date": "2019/06/15",
+      "hoursSlept": 7.3,
+      "sleepQuality": 500
+    }, userRepository);
+    sleep3 = new Sleep({
+      "userID": 3,
+      "date": "2019/06/15",
+      "hoursSlept": 9.3,
+      "sleepQuality": 1.4
+    }, userRepository);
   })
   it('should be a function', function() {
     expect(UserRepository).to.be.a('function');
@@ -95,24 +110,25 @@ describe('UserRepository', function() {
     expect(userRepository.calculateAverageDailyWater("2019/06/16")).to.equal(5)
   });
   it('should have a method that finds the best sleepers', function() {
-    sleep1 = new Sleep({
-      "userID": 1,
-      "date": "2019/06/16",
-      "hoursSlept": 6.1,
-      "sleepQuality": 1000
-    }, userRepository);
-    sleep2 = new Sleep({
-      "userID": 2,
-      "date": "2019/06/15",
-      "hoursSlept": 7.3,
-      "sleepQuality": 500
-    }, userRepository);
-    sleep3 = new Sleep({
-      "userID": 3,
-      "date": "2019/06/15",
-      "hoursSlept": 9.3,
-      "sleepQuality": 1.4
-    }, userRepository);
+    //Add this data to beforeEach
+    // sleep1 = new Sleep({
+    //   "userID": 1,
+    //   "date": "2019/06/16",
+    //   "hoursSlept": 6.1,
+    //   "sleepQuality": 1000
+    // }, userRepository);
+    // sleep2 = new Sleep({
+    //   "userID": 2,
+    //   "date": "2019/06/15",
+    //   "hoursSlept": 7.3,
+    //   "sleepQuality": 500
+    // }, userRepository);
+    // sleep3 = new Sleep({
+    //   "userID": 3,
+    //   "date": "2019/06/15",
+    //   "hoursSlept": 9.3,
+    //   "sleepQuality": 1.4
+    // }, userRepository);
     expect(userRepository.findBestSleepers("2019/06/16")).to.deep.equal([user1, user2]);
   });
   it('should have a method that finds the longest sleepers', function() {
