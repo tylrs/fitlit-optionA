@@ -10,18 +10,19 @@
   <body>
     <header>
       <h1><span id='header-name'></span>FITLIT</h1>
-      <button type='button' name='button' id='profile-button'></button>
-      <section class='hide' id='user-info-dropdown'>
+      <button type='button' name='profile-button' id='profile-button' class='profile-button'></button>
+      <section class='hide user-info-dropdown' id='user-info-dropdown'>
         <h5 id='dropdown-name'></h5>
         <p class='dropdown-p' id='dropdown-email'></p>
         <p class='dropdown-p' id='dropdown-goal'></p>
         <br />
         <p class='dropdown-p' id='dropdown-friends'>FRIENDS TOTAL STEPS THIS WEEK</p>
         <div id='dropdown-friends-steps-container'></div>
+        <p class='dropdown-p' id='adtlInfo'></p>
       </section>
     </header>
     <main>
-      <section class='card-container' id='steps-card-container'>
+      <section class='card-container steps-card-container' id='steps-card-container'>
         <section class='main-card' id='steps-main-card'>
           <div class='main-card-top-row'>
             <button type='button' name='button' class='info-button steps-info-button'></button>
@@ -78,7 +79,7 @@
           </div>
         </section>
       </section>
-      <section class='card-container' id='hydration-card-container'>
+      <section class='card-container hydration-card-container' id='hydration-card-container'>
         <section class='main-card' id='hydration-main-card'>
           <div class='main-card-top-row'>
             <button type='button' name='button' class='info-button hydration-info-button'></button>
@@ -133,7 +134,7 @@
           </div>
         </section>
       </section>
-      <section class='card-container' id='stairs-card-container'>
+      <section class='card-container stairs-card-container' id='stairs-card-container'>
         <section class='main-card' id='stairs-main-card'>
           <div class='main-card-top-row'>
             <button type='button' name='button' class='info-button stairs-info-button'></button>
@@ -178,7 +179,7 @@
           </div>
         </section>
       </section>
-      <section class='card-container' id='sleep-card-container'>
+      <section class='card-container sleep-card-container' id='sleep-card-container'>
         <section class='main-card' id='sleep-main-card'>
           <div class='main-card-top-row'>
             <button type='button' name='button' class='info-button sleep-info-button'></button>
