@@ -166,6 +166,11 @@ function updateTrendingStepDays() {
   trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
 }
 
+// stepsTrendingButton.addEventListener('click', function () {
+//   user.findTrendingStepDays();
+//   trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
+// });
+
 function populateClimbedCard() {
   stairsUserStairsToday.innerText = activityData.find(activity => {
     return activity.userID === user.id && activity.date === todayDate;
@@ -174,11 +179,6 @@ function populateClimbedCard() {
   stairsInfoFlightsToday.innerText = activityData.find(activity => {
     return activity.userID === user.id && activity.date === todayDate;
   }).flightsOfStairs;
-  
-  //  stairsTrendingButton.addEventListener('click', function () {
-  //   user.findTrendingStairsDays();
-  //   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
-  // });
   
   stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverageStairs(todayDate) / 12).toFixed(1);
   
@@ -189,11 +189,16 @@ function populateClimbedCard() {
   
   updateTrendingStairsDays()
 }
-  
+
 function updateTrendingStairsDays() {
   user.findTrendingStairsDays();
   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
 }
+
+//  stairsTrendingButton.addEventListener('click', function () {
+//   user.findTrendingStairsDays();
+//   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
+// });
   
 function populateHydrationCard() {
   hydrationUserOuncesToday.innerText = hydrationData.find(hydration => {
@@ -238,11 +243,6 @@ function populateSleepCard() {
 }
   
 //UNUSED?
-stepsTrendingButton.addEventListener('click', function () {
-  user.findTrendingStepDays();
-  trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
-});
-
 user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
 
 let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
@@ -265,7 +265,7 @@ function showDropdown() {
   userInfoDropdown.classList.toggle('hide');
 }
   
-function showInfo() {
+function showInfo(event) {
   if (event.target.classList.contains('steps-info-button')) {
     flipCard(stepsMainCard, stepsInfoCard);
   }
