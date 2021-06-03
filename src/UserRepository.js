@@ -121,7 +121,6 @@ class UserRepository {
     })
   }
 
-
 //Refactor these two into one function?
   getLongestSleepers(date) {
     return sleepData.filter(sleep => {
@@ -132,12 +131,25 @@ class UserRepository {
   }
 
   getWorstSleepers(date) {
+    //call getLongestSleepers and reverse output
     return sleepData.filter(sleep => {
       return sleep.date === date;
     }).sort((a, b) => {
       return a.hoursSlept - b.hoursSlept;
     })[0].userID;
+
+
+    // let sortedSleeps = sleepData.filter(sleep => {
+    //   return sleep.date === date;
+    // }).sort((a, b) => {
+    //   return a.hoursSlept - b.hoursSlept;
+    // })
+    // console.log("start sorted", sortedSleeps)
+    // return sortedSleeps[0].userID;
   }
+
+
+
 }
 
 export default UserRepository;
