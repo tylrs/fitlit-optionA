@@ -76,7 +76,7 @@ let stairsCalendarCard = document.querySelector('#stairs-calendar-card');
 let stairsCalendarFlightsAverageWeekly = document.querySelector('#stairs-calendar-flights-average-weekly');
 let stairsCalendarStairsAverageWeekly = document.querySelector('#stairs-calendar-stairs-average-weekly');
 let stepsMainCard = document.querySelector('#steps-main-card');
-let stepsInfoCard = document.querySelector('#stepsInfoCard');
+let stepsInfoCard = document.querySelector('#steps-info-card');
 let stepsFriendsCard = document.querySelector('#steps-friends-card');
 let stepsTrendingCard = document.querySelector('#steps-trending-card');
 let stepsCalendarCard = document.querySelector('#steps-calendar-card');
@@ -341,6 +341,7 @@ function showInfo2(event) {
     stairsTrendingCard,
     stairsCalendarCard,
     sleepInfoCard,
+    sleepFriendsCard,
     sleepCalendarCard,
     stepsMainCard,
     hydrationMainCard,
@@ -348,11 +349,6 @@ function showInfo2(event) {
     sleepMainCard,
   }
   event.target.closest('.main-card').classList.add('hide');
-  let id = `${event.target.id}Card`;
-  // let cardToShow = cards.find((card) => {
-  //   return card.id === id;
-  // })
   let cardToShow = cards[`${event.target.id}Card`]
   cardToShow.classList.remove('hide');
-  //to do would be to change button and id on each card
 }
