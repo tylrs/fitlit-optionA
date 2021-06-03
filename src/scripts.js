@@ -3,10 +3,10 @@ import './css/styles.scss';
 import { fetchApiData } from './apiCalls';
 // import domUpdates from  './domUpdates';
 
-import userData from './data/users';
-import activityData from './data/activity';
-import sleepData from './data/sleep';
-import hydrationData from './data/hydration';
+// import userData from './data/users';
+// import activityData from './data/activity';
+// import sleepData from './data/sleep';
+// import hydrationData from './data/hydration';
 
 import UserRepository from './UserRepository';
 import User from './User';
@@ -16,26 +16,7 @@ import Sleep from './Sleep';
 
 let userRepository = new UserRepository();
 let todayDate = "2019/09/22";
-
-userData.forEach(user => {
-  user = new User(user);
-  userRepository.users.push(user)
-});
-
-activityData.forEach(activity => {
-  activity = new Activity(activity, userRepository);
-});
-
-hydrationData.forEach(hydration => {
-  hydration = new Hydration(hydration, userRepository);
-});
-
-sleepData.forEach(sleep => {
-  sleep = new Sleep(sleep, userRepository);
-});
-
-let user = userRepository.users[0];
-user.findFriendsNames(userRepository.users);
+let userData, activityData, hydrationData, sleepData, user
 
 let dailyOz = document.querySelectorAll('.daily-oz');
 let dropdownEmail = document.querySelector('#dropdown-email');
@@ -64,15 +45,6 @@ let sleepInfoQualityAverageAlltime = document.querySelector('#sleep-info-quality
 let sleepInfoQualityToday = document.querySelector('#sleep-info-quality-today');
 let sleepMainCard = document.querySelector('#sleep-main-card');
 let sleepUserHoursToday = document.querySelector('#sleep-user-hours-today');
-let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
-  if (Object.keys(a)[0] > Object.keys(b)[0]) {
-    return -1;
-  }
-  if (Object.keys(a)[0] < Object.keys(b)[0]) {
-    return 1;
-  }
-  return 0;
-});
 let stairsCalendarCard = document.querySelector('#stairs-calendar-card');
 let stairsCalendarFlightsAverageWeekly = document.querySelector('#stairs-calendar-flights-average-weekly');
 let stairsCalendarStairsAverageWeekly = document.querySelector('#stairs-calendar-stairs-average-weekly');
@@ -102,83 +74,52 @@ let trendingStepsPhraseContainer = document.querySelector('.trending-steps-phras
 let trendingStairsPhraseContainer = document.querySelector('.trending-stairs-phrase-container');
 let userInfoDropdown = document.querySelector('#user-info-dropdown');
 let adtlInfo = document.querySelector('#adtlInfo');
+let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
 
 window.addEventListener('load', fetchData);
-window.addEventListener('load', populateDOM);
 
 mainPage.addEventListener('click', showInfo);
 profileButton.addEventListener('click', showDropdown);
-stairsTrendingButton.addEventListener('click', updateTrendingStairsDays());
-stepsTrendingButton.addEventListener('click', updateTrendingStepDays());
+stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
+stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
 
-
-
-
-
+function getData() {
+  return Promise.all([fetchApiData('users'), fetchApiData('sleep'), fetchApiData('activity'), fetchApiData('hydration')]);
+}
 
 function fetchData() {
-  instantiateUsers()
-  getSleepData()
-  getActivityData()
-  getHydrationData()
+  getData()
+  .then((promiseArray) => {
+    userData = promiseArray[0].userData;
+    sleepData = promiseArray[1].sleepData;
+    activityData = promiseArray[2].activityData;
+    hydrationData = promiseArray[3].hydrationData;
+    instantiateData()
+    populateDOM()
+  });
+};
+
+function instantiateData() {
+  userData.forEach(user => {
+    user = new User(user);
+    userRepository.users.push(user)
+  });
+  
+  sleepData.forEach(sleep => {
+    sleep = new Sleep(sleep, userRepository);
+  });
+
+  activityData.forEach(activity => {
+    activity = new Activity(activity, userRepository);
+  });
+
+  hydrationData.forEach(hydration => {
+    hydration = new Hydration(hydration, userRepository);
+  });
+
+  user = userRepository.users[0];
+  user.findFriendsNames(userRepository.users);
 }
-
-const instantiateUsers = () => {
-  let users;
-  fetchApiData('users')
-    .then(data => {
-      users = data;
-      console.log('FETCHED USERS', users)
-    })
-    // .then(() => users.forEach(user => {
-    //   user = new User(user);
-    //   userRepository.users.push(user)
-    // }))
-}
-
-// let user = userRepository.users[0];
-// user.findFriendsNames(userRepository.users);
-
-const getSleepData = () => {
-  let sleepData;
-  fetchApiData('sleep')
-    .then(data => {
-      sleepData = data;
-      console.log('FETCHED SLEEP DATA', sleepData)
-    })
-    // .then(() => sleepData.forEach(sleep => {
-    //   sleep = new Sleep(sleep, userRepository);
-    // }))
-}
-
-const getActivityData = () => {
-  let activityData;
-  fetchApiData('activity')
-    .then(data => {
-      activityData = data;
-      console.log('FETCHED ACTIVITY DATA', activityData)
-    })
-    // .then(() => activityData.forEach(activity => {
-    //   activity = new Activity(activity, userRepository);
-    // }))
-}
-
-const getHydrationData = () => {
-  let hydrationData;
-  fetchApiData('hydration')
-    .then(data => {
-      hydrationData = data;
-      console.log('FETCHED HYDRATION DATA', hydrationData)
-    })
-    // .then(() => hydrationData.forEach(hydration => {
-    //   hydration = new Hydration(hydration, userRepository);
-    // }))
-}
-
-
-
-
-
 
 function populateDOM() {
   populateUserCard()
@@ -199,13 +140,7 @@ function populateUserCard() {
   adtlInfo.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
 }
 
-
-
-
-let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
-
 function populateFriends() {
-  //check out change in styling when this is outside of this function
   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
   
   user.friendsActivityRecords.forEach(friend => {
@@ -213,7 +148,11 @@ function populateFriends() {
     <p class='dropdown-p friends-steps'>${friend.firstName} |  ${friend.totalWeeklySteps}</p>
     `;
   });
-  
+
+  applyFriendStyling()
+}
+
+function applyFriendStyling() {
   friendsStepsParagraphs.forEach(paragraph => {
     if (friendsStepsParagraphs[0] === paragraph) {
       paragraph.classList.add('green-text');
@@ -226,11 +165,6 @@ function populateFriends() {
     }
   });
 }
-
-
-
-
-
 
 function populateStepCard() {
   stepsUserStepsToday.innerText = activityData.find(activity => {
@@ -252,13 +186,17 @@ function populateStepCard() {
   stepsCalendarTotalActiveMinutesWeekly.innerText = user.calculateAverageMinutesActiveThisWeek(todayDate);
   stepsCalendarTotalStepsWeekly.innerText = user.calculateAverageStepsThisWeek(todayDate);
   
-  updateTrendingStepDays()
+  user.findTrendingStepDays();
 }
 
-function updateTrendingStepDays() {
-  user.findTrendingStepDays();
+function updateTrendingStepsDOM() {
   trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
 }
+
+// function updateTrendingStepDays() {
+//   user.findTrendingStepDays();
+//   trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
+// }
 
 // stepsTrendingButton.addEventListener('click', function () {
 //   user.findTrendingStepDays();
@@ -281,11 +219,16 @@ function populateClimbedCard() {
   stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
   // stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);  
   
-  updateTrendingStairsDays()
+  user.findTrendingStairsDays();
 }
 
-function updateTrendingStairsDays() {
-  user.findTrendingStairsDays();
+// function updateTrendingStairsDays() {
+//   console.log(user)
+//   user.findTrendingStairsDays();
+//   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
+// }
+
+function updateTrendingStairsDOM() {
   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
 }
 
@@ -305,6 +248,16 @@ function populateHydrationCard() {
   
   hydrationFriendOuncesToday.innerText = userRepository.calculateAverageDailyWater(todayDate);
   
+  let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
+    if (Object.keys(a)[0] > Object.keys(b)[0]) {
+      return -1;
+    }
+    if (Object.keys(a)[0] < Object.keys(b)[0]) {
+      return 1;
+    }
+    return 0;
+  });
+
   for (var i = 0; i < dailyOz.length; i++) {
     dailyOz[i].innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[i])[0])
   }
