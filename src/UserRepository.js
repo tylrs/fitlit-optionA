@@ -3,6 +3,7 @@ import sleepData from './data/sleep';
 class UserRepository {
   //needs a parameter to take in all user data from fetch call
   constructor() {
+    // this.users = userData;
     this.users = [];
   }
 
@@ -23,7 +24,7 @@ class UserRepository {
   }
 
 //Are they using this one on the DOM?? Where is this being called?
-//Where is the data coming from? it's hard coded into the test
+//Where is the data coming from?
   calculateAverageSleepQuality() {
     let totalSleepQuality = this.users.reduce((sum, user) => {
       sum += user.sleepQualityAverage;
@@ -113,7 +114,7 @@ class UserRepository {
   }
 
 
-//Not called on DOM - hardcoded into HTML
+//Not called on DOM
   findBestSleepers(date) {
     return this.users.filter(user => {
       return user.calculateAverageQualityThisWeek(date) > 3;
