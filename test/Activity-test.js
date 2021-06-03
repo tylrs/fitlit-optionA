@@ -4,9 +4,9 @@ import UserRepository from '../src/UserRepository';
 import User from '../src/User';
 
 describe('Activity', function() {
-  let activity;
-  let user;
-  let userRepository;
+  let activity, user1, user2, userData, userRepository, activity1, activity2;
+  // let user;
+  // let userRepository;
   beforeEach(() => {
     user1 = new User({
       'id': 1,
@@ -35,8 +35,12 @@ describe('Activity', function() {
         19
       ]
     })
-    userRepository = new UserRepository();
-    userRepository.users.push(user1, user2);
+    //OG code below:
+    // userRepository = new UserRepository();
+    // userRepository.users.push(user1, user2);
+    userData = [user1, user2];
+    userRepository = new UserRepository(userData);
+
     activity1 = new Activity({
       "userID": 1,
       "date": "2019/06/15",

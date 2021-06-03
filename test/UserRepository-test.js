@@ -48,10 +48,12 @@ describe('UserRepository', function() {
         33
       ]
     })
+    //OG code below:
+    // userRepository = new UserRepository();
+    //userRepository.users.push(user1, user2, user3);
     userData = [user1, user2, user3];
-    // userRepository = new UserRepository(userData);
-    userRepository = new UserRepository();
-    userRepository.users.push(user1, user2, user3);
+    userRepository = new UserRepository(userData);
+
     sleep1 = new Sleep({
       "userID": 1,
       "date": "2019/06/16",

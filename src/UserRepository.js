@@ -2,9 +2,10 @@ import sleepData from './data/sleep';
 
 class UserRepository {
   //needs a parameter to take in all user data from fetch call
-  constructor() {
-    // this.users = userData;
-    this.users = [];
+  constructor(userData) {
+    //OG code below:
+    // this.users = [];
+    this.users = userData;
   }
 
 //refactored to ES6 arrow functions - check for context on DOM
@@ -131,21 +132,15 @@ class UserRepository {
   }
 
   getWorstSleepers(date) {
-    //call getLongestSleepers and reverse output
+    //call getLongestSleepers and reverse output?
+
+    //OG code below:
     return sleepData.filter(sleep => {
       return sleep.date === date;
     }).sort((a, b) => {
       return a.hoursSlept - b.hoursSlept;
     })[0].userID;
-
-
-    // let sortedSleeps = sleepData.filter(sleep => {
-    //   return sleep.date === date;
-    // }).sort((a, b) => {
-    //   return a.hoursSlept - b.hoursSlept;
-    // })
-    // console.log("start sorted", sortedSleeps)
-    // return sortedSleeps[0].userID;
+    // console.log(this.getLongestSleepers(date))
   }
 
 

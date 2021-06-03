@@ -156,6 +156,7 @@ function populateStepCard() {
 
   stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive");
 
+//refactored in userRepo class to be calculateAverage
   // stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
   stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps");
 
