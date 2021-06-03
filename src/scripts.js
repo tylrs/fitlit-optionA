@@ -328,17 +328,12 @@ function flipCard(cardToHide, cardToShow) {
 }
 
 function showInfo2(event) {
-  let cards = [stepsInfoCard]
+  let cards = [stepsInfoCard, stepsFriendsCard, stepsTrending]
   event.target.closest('.main-card').classList.add('hide');
-  // cards[event.target.id].classList.remove('hide');
   let id = `${event.target.id}Card`;
   let cardToShow = cards.find((card) => {
-    console.log(card.id);
-    console.log(id);
     return card.id === id;
   })
-  console.log(cardToShow)
-  console.log(stepsInfoCard)
   cardToShow.classList.remove('hide');
-  // flip(`${event.target.id}Card`);
+  //to do would be to change button and id on each card
 }
