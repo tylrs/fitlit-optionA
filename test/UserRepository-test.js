@@ -131,9 +131,12 @@ describe('UserRepository', function() {
   it('should have a method that finds the longest sleepers', function() {
     expect(userRepository.getLongestSleepers("2019/06/15")).to.equal(3);
   });
+
+//What is this test even looking for?
   it('should have a method that finds the worst sleepers', function() {
     expect(userRepository.getWorstSleepers("2019/06/15")).to.equal(1);
   });
+
   it('should have a method that calculates average number of stairs for users', function() {
     user1.activityRecord = [{date: "2019/09/17", flightsOfStairs: 10}, {date: "2019/09/17", flightsOfStairs: 15}];
     user2.activityRecord = [{date: "2019/09/16", flightsOfStairs: 8}, {date: "2019/09/17", flightsOfStairs: 4}];
