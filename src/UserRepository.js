@@ -6,15 +6,14 @@ class UserRepository {
     this.users = [];
   }
 
-//Call this to update the user welcome message in scripts to update DOM
-//refactored to ES6 arrow functions - check for context?
+//refactored to ES6 arrow functions - check for context on DOM
   getUser(id) {
     return this.users.find(user => {
       return user.id === id;
     })
   }
 
-//refactored to ES6 arrow functions -double check context on DOM
+//refactored to ES6 arrow functions - double check context on DOM
   calculateAverageStepGoal() {
     const total = this.users.reduce((accumulator, currentUser) => {
       accumulator += currentUser.dailyStepGoal
@@ -34,49 +33,69 @@ class UserRepository {
   }
 
 //
-  calculateAverageSteps(date) {
-    let allUsersStepsCount = this.users.map(user => {
-      return user.activityRecord.filter(activity => {
-        return activity.date === date;
-      });
-    })
-    let sumOfSteps = allUsersStepsCount.reduce((stepsSum, activityCollection) => {
-      activityCollection.forEach(activity => {
-        stepsSum += activity.steps
-      })
-      return stepsSum;
-    }, 0);
-    return Math.round(sumOfSteps / allUsersStepsCount.length);
-  }
+  // calculateAverageSteps(date) {
+  //   //iterates over the users and then each user's activity record
+  //   //to return an array of arrays that the activity records that match the date
+  //   let allUsersStepsCount = this.users.map(user => {
+  //     return user.activityRecord.filter(activity => {
+  //       return activity.date === date;
+  //     });
+  //   })
+  //   //console.log(allUsersStepsCount)
+  //   //iterates over the allUsersStepsCount array (made above)
+  //   // for each userActivity, iterate over the activity steps
+  //   let sumOfSteps = allUsersStepsCount.reduce((stepsSum, activityCollection) => {
+  //     activityCollection.forEach(activity => {
+  //       stepsSum += activity.steps
+  //     })
+  //     return stepsSum;
+  //   }, 0);
+  //   return Math.round(sumOfSteps / allUsersStepsCount.length);
+  // }
 
-  calculateAverageStairs(date) {
-    let allUsersStairsCount = this.users.map(user => {
-      return user.activityRecord.filter(activity => {
-        return activity.date === date;
-      });
-    })
-    let sumOfStairs = allUsersStairsCount.reduce((stairsSum, activityCollection) => {
-      activityCollection.forEach(activity => {
-        stairsSum += activity.flightsOfStairs
-      })
-      return stairsSum;
-    }, 0);
-    return Math.round(sumOfStairs / allUsersStairsCount.length);
-  }
+  // calculateAverageStairs(date) {
+  //   let allUsersStairsCount = this.users.map(user => {
+  //     return user.activityRecord.filter(activity => {
+  //       return activity.date === date;
+  //     });
+  //   })
+  //   let sumOfStairs = allUsersStairsCount.reduce((stairsSum, activityCollection) => {
+  //     activityCollection.forEach(activity => {
+  //       stairsSum += activity.flightsOfStairs
+  //     })
+  //     return stairsSum;
+  //   }, 0);
+  //   return Math.round(sumOfStairs / allUsersStairsCount.length);
+  // }
 
-  calculateAverageMinutesActive(date) {
-    let allUsersMinutesActiveCount = this.users.map(user => {
+  // calculateAverageMinutesActive(date) {
+  //   let allUsersMinutesActiveCount = this.users.map(user => {
+  //     return user.activityRecord.filter(activity => {
+  //       return activity.date === date;
+  //     });
+  //   })
+  //   let sumOfMinutesActive = allUsersMinutesActiveCount.reduce((minutesActiveSum, activityCollection) => {
+  //     activityCollection.forEach(activity => {
+  //       minutesActiveSum += activity.minutesActive
+  //     })
+  //     return minutesActiveSum;
+  //   }, 0);
+  //   return Math.round(sumOfMinutesActive / allUsersMinutesActiveCount.length);
+  // }
+
+  calculateAverage(date, quanitfier) {
+    let allUsersCount = this.users.map(user => {
       return user.activityRecord.filter(activity => {
         return activity.date === date;
       });
     })
-    let sumOfMinutesActive = allUsersMinutesActiveCount.reduce((minutesActiveSum, activityCollection) => {
-      activityCollection.forEach(activity => {
-        minutesActiveSum += activity.minutesActive
+    let sumOfActivity = allUsersCount.reduce((sum, currentActivityCollection) => {
+      currentActivityCollection.forEach(activity => {
+        sum += activity[quanitfier]
       })
-      return minutesActiveSum;
+      return sum;
     }, 0);
-    return Math.round(sumOfMinutesActive / allUsersMinutesActiveCount.length);
+    return Math.round(sumOfActivity / allUsersCount.length);
   }
 
 

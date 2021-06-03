@@ -68,6 +68,7 @@ describe('UserRepository', function() {
       "hoursSlept": 9.3,
       "sleepQuality": 1.4
     }, userRepository);
+
     sleepData = [{
       "userID": 1,
       "date": "2019/06/15",
@@ -134,22 +135,41 @@ describe('UserRepository', function() {
 
 //What is this test even looking for?
   it('should have a method that finds the worst sleepers', function() {
+    // console.log(userRepository.getWorstSleepers("2019/06/15"))
     expect(userRepository.getWorstSleepers("2019/06/15")).to.equal(1);
   });
+
+  // it('should have a method that calculates average number of stairs for users', function() {
+  //   user1.activityRecord = [{date: "2019/09/17", flightsOfStairs: 10}, {date: "2019/09/17", flightsOfStairs: 15}];
+  //   user2.activityRecord = [{date: "2019/09/16", flightsOfStairs: 8}, {date: "2019/09/17", flightsOfStairs: 4}];
+  //   expect(userRepository.calculateAverageStairs("2019/09/17")).to.equal(10);
+  // })
+  // it('should have a method that calculates average number of steps for users', function() {
+  //   user1.activityRecord = [{date: "2019/09/17", steps: 100}, {date: "2019/09/17", steps: 2000}];
+  //   user2.activityRecord = [{date: "2019/09/16", steps: 9820}, {date: "2019/09/17", steps: 234}];
+  //   expect(userRepository.calculateAverageSteps("2019/09/17")).to.equal(778);
+  // })
+  // it('should have a method that calculates average number of active minutes for users', function() {
+  //   user1.activityRecord = [{date: "2019/09/17", minutesActive: 100}, {date: "2019/09/17", minutesActive: 20}];
+  //   user2.activityRecord = [{date: "2019/09/16", minutesActive: 78}, {date: "2019/09/17", minutesActive: 12}];
+  //   expect(userRepository.calculateAverageMinutesActive("2019/09/17")).to.equal(44);
+  // })
+  ///////Testers
+  it('should have a method that calculates average number of active minutes for users', function() {
+    user1.activityRecord = [{date: "2019/09/17", minutesActive: 100}, {date: "2019/09/17", minutesActive: 20}];
+    user2.activityRecord = [{date: "2019/09/16", minutesActive: 78}, {date: "2019/09/17", minutesActive: 12}];
+    expect(userRepository.calculateAverage("2019/09/17", "minutesActive")).to.equal(44);
+  })
+
+  it('should have a method that calculates average number of steps for users', function() {
+    user1.activityRecord = [{date: "2019/09/17", steps: 100}, {date: "2019/09/17", steps: 2000}];
+    user2.activityRecord = [{date: "2019/09/16", steps: 9820}, {date: "2019/09/17", steps: 234}];
+    expect(userRepository.calculateAverage("2019/09/17", "steps")).to.equal(778);
+  })
 
   it('should have a method that calculates average number of stairs for users', function() {
     user1.activityRecord = [{date: "2019/09/17", flightsOfStairs: 10}, {date: "2019/09/17", flightsOfStairs: 15}];
     user2.activityRecord = [{date: "2019/09/16", flightsOfStairs: 8}, {date: "2019/09/17", flightsOfStairs: 4}];
-    expect(userRepository.calculateAverageStairs("2019/09/17")).to.equal(10);
-  })
-  it('should have a method that calculates average number of steps for users', function() {
-    user1.activityRecord = [{date: "2019/09/17", steps: 100}, {date: "2019/09/17", steps: 2000}];
-    user2.activityRecord = [{date: "2019/09/16", steps: 9820}, {date: "2019/09/17", steps: 234}];
-    expect(userRepository.calculateAverageSteps("2019/09/17")).to.equal(778);
-  })
-  it('should have a method that calculates average number of active minutes for users', function() {
-    user1.activityRecord = [{date: "2019/09/17", minutesActive: 100}, {date: "2019/09/17", minutesActive: 20}];
-    user2.activityRecord = [{date: "2019/09/16", minutesActive: 78}, {date: "2019/09/17", minutesActive: 12}];
-    expect(userRepository.calculateAverageMinutesActive("2019/09/17")).to.equal(44);
+    expect(userRepository.calculateAverage("2019/09/17", "flightsOfStairs")).to.equal(10);
   })
 });
