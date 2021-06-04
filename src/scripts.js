@@ -74,7 +74,6 @@ let trendingStepsPhraseContainer = document.querySelector('.trending-steps-phras
 let trendingStairsPhraseContainer = document.querySelector('.trending-stairs-phrase-container');
 let userInfoDropdown = document.querySelector('#user-info-dropdown');
 let adtlInfo = document.querySelector('#adtlInfo');
-let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
 
 window.addEventListener('load', fetchData);
 
@@ -153,6 +152,7 @@ function populateFriends() {
 }
 
 function applyFriendStyling() {
+  let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
   friendsStepsParagraphs.forEach(paragraph => {
     if (friendsStepsParagraphs[0] === paragraph) {
       paragraph.classList.add('green-text');
