@@ -93,8 +93,8 @@ function postSleep(event) {
   let hoursSlept = parseInt(hoursSleptInput.value);
   let sleepQuality = parseInt(sleepQualityInput.value);
   let userId = user.id;
-  console.log({userId, todayDate, hoursSlept, sleepQuality});
   postApiData('sleep', {userId, todayDate, hoursSlept, sleepQuality})
+  //This extra fetch api data is just here to prove that data is being added
   fetchApiData('sleep')
   .then(data => {console.log(data)})
 }
