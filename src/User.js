@@ -169,16 +169,16 @@
       this.friendsActivityRecords.push(
         {
           'id': matchedFriend.id,
-          'firstName': matchedFriend.name.toUpperCase().split(' ')[0],
+          // 'firstName': matchedFriend.name.toUpperCase().split(' ')[0],
           'totalWeeklySteps': matchedFriend.totalStepsThisWeek
         })
     })
-    this.calculateTotalStepsThisWeek(date);
-    this.friendsActivityRecords.push({
-      'id': this.id,
-      'firstName': 'YOU',
-      'totalWeeklySteps': this.totalStepsThisWeek
-    });
+    // this.calculateTotalStepsThisWeek(date);
+    // this.friendsActivityRecords.push({
+    //   'id': this.id,
+    //   'firstName': 'YOU',
+    //   'totalWeeklySteps': this.totalStepsThisWeek
+    // });
     this.friendsActivityRecords = this.friendsActivityRecords.sort((a, b) => b.totalWeeklySteps - a.totalWeeklySteps);
   }
 }
