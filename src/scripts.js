@@ -33,6 +33,12 @@ let hydrationMainCard = document.querySelector('#hydration-main-card');
 let hydrationUserOuncesToday = document.querySelector('#hydration-user-ounces-today');
 let mainPage = document.querySelector('main');
 let profileButton = document.querySelector('#profile-button');
+
+
+let sleepSubmitButton = document.querySelector('#sleepSubmitButton');
+let hoursSleptInput = document.querySelector('#hoursSlept');
+let sleepQualityInput = document.querySelector('#sleepQuality');
+
 let sleepCalendarCard = document.querySelector('#sleep-calendar-card');
 let sleepCalendarHoursAverageWeekly = document.querySelector('#sleep-calendar-hours-average-weekly');
 let sleepCalendarQualityAverageWeekly = document.querySelector('#sleep-calendar-quality-average-weekly');
@@ -45,6 +51,7 @@ let sleepInfoQualityAverageAlltime = document.querySelector('#sleep-info-quality
 let sleepInfoQualityToday = document.querySelector('#sleep-info-quality-today');
 let sleepMainCard = document.querySelector('#sleep-main-card');
 let sleepUserHoursToday = document.querySelector('#sleep-user-hours-today');
+
 let stairsCalendarCard = document.querySelector('#stairs-calendar-card');
 let stairsCalendarFlightsAverageWeekly = document.querySelector('#stairs-calendar-flights-average-weekly');
 let stairsCalendarStairsAverageWeekly = document.querySelector('#stairs-calendar-stairs-average-weekly');
@@ -53,6 +60,7 @@ let stepsInfoCard = document.querySelector('#steps-info-card');
 let stepsFriendsCard = document.querySelector('#steps-friends-card');
 let stepsTrendingCard = document.querySelector('#steps-trending-card');
 let stepsCalendarCard = document.querySelector('#steps-calendar-card');
+
 let stairsFriendFlightsAverageToday = document.querySelector('#stairs-friend-flights-average-today');
 let stairsFriendsCard = document.querySelector('#stairs-friends-card');
 let stairsInfoCard = document.querySelector('#stairs-info-card');
@@ -61,6 +69,7 @@ let stairsMainCard = document.querySelector('#stairs-main-card');
 let stairsTrendingButton = document.querySelector('.stairs-trending-button');
 let stairsTrendingCard = document.querySelector('#stairs-trending-card');
 let stairsUserStairsToday = document.querySelector('#stairs-user-stairs-today');
+
 let stepsCalendarTotalActiveMinutesWeekly = document.querySelector('#steps-calendar-total-active-minutes-weekly');
 let stepsCalendarTotalStepsWeekly = document.querySelector('#steps-calendar-total-steps-weekly');
 let stepsFriendAverageStepGoal = document.querySelector('#steps-friend-average-step-goal');
@@ -81,6 +90,11 @@ mainPage.addEventListener('click', showInfo);
 profileButton.addEventListener('click', showDropdown);
 stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
 stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
+sleepSubmitButton.addEventListener('click', postSleep)
+
+function postSleep() {
+  
+}
 
 function getData() {
   return Promise.all([fetchApiData('users'), fetchApiData('sleep'), fetchApiData('activity'), fetchApiData('hydration')]);
@@ -103,7 +117,7 @@ function instantiateData() {
     user = new User(user);
     userRepository.users.push(user)
   });
-  
+
   sleepData.forEach(sleep => {
     sleep = new Sleep(sleep, userRepository);
   });
@@ -141,7 +155,7 @@ function populateUserCard() {
 
 function populateFriends() {
   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
-  
+
   user.friendsActivityRecords.forEach(friend => {
     dropdownFriendsStepsContainer.innerHTML += `
     <p class='dropdown-p friends-steps'>${friend.firstName} |  ${friend.totalWeeklySteps}</p>
@@ -185,8 +199,8 @@ function populateStepCard() {
 
   stepsCalendarTotalActiveMinutesWeekly.innerText = user.calculateAverageMinutesActiveThisWeek(todayDate);
   stepsCalendarTotalStepsWeekly.innerText = user.calculateAverageStepsThisWeek(todayDate);
-  
-  user.findTrendingStepDays();  
+
+  user.findTrendingStepDays();
 }
 
 function updateTrendingStepsDOM() {
@@ -217,8 +231,8 @@ function populateClimbedCard() {
   stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
   // stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
   stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
-  // stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);  
-  
+  // stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
+
   user.findTrendingStairsDays();
 }
 
