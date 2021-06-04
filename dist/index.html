@@ -180,7 +180,7 @@
         </section>
       </section>
       <section class='card-container sleep-card-container' id='sleep-card-container'>
-        <section class='main-card' id='sleep-main-card'>
+        <section class='main-card hide' id='sleep-main-card'>
           <div class='main-card-top-row'>
             <button type='button' name='button' class='info-button sleep-info-button' id='sleepInfo'></button>
             <h3>YOU SLEPT</h3>
@@ -233,9 +233,9 @@
           <h3>HOW'D YOU SLEEP LAST NIGHT?</h3>
           <form class="sleep-form" action="index.html" method="post">
             <label for="hoursSlept">Hours Slept</label>
-            <input type="text" name="hoursSlept" id="hoursSlept">
+            <input type="number" name="hoursSlept" id="hoursSlept" placeholder="1.0" step="0.1" min="0" max="24">
             <label for="sleepQuality">Sleep Quality</label>
-            <input type="text" name="sleepQuality" id="sleepQuality">
+            <input type="number" name="sleepQuality" id="sleepQuality" placeholder="Scale of 0 to 5" step="0.1" min="0" max="10">
             <button type="button" name="button" id="sleepSubmitButton">Submit</button>
           </form>
         </section>
