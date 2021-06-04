@@ -133,14 +133,22 @@ describe('UserRepository', function() {
   it('should have a method that finds the best sleepers', function() {
     expect(userRepository.findBestSleepers("2019/06/16")).to.deep.equal([user1, user2]);
   });
+
+  //Original getLongestSleepers and getWorstSleepers functions
+  // it('should have a method that finds the longest sleepers', function() {
+  //   expect(userRepository.getLongestSleepers("2019/06/15")).to.equal(3);
+  // });
+  //
+  // it('should have a method that finds the worst sleepers', function() {
+  //   expect(userRepository.getWorstSleepers("2019/06/15")).to.equal(1);
+  // });
+
   it('should have a method that finds the longest sleepers', function() {
-    expect(userRepository.getLongestSleepers("2019/06/15")).to.equal(3);
+    expect(userRepository.getSleeper("2019/06/15", "best")).to.equal(3);
   });
 
-//What is this test even looking for?
   it('should have a method that finds the worst sleepers', function() {
-    // console.log(userRepository.getWorstSleepers("2019/06/15"))
-    expect(userRepository.getWorstSleepers("2019/06/15")).to.equal(1);
+    expect(userRepository.getSleeper("2019/06/15", "worst")).to.equal(1);
   });
 
   // it('should have a method that calculates average number of stairs for users', function() {

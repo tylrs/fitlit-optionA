@@ -123,26 +123,37 @@ class UserRepository {
   }
 
 //Refactor these two into one function?
-  getLongestSleepers(date) {
-    return sleepData.filter(sleep => {
+//OG code below:
+  // getLongestSleepers(date) {
+  //   return sleepData.filter(sleep => {
+  //     return sleep.date === date;
+  //   }).sort((a, b) => {
+  //     return b.hoursSlept - a.hoursSlept;
+  //   })[0].userID;
+  // }
+  //
+  // getWorstSleepers(date) {
+  //   return sleepData.filter(sleep => {
+  //     return sleep.date === date;
+  //   }).sort((a, b) => {
+  //     return a.hoursSlept - b.hoursSlept;
+  //   })[0].userID;
+  // }
+
+  //refactored into one function, tests updated but one fails
+  getSleeper(date, qualifier) {
+    let sleeperData = sleepData.filter(sleep => {
       return sleep.date === date;
     }).sort((a, b) => {
       return b.hoursSlept - a.hoursSlept;
-    })[0].userID;
+    });
+
+    if (qualifier === "best") {
+      return sleeperData[0].userID;
+    } else {
+      return sleeperData[sleeperData.length-1].userID
+    }
   }
-
-  getWorstSleepers(date) {
-    //call getLongestSleepers and reverse output?
-
-    //OG code below:
-    return sleepData.filter(sleep => {
-      return sleep.date === date;
-    }).sort((a, b) => {
-      return a.hoursSlept - b.hoursSlept;
-    })[0].userID;
-    // console.log(this.getLongestSleepers(date))
-  }
-
 
 
 }
