@@ -1,6 +1,6 @@
 import './css/base.scss';
 import './css/styles.scss';
-import { fetchApiData } from './apiCalls';
+import { fetchApiData, postApiData } from './apiCalls';
 // import domUpdates from  './domUpdates';
 
 // import userData from './data/users';
@@ -88,8 +88,15 @@ stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
 stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
 sleepSubmitButton.addEventListener('click', postSleep)
 
-function postSleep() {
-
+function postSleep(event) {
+  event.preventDefault()
+  let hoursSlept = parseInt(hoursSleptInput.value);
+  let sleepQuality = parseInt(sleepQualityInput.value);
+  let userId = user.id;
+  console.log({userId, todayDate, hoursSlept, sleepQuality});
+  postApiData('sleep', {userId, todayDate, hoursSlept, sleepQuality})
+  fetchApiData('sleep')
+  .then(data => {console.log(data)})
 }
 
 function getData() {
