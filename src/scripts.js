@@ -329,26 +329,32 @@ function flipCard(cardToHide, cardToShow) {
 
 function showInfo2(event) {
   let cards = {
+    stepsMainCard,
     stepsInfoCard,
     stepsFriendsCard,
     stepsTrendingCard,
     stepsCalendarCard,
+    hydrationMainCard,
     hydrationInfoCard,
     hydrationFriendsCard,
     hydrationCalendarCard,
+    stairsMainCard,
     stairsInfoCard,
     stairsFriendsCard,
     stairsTrendingCard,
     stairsCalendarCard,
+    sleepMainCard,
     sleepInfoCard,
     sleepFriendsCard,
     sleepCalendarCard,
-    stepsMainCard,
-    hydrationMainCard,
-    stairsMainCard,
-    sleepMainCard,
   }
-  event.target.closest('.main-card').classList.add('hide');
-  let cardToShow = cards[`${event.target.id}Card`]
-  cardToShow.classList.remove('hide');
+  if (event.target.classList.contains('go-back-button')) {
+    event.target.closest('section').classList.add('hide');
+    let cardToShow = cards[`${event.target.closest('section').id.split('-')[0]}MainCard`]
+    cardToShow.classList.remove('hide');
+  } else {
+    event.target.closest('.main-card').classList.add('hide');
+    let cardToShow = cards[`${event.target.id}Card`]
+    cardToShow.classList.remove('hide');
+  }
 }
