@@ -5,13 +5,13 @@ import UserRepository from '../src/UserRepository';
 import User from '../src/User';
 
 describe('Hydration', function() {
-  let hydration;
-  let user1;
-  let user2;
-  let userRepository;
-  let hydrate1;
-  let hydrate2;
-  let hydrate3;
+  let hydration, user1, user2, userData, userRepository, hydrate1, hydrate2, hydrate3;
+  // let user1;
+  // let user2;
+  // let userRepository;
+  // let hydrate1;
+  // let hydrate2;
+  // let hydrate3;
 
   beforeEach(() => {
     user1 = new User({
@@ -41,8 +41,10 @@ describe('Hydration', function() {
         19
       ]
     })
-    userRepository = new UserRepository();
-    userRepository.users.push(user1, user2);
+    // userRepository = new UserRepository();
+    // userRepository.users.push(user1, user2);
+    userData = [user1, user2];
+    userRepository = new UserRepository(userData);
     hydrate1 = new Hydration({
         "userID": 1,
         "date": "2019/06/15",
