@@ -262,28 +262,22 @@ function populateClimbedCard() {
 
 function populateHydrationCard() {
   //main card:
-  // hydrationUserOuncesToday.innerText = findData(hydrationData, "numOunces");
   domUpdates.cardDisplay(hydrationUserOuncesToday, findData(hydrationData, "numOunces"));
 
   //info card:
-  // hydrationInfoGlassesToday.innerText = (findData(hydrationData, "numOunces") / 8);
   domUpdates.cardDisplay(hydrationInfoGlassesToday, (findData(hydrationData, "numOunces") / 8).toFixed(1));
 
 //friend card:
-  //hydrationFriendOuncesToday.innerText = userRepository.calculateAverageDailyWater(todayDate);
   domUpdates.cardDisplay(hydrationFriendOuncesToday, userRepository.calculateAverageDailyWater(todayDate));
-
-//console.log("ounces records", user.ouncesRecord)
-// console.log(user.addDailyOunces("2019/09/22"))
 
 //calendar card:
   let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
     return Object.keys(b)[0] - Object.keys(a)[0];
   });
+
 //find index of today's date
 //splice out all elements prior in array
   dailyOz.forEach((ounce, index) => {
-    //console.log(ounce)
     ounce.innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[index])[0])
   })
   // domUpdates.populateArray(dailyOz,   user.addDailyOunces(Object.keys(sortedHydrationDataByDate[index])[0]))
@@ -291,20 +285,26 @@ function populateHydrationCard() {
 
 function populateSleepCard() {
   //main card:
-  sleepUserHoursToday.innerText = findData(sleepData, "hoursSlept");
+  //sleepUserHoursToday.innerText = findData(sleepData, "hoursSlept");
+  domUpdates.cardDisplay(sleepUserHoursToday, findData(sleepData, "hoursSlept"));
 
   //info card:
-  sleepInfoQualityToday.innerText = findData(sleepData, "sleepQuality");
-  sleepInfoHoursAverageAlltime.innerText = user.hoursSleptAverage;
-  sleepInfoQualityAverageAlltime.innerText = user.sleepQualityAverage;
+  //sleepInfoQualityToday.innerText = findData(sleepData, "sleepQuality");
+  domUpdates.cardDisplay(sleepInfoQualityToday, findData(sleepData, "sleepQuality"));
+
+  //sleepInfoHoursAverageAlltime.innerText = user.hoursSleptAverage;
+  domUpdates.cardDisplay(sleepInfoHoursAverageAlltime, user.hoursSleptAverage);
+
+  //sleepInfoQualityAverageAlltime.innerText = user.sleepQualityAverage;
+  domUpdates.cardDisplay(sleepInfoQualityAverageAlltime, user.sleepQualityAverage);
 
 //friend card:
   sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate, "best")
+    return user.id === userRepository.getSleeper(todayDate, "best", sleepData)
   }).getFirstName();
 
   sleepFriendWorstSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate)
+    return user.id === userRepository.getSleeper(todayDate, "worst", sleepData)
   }).getFirstName();
 
 //calendar card:
