@@ -180,13 +180,16 @@
         </section>
       </section>
       <section class='card-container sleep-card-container' id='sleep-card-container'>
-        <section class='main-card hide' id='sleep-main-card'>
+        <section class='main-card' id='sleep-main-card'>
           <div class='main-card-top-row'>
             <button type='button' name='button' class='info-button sleep-info-button' id='sleepInfo'></button>
             <h3>YOU SLEPT</h3>
             <button type='button' name='button' class='friends-button sleep-friends-button' id='sleepFriends'></button>
           </div>
-          <h2 id='sleep-user-hours-today'></h2>
+          <div class="">
+            <h2 id='sleep-user-hours-today'></h2>
+            <button type='button' name='button' class='new-data-button sleep-form-button' id='sleepForm'>Submit New Data</button>
+          </div>
           <div class='main-card-bottom-row'>
             <h3>HOURS LAST NIGHT</h3>
             <button type='button' name='button' class='calendar-button sleep-calendar-button' id='sleepCalendar'></button>
@@ -229,14 +232,14 @@
             <h4 id='sleep-calendar-quality-average-weekly'></h4>
           </div>
         </section>
-        <section class='form-card' id='sleep-form-card'>
-          <form class="sleep-form form" action="index.html" method="post">
+        <section class='form-card hide' id='sleep-form-card'>
+          <form class='sleep-form form' action='index.html' method='post'>
             <h3>HOW'D YOU SLEEP LAST NIGHT?</h3>
-            <label for="hoursSlept">Hours Slept</label>
-            <input type="number" name="hoursSlept" id="hoursSlept" placeholder="Range 0 - 24" step="0.1" min="0" max="24">
-            <label for="sleepQuality">Sleep Quality</label>
-            <input type="number" name="sleepQuality" id="sleepQuality" placeholder="Scale of 0 to 5" step="0.1" min="0" max="10">
-            <button type="button" name="button" id="sleepSubmitButton">Submit</button>
+            <label for='hoursSlept'>Hours Slept</label>
+            <input type='number' name='hoursSlept' id='hoursSlept' placeholder='Range 0 - 24' step='0.1' min='0' max='24'>
+            <label for='sleepQuality'>Sleep Quality</label>
+            <input type='number' name='sleepQuality' id='sleepQuality' placeholder='Scale of 0 to 5' step='0.1' min='0' max='10'>
+            <button type='button' name='button' id='sleepSubmitButton'>Submit</button>
           </form>
         </section>
       </section>

@@ -37,6 +37,7 @@ let profileButton = document.querySelector('#profile-button');
 let sleepSubmitButton = document.querySelector('#sleepSubmitButton');
 let hoursSleptInput = document.querySelector('#hoursSlept');
 let sleepQualityInput = document.querySelector('#sleepQuality');
+let sleepFormCard = document.querySelector('#sleep-form-card')
 
 let sleepCalendarCard = document.querySelector('#sleep-calendar-card');
 let sleepCalendarHoursAverageWeekly = document.querySelector('#sleep-calendar-hours-average-weekly');
@@ -393,6 +394,7 @@ function showInfo(event) {
     sleepInfoCard,
     sleepFriendsCard,
     sleepCalendarCard,
+    sleepFormCard
   }
   if (event.target.classList.contains('go-back-button')) {
     event.target.closest('section').classList.add('hide');
