@@ -391,6 +391,7 @@ function showInfo(event) {
     stepsFriendsCard,
     stepsTrendingCard,
     stepsCalendarCard,
+    activityFormCard,
     hydrationMainCard,
     hydrationInfoCard,
     hydrationFriendsCard,
