@@ -4,7 +4,11 @@
 let domUpdates = {
   cardDisplay(element, data) {
     element.innerText = data;
-  }
+  },
+
+  trendingDisplay(element, data) {
+    element.innerHTML = `<p class='trend-line'>${data}</p>`
+  },
 }
 
 export default domUpdates;

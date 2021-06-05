@@ -15,7 +15,7 @@ import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
-let todayDate = "2019/09/22";
+let todayDate = "2020/01/16";
 let userData, activityData, hydrationData, sleepData, user, userRepository;
 
 let dailyOz = document.querySelectorAll('.daily-oz');
@@ -245,17 +245,23 @@ function populateStepCard() {
 
 function populateClimbedCard() {
   //main card:
-  stairsUserStairsToday.innerText = (findData(activityData, "flightsOfStairs") * 12);
+  //stairsUserStairsToday.innerText = (findData(activityData, "flightsOfStairs") * 12);
+  domUpdates.cardDisplay(stairsUserStairsToday, (findData(activityData, "flightsOfStairs") * 12))
 
   //info card:
-  stairsInfoFlightsToday.innerText = findData(activityData, "flightsOfStairs");
+  //stairsInfoFlightsToday.innerText = findData(activityData, "flightsOfStairs");
+  domUpdates.cardDisplay(stairsInfoFlightsToday, findData(activityData, "flightsOfStairs"))
 
   //friend card:
-  stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1);
+  // stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1);
+  domUpdates.cardDisplay(stairsFriendFlightsAverageToday, (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1))
 
 //calendarCard:
-  stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
-  stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
+  // stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
+  domUpdates.cardDisplay(stairsCalendarFlightsAverageWeekly, user.calculateAverageFlightsThisWeek(todayDate))
+
+  //stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
+  domUpdates.cardDisplay(stairsCalendarStairsAverageWeekly, (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0))
 
   //trending card:
   user.findTrendingStairsDays();
@@ -271,27 +277,36 @@ function populateHydrationCard() {
 //friend card:
   hydrationFriendOuncesToday.innerText = userRepository.calculateAverageDailyWater(todayDate);
 
-console.log("ounces records", user.ouncesRecord)
-console.log(user.addDailyOunces("2019/09/22"))
+//console.log("ounces records", user.ouncesRecord)
+// console.log(user.addDailyOunces("2019/09/22"))
 
 //calendar card:
   let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
-    if (Object.keys(a)[0] > Object.keys(b)[0]) {
-      return -1;
-    }
-    if (Object.keys(a)[0] < Object.keys(b)[0]) {
-      return 1;
-    }
-    return 0;
-  });
+    // if (Object.keys(a)[0] > Object.keys(b)[0]) {
+    //   return -1;
+    // }
+    // if (Object.keys(a)[0] < Object.keys(b)[0]) {
+    //   return 1;
+    // }
+    // return 0;
 
-  for (var i = 0; i < dailyOz.length; i++) {
-    dailyOz[i].innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[i])[0])
-  }
-  // dailyOz.forEach(ounce => {
-  //   console.log(ounce)
-  //   ounce.innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate)[0])
-  // })
+    return Object.keys(b)[0] - Object.keys(a)[0];
+  });
+  console.log(sortedHydrationDataByDate)
+  // let sortedHydrationDataByDate = user.ouncesRecord
+  // console.log(user.ouncesRecord)
+
+  // for (var i = 0; i < dailyOz.length; i++) {
+  //   dailyOz[i].innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[i])[0])
+  // }
+  //console.log(Object.keys(sortedHydrationDataByDate[i])[0])
+
+//find index of today's date
+//splice out all elements prior in array
+  dailyOz.forEach((ounce, index) => {
+    //console.log(ounce)
+    ounce.innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[index])[0])
+  })
 }
 
 function populateSleepCard() {
@@ -360,8 +375,12 @@ function populateSleepCard() {
 //   user.findTrendingStairsDays();
 //   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
 // }
+// function updateTrendingStepsDOM() {
+//   trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
+// }
+
 function updateTrendingStepsDOM() {
-  trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
+  domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
 }
 
 function updateTrendingStairsDOM() {
