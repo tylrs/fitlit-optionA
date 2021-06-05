@@ -9,7 +9,9 @@ export const userTestData = [
     "friends": [
       16,
       4,
-      8
+      8,
+      2,
+      3
     ]
   },
   {
