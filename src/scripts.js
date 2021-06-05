@@ -49,6 +49,11 @@ let minutesActiveUserInput = document.querySelector('#minutesActive');
 let flightsOfStairsUserInput = document.querySelector('#flightsOfStairs');
 let activityFormCard = document.querySelector('#activity-form-card');
 
+let hydrationFormMessage = document.querySelector('.hydration-form h3');
+let sleepFormMessage = document.querySelector('.sleep-form h3');
+let activityFormMessage = document.querySelector('.activity-form h3');
+
+//
 let sleepCalendarCard = document.querySelector('#sleep-calendar-card');
 let sleepCalendarHoursAverageWeekly = document.querySelector('#sleep-calendar-hours-average-weekly');
 let sleepCalendarQualityAverageWeekly = document.querySelector('#sleep-calendar-quality-average-weekly');
@@ -97,7 +102,6 @@ mainPage.addEventListener('click', determineShoworSubmit);
 profileButton.addEventListener('click', showDropdown);
 stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
 stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
-// sleepSubmitButton.addEventListener('click', postSleep)
 
 function determineShoworSubmit(event) {
   event.preventDefault()
@@ -117,8 +121,8 @@ function sortForm(event) {
     type = 'sleep';
   } else if (event.target.id === 'hydrationSubmitButton') {
     let numOuncesInput = parseInt(numOuncesUserInput.value);
-    inputData = {numOuncesInput}
-    type = 'hydration'
+    inputData = {numOuncesInput};
+    type = 'hydration';
   } else if (event.target.id === 'activitySubmitButton') {
     let numStepsInput = parseInt(numStepsUserInput.value);
     let minutesActiveInput = parseInt(minutesActiveUserInput.value);
@@ -132,9 +136,27 @@ function sortForm(event) {
 function postData(type, inputData) {
   let userId = user.id;
   postApiData(type, {userId, todayDate, inputData})
- //just checking that its working:
+  .then(data => {
+    showPostSuccessMessage(type);
+  })
+  .catch(err => console.log("API error"))
+ //just checking that its working////there will be a delay here because of async
   fetchApiData(type)
   .then(data => {console.log(data)})
+}
+
+function showPostSuccessMessage(type) {
+  let messageSelectors = {
+    hydrationFormMessage,
+    sleepFormMessage,
+    activityFormMessage
+  }
+  let originalMessage = messageSelectors[`${type}FormMessage`].innerText;
+  messageSelectors[`${type}FormMessage`].innerText = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`
+  const resetMessage = setTimeout(() => {
+    console.log('hello')
+    messageSelectors[`${type}FormMessage`].innerText = originalMessage;
+  }, 5000)
 }
 
 function getData() {
