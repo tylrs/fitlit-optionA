@@ -159,7 +159,6 @@ function populateFriends() {
 //////////// New stuff below
 function findData(data, property) {
   let found = data.find(activity => {
-    //console.log("activity", activity.date)
     return activity.userID === user.id && activity.date === todayDate;
   })[property]
   return found
@@ -173,9 +172,7 @@ function findRecord() {
 }
 
 function findSleeper(qualifier) {
-  //console.log(qualifier)
   let found = userRepository.users.find(user => {
-    //console.log(qualifier)
     return user.id === userRepository.getSleeper(todayDate, qualifier, sleepData)
   }).getFirstName()
   return found
@@ -243,10 +240,10 @@ function populateHydrationCard() {
 
 //find index of today's date
 //splice out all elements prior in array
-  dailyOz.forEach((ounce, index) => {
-    ounce.innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[index])[0])
-  })
-  // domUpdates.populateArray(dailyOz,   user.addDailyOunces(Object.keys(sortedHydrationDataByDate[index])[0]))
+  // dailyOz.forEach((ounce, index) => {
+  //   ounce.innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[index])[0])
+  // })
+  domUpdates.populateTextArray(dailyOz, sortedHydrationDataByDate, user)
 }
 
 function populateSleepCard() {

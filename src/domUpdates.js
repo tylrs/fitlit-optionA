@@ -1,6 +1,3 @@
-// import scripts from  './scripts';
-// let headerName = document.querySelector('#header-name');
-
 let domUpdates = {
   cardDisplay(element, data) {
     element.innerText = data;
@@ -28,11 +25,10 @@ let domUpdates = {
       }
     });
   },
-  //refactor this bad boi to work
-  populateTextArray(element, data) {
+  //refactor to make more dynamic?
+  populateTextArray(element, data, user) {
     element.forEach((ounce, index) => {
-      //console.log(ounce)
-      ounce.innerText = data
+      ounce.innerText = user.addDailyOunces(Object.keys(data[index])[0])
     })
   },
 
@@ -48,5 +44,3 @@ let domUpdates = {
 }
 
 export default domUpdates;
-
-//creating a module
