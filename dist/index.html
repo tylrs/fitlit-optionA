@@ -31,7 +31,7 @@
           </div>
           <div class="main-card-middle-row">
             <h2 id='steps-user-steps-today'>X</h2>
-            <button type='button' name='button' class='new-data-button activity-form-button' id='activityForm'>Submit New Data</button>
+            <button type='button' name='button' class='new-data-button activity-form-button' id='activityForm'>Submit New Data Stairs and Steps</button>
           </div>
           <div class='main-card-top-row'>
             <button type='button' name='button' class='trending-button steps-trending-button' id='stepsTrending'></button>
@@ -80,6 +80,18 @@
             <p>YOUR TOTAL WEEKLY STEP COUNT:</p>
             <h4 id='steps-calendar-total-steps-weekly'></h4>
           </div>
+        </section>
+        <section class='form-card hide' id='activity-form-card'>
+          <form class='activity-form form' action='index.html' method='post'>
+            <h3>HOW MANY STEPS AND STAIRS TODAY?</h3>
+            <label for='numSteps'>Number of Steps</label>
+            <input type='number' name='numSteps' id='numSteps' placeholder='1 to 100' step='1' min='0' max='100'>
+            <label for='minutesActive'>Minutes Active</label>
+            <input type='number' name='minutesActive' id='minutesActive' placeholder='1 to 100' step='1' min='0' max='100'>
+            <label for='flightsOfStairs'>Flights of Stairs</label>
+            <input type='number' name='flightsOfStairs' id='flightsOfStairs' placeholder='1 to 100' step='1' min='0' max='100'>
+            <button type='button' name='button' id='activitySubmitButton'>Submit</button>
+          </form>
         </section>
       </section>
       <section class='card-container hydration-card-container' id='hydration-card-container'>
@@ -155,10 +167,7 @@
             <h3>YOU HAVE CLIMBED</h3>
             <button type='button' name='button' class='friends-button stairs-friends-button' id='stairsFriends'></button>
           </div>
-          <div class="main-card-middle-row">
             <h2 id='stairs-user-stairs-today'></h2>
-            <button type='button' name='button' class='new-data-button activity-form-button' id='activityForm'>Submit New Data</button>
-          </div>
           <div class='main-card-top-row'>
             <button type='button' name='button' class='trending-button stairs-trending-button'id='stairsTrending'></button>
             <h3>STAIRS TODAY</h3>
