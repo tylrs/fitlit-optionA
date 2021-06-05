@@ -133,8 +133,8 @@ function postData(type, inputData) {
   let userId = user.id;
   postApiData(type, {userId, todayDate, inputData})
 
-  // fetchApiData(type)
-  // .then(data => {console.log(data)})
+  fetchApiData(type)
+  .then(data => {console.log(data)})
 }
 
 // function postSleep(event) {

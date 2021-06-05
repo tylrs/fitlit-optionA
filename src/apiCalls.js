@@ -16,18 +16,18 @@ export const postApiData = (type, data) => {
     body["numOunces"] = data.inputData.numOuncesInput;
   } else if (type === 'activity') {
     body["numSteps"] = data.inputData.numStepsInput;
-    body["minutesActive"] = data.inputData.minutesActive;
+    body["minutesActive"] = data.inputData.minutesActiveInput;
     body["flightsOfStairs"] = data.inputData.flightsOfStairsInput;
   }
   console.log(body);
-  // return fetch(`http://localhost:3001/api/v1/${type}`, {
-  //   method: 'POST',
-  //   body: JSON.stringify(body),
-  //   headers: {
-  //     'Content-type': 'application/json'
-  //   }
-  // })
-  // .then((response) => response.json())
-  // .then(data => console.log("Hooray", data))
-  // .catch(err => console.log("API error"))
+  return fetch(`http://localhost:3001/api/v1/${type}`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
+  .then((response) => response.json())
+  .then(data => console.log("Hooray", data))
+  .catch(err => console.log("API error"))
 }
