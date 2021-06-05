@@ -35,18 +35,18 @@ let mainPage = document.querySelector('main');
 let profileButton = document.querySelector('#profile-button');
 // Form Query Selectors
 let sleepSubmitButton = document.querySelector('#sleepSubmitButton');
-let hoursSleptInput = document.querySelector('#hoursSlept');
-let sleepQualityInput = document.querySelector('#sleepQuality');
+let hoursSleptUserInput = document.querySelector('#hoursSlept');
+let sleepQualityUserInput = document.querySelector('#sleepQuality');
 let sleepFormCard = document.querySelector('#sleep-form-card');
 
 let hydrationSubmitButton = document.querySelector('#hydrationSubmitButton');
-let numOuncesInput = document.querySelector('#numOunces');
+let numOuncesUserInput = document.querySelector('#numOunces');
 let hydrationFormCard = document.querySelector('#hydration-form-card');
 
 let activitySubmitButton = document.querySelector('#activitySubmitButton');
-let numStepsInput = document.querySelector('#numSteps');
-let minutesActiveInput = document.querySelector('#minutesActive');
-let flightsOfStairsInput = document.querySelector('#flightsOfStairs');
+let numStepsUserInput = document.querySelector('#numSteps');
+let minutesActiveUserInput = document.querySelector('#minutesActive');
+let flightsOfStairsUserInput = document.querySelector('#flightsOfStairs');
 let activityFormCard = document.querySelector('#activity-form-card');
 
 let sleepCalendarCard = document.querySelector('#sleep-calendar-card');
@@ -111,18 +111,18 @@ function determineShoworSubmit(event) {
 function sortForm(event) {
   let inputData, type;
   if (event.target.id === 'sleepSubmitButton') {
-    let hoursSleptInput = parseInt(hoursSleptInput.value);
-    let sleepQualityInput = parseInt(sleepQualityInput.value);
+    let hoursSleptInput = parseInt(hoursSleptUserInput.value);
+    let sleepQualityInput = parseInt(sleepQualityUserInput.value);
     inputData = {hoursSleptInput, sleepQualityInput};
     type = 'sleep';
   } else if (event.target.id === 'hydrationSubmitButton') {
-    let numOuncesInput = parseInt(numOunces.value);
+    let numOuncesInput = parseInt(numOuncesUserInput.value);
     inputData = {numOuncesInput}
     type = 'hydration'
   } else if (event.target.id === 'activitySubmitButton') {
-    let numStepsInput = parseInt(numStepsInput.value);
-    let minutesActiveInput = parseInt(minutesActiveInput.value);
-    let flightsOfStairsInput = parseInt(flightsOfStairsInput.value);
+    let numStepsInput = parseInt(numStepsUserInput.value);
+    let minutesActiveInput = parseInt(minutesActiveUserInput.value);
+    let flightsOfStairsInput = parseInt(flightsOfStairsUserInput.value);
     inputData = {numStepsInput, minutesActiveInput, flightsOfStairsInput};
     type = 'activity';
   }
@@ -131,9 +131,8 @@ function sortForm(event) {
 
 function postData(type, inputData) {
   let userId = user.id;
-  console.log(type, data);
-  // postApiData(type, {userId, todayDate, inputData})
-  //
+  postApiData(type, {userId, todayDate, inputData})
+
   // fetchApiData(type)
   // .then(data => {console.log(data)})
 }
