@@ -1,5 +1,8 @@
-class Hydration {
-  constructor(data, userRepository) {
+import Necessity from '../src/Necessity';
+
+class Hydration extends Necessity {
+  constructor(data) {
+    super(data);
     this.userId = data.userID;
     this.date = data.date;
     this.ounces = data.numOunces;

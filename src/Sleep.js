@@ -1,5 +1,8 @@
-class Sleep { // instance for the user's sleep each day
-  constructor(data, userRepository) {
+import Necessity from '../src/Necessity';
+
+class Sleep extends Necessity {
+  constructor(data) {
+    super(data);
     this.userId = data.userID;
     this.date = data.date;
     this.hoursSlept = data.hoursSlept;

@@ -1,5 +1,8 @@
-class Activity {
-  constructor(data, userRepository) {
+import Necessity from '../src/Necessity';
+
+class Activity extends Necessity {
+  constructor(data) {
+    super(data);
     this.userId = data.userID;
     this.date = data.date;
     this.steps = data.numSteps;
@@ -13,7 +16,7 @@ class Activity {
     var activity = this;
     userRepo.users.find(function(user) {
       return user.id === activity.userId;
-    }).updateActivities(this);
+    }).updateActivities(this); 
   }
   calculateMiles(userRepository) {
     let walkingUser = userRepository.users.find(user => {
