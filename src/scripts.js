@@ -252,9 +252,44 @@ function populateHydrationCard() {
     return 0;
   });
 
+//console.log(dailyOz)
+
   for (var i = 0; i < dailyOz.length; i++) {
     dailyOz[i].innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[i])[0])
   }
+  // dailyOz.forEach(ounce => {
+  //   console.log(ounce)
+  //   ounce.innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate)[0])
+  // })
+}
+
+function populateSleepCard() {
+  // sleepUserHoursToday.innerText = sleepData.find(sleep => {
+  //   return sleep.userID === user.id && sleep.date === todayDate;
+  // }).hoursSlept;
+  sleepUserHoursToday.innerText = findData(sleepData, "hoursSlept");
+
+  // sleepInfoQualityToday.innerText = sleepData.find(sleep => {
+  //   return sleep.userID === user.id && sleep.date === todayDate;
+  // }).sleepQuality;
+
+  sleepInfoQualityToday.innerText = findData(sleepData, "sleepQuality")
+
+  sleepInfoHoursAverageAlltime.innerText = user.hoursSleptAverage;
+
+  sleepInfoQualityAverageAlltime.innerText = user.sleepQualityAverage;
+
+  sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
+    return user.id === userRepository.getSleeper(todayDate, "best")
+  }).getFirstName();
+
+  sleepFriendWorstSleeper.innerText = userRepository.users.find(user => {
+    return user.id === userRepository.getSleeper(todayDate)
+  }).getFirstName();
+
+  sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
+
+  sleepCalendarQualityAverageWeekly.innerText = user.calculateAverageQualityThisWeek(todayDate);
 }
 /////////////
 
@@ -338,31 +373,31 @@ function updateTrendingStairsDOM() {
 //   }
 // }
 
-function populateSleepCard() {
-  sleepUserHoursToday.innerText = sleepData.find(sleep => {
-    return sleep.userID === user.id && sleep.date === todayDate;
-  }).hoursSlept;
-
-  sleepInfoQualityToday.innerText = sleepData.find(sleep => {
-    return sleep.userID === user.id && sleep.date === todayDate;
-  }).sleepQuality;
-
-  sleepInfoHoursAverageAlltime.innerText = user.hoursSleptAverage;
-
-  sleepInfoQualityAverageAlltime.innerText = user.sleepQualityAverage;
-
-  sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate, "best")
-  }).getFirstName();
-
-  sleepFriendWorstSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate)
-  }).getFirstName();
-
-  sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
-
-  sleepCalendarQualityAverageWeekly.innerText = user.calculateAverageQualityThisWeek(todayDate);
-}
+// function populateSleepCard() {
+//   sleepUserHoursToday.innerText = sleepData.find(sleep => {
+//     return sleep.userID === user.id && sleep.date === todayDate;
+//   }).hoursSlept;
+//
+//   sleepInfoQualityToday.innerText = sleepData.find(sleep => {
+//     return sleep.userID === user.id && sleep.date === todayDate;
+//   }).sleepQuality;
+//
+//   sleepInfoHoursAverageAlltime.innerText = user.hoursSleptAverage;
+//
+//   sleepInfoQualityAverageAlltime.innerText = user.sleepQualityAverage;
+//
+//   sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
+//     return user.id === userRepository.getSleeper(todayDate, "best")
+//   }).getFirstName();
+//
+//   sleepFriendWorstSleeper.innerText = userRepository.users.find(user => {
+//     return user.id === userRepository.getSleeper(todayDate)
+//   }).getFirstName();
+//
+//   sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
+//
+//   sleepCalendarQualityAverageWeekly.innerText = user.calculateAverageQualityThisWeek(todayDate);
+// }
 
 //HELPERS
 function showDropdown() {
