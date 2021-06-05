@@ -2,7 +2,7 @@ import './css/base.scss';
 import './css/styles.scss';
 import { fetchApiData } from './apiCalls';
 // import { populateUserCard } from  './domUpdates';
-// import domUpdates from './domUpdates';
+import domUpdates from './domUpdates';
 // console.log(domUpdates)
 // import userData from './data/users';
 // import activityData from './data/activity';
@@ -216,32 +216,65 @@ function findRecord() {
 }
 
 function populateStepCard() {
-  stepsUserStepsToday.innerText = findData(activityData, "numSteps");
-  stepsInfoActiveMinutesToday.innerText = findData(activityData, "minutesActive")
-  stepsInfoMilesWalkedToday.innerText = findRecord();
-  stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive");
-  stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps");
-  stepsFriendAverageStepGoal.innerText = `${userRepository.calculateAverageStepGoal()}`;
-  stepsCalendarTotalActiveMinutesWeekly.innerText = user.calculateAverageMinutesActiveThisWeek(todayDate);
-  stepsCalendarTotalStepsWeekly.innerText = user.calculateAverageStepsThisWeek(todayDate);
+  //main card:
+  domUpdates.cardDisplay(stepsUserStepsToday, findData(activityData, "numSteps"))
+
+//info-card
+  domUpdates.cardDisplay(stepsInfoActiveMinutesToday, findData(activityData, "minutesActive"))
+  domUpdates.cardDisplay(stepsInfoMilesWalkedToday, findRecord())
+
+//friends card:
+  domUpdates.cardDisplay(stepsFriendActiveMinutesAverageToday, userRepository.calculateAverage(todayDate, "minutesActive"));
+
+  domUpdates.cardDisplay(stepsFriendStepsAverageToday, userRepository.calculateAverage(todayDate, "steps"));
+
+  domUpdates.cardDisplay(stepsFriendAverageStepGoal, `${userRepository.calculateAverageStepGoal()}`);
+
+//calendar card:
+  // stepsCalendarTotalActiveMinutesWeekly.innerText = user.calculateAverageMinutesActiveThisWeek(todayDate);
+  domUpdates.cardDisplay(stepsCalendarTotalActiveMinutesWeekly, user.calculateAverageMinutesActiveThisWeek(todayDate));
+
+  //stepsCalendarTotalStepsWeekly.innerText = user.calculateAverageStepsThisWeek(todayDate);
+  domUpdates.cardDisplay(stepsCalendarTotalStepsWeekly, user.calculateAverageStepsThisWeek(todayDate));
+
+
+//trending card
+//Is there DOM shit in the user class method below?
   user.findTrendingStepDays();
 }
 
 function populateClimbedCard() {
+  //main card:
   stairsUserStairsToday.innerText = (findData(activityData, "flightsOfStairs") * 12);
+
+  //info card:
   stairsInfoFlightsToday.innerText = findData(activityData, "flightsOfStairs");
+
+  //friend card:
   stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1);
+
+//calendarCard:
   stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
   stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
+
+  //trending card:
   user.findTrendingStairsDays();
 }
 
 function populateHydrationCard() {
+  //main card:
   hydrationUserOuncesToday.innerText = findData(hydrationData, "numOunces");
+
+  //info card:
   hydrationInfoGlassesToday.innerText = (findData(hydrationData, "numOunces") / 8);
 
+//friend card:
   hydrationFriendOuncesToday.innerText = userRepository.calculateAverageDailyWater(todayDate);
 
+console.log("ounces records", user.ouncesRecord)
+console.log(user.addDailyOunces("2019/09/22"))
+
+//calendar card:
   let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
     if (Object.keys(a)[0] > Object.keys(b)[0]) {
       return -1;
@@ -251,8 +284,6 @@ function populateHydrationCard() {
     }
     return 0;
   });
-
-//console.log(dailyOz)
 
   for (var i = 0; i < dailyOz.length; i++) {
     dailyOz[i].innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[i])[0])
@@ -264,21 +295,15 @@ function populateHydrationCard() {
 }
 
 function populateSleepCard() {
-  // sleepUserHoursToday.innerText = sleepData.find(sleep => {
-  //   return sleep.userID === user.id && sleep.date === todayDate;
-  // }).hoursSlept;
+  //main card:
   sleepUserHoursToday.innerText = findData(sleepData, "hoursSlept");
 
-  // sleepInfoQualityToday.innerText = sleepData.find(sleep => {
-  //   return sleep.userID === user.id && sleep.date === todayDate;
-  // }).sleepQuality;
-
-  sleepInfoQualityToday.innerText = findData(sleepData, "sleepQuality")
-
+  //info card:
+  sleepInfoQualityToday.innerText = findData(sleepData, "sleepQuality");
   sleepInfoHoursAverageAlltime.innerText = user.hoursSleptAverage;
-
   sleepInfoQualityAverageAlltime.innerText = user.sleepQualityAverage;
 
+//friend card:
   sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
     return user.id === userRepository.getSleeper(todayDate, "best")
   }).getFirstName();
@@ -287,6 +312,7 @@ function populateSleepCard() {
     return user.id === userRepository.getSleeper(todayDate)
   }).getFirstName();
 
+//calendar card:
   sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
 
   sleepCalendarQualityAverageWeekly.innerText = user.calculateAverageQualityThisWeek(todayDate);
