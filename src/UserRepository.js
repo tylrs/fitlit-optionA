@@ -8,12 +8,10 @@ class UserRepository {
     this.activities = activityData;
     this.hydrations = hydrationData;
   }
-
 //refactored to ES6 arrow functions - check for context on DOM
   getUser(id) {
     return this.users.find(user => user.id === id);
   };
-
 //refactored to ES6 arrow functions - double check context on DOM
   calculateAverageStepGoal() {
     const total = this.users.reduce((accumulator, currentUser) => {
@@ -22,7 +20,6 @@ class UserRepository {
     }, 0)
     return total / this.users.length;
   }
-
 //Are they using this one on the DOM?? Where is this being called?
 //Where is the data coming from?
   // calculateAverageSleepQuality() {
@@ -46,8 +43,6 @@ class UserRepository {
     },0)
     return (totalSleepQuality / sleepQualityArray.length).toFixed(2)
   }
-
-//
   // calculateAverageSteps(date) {
   //   //iterates over the users and then each user's activity record
   //   //to return an array of arrays that the activity records that match the date
@@ -127,8 +122,6 @@ class UserRepository {
     },0)
     return total / activitiesThatDay.length
   }
-
-
 //Test calls this data in a very weird way - how do we access
 // this data? via hydration?
 //Is there a reason we want that 0 in there? can we remove it?
@@ -145,7 +138,6 @@ class UserRepository {
   // calculateAverageDailyWater(user, date) {
   //   console.log('USER', user)
   //   console.log('DATE', date)
-
   // }
 
 //Not called on DOM
@@ -169,7 +161,6 @@ class UserRepository {
       return newArray
     },[])
   }
-
 //Refactor these two into one function?
 //OG code below:
   // getLongestSleepers(date) {
