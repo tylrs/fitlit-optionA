@@ -19,7 +19,6 @@ export const postApiData = (type, data) => {
     body["minutesActive"] = data.inputData.minutesActiveInput;
     body["flightsOfStairs"] = data.inputData.flightsOfStairsInput;
   }
-  console.log(body);
   return fetch(`http://localhost:3001/api/v1/${type}`, {
     method: 'POST',
     body: JSON.stringify(body),

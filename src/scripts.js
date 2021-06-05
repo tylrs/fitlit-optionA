@@ -132,21 +132,10 @@ function sortForm(event) {
 function postData(type, inputData) {
   let userId = user.id;
   postApiData(type, {userId, todayDate, inputData})
-
+ //just checking that its working:
   fetchApiData(type)
   .then(data => {console.log(data)})
 }
-
-// function postSleep(event) {
-//   event.preventDefault()
-//   let hoursSlept = parseInt(hoursSleptInput.value);
-//   let sleepQuality = parseInt(sleepQualityInput.value);
-//   let userId = user.id;
-//   postApiData('sleep', {userId, todayDate, hoursSlept, sleepQuality})
-//   //This extra fetch api data is just here to prove that data is being added
-//   fetchApiData('sleep')
-//   .then(data => {console.log(data)})
-// }
 
 function getData() {
   return Promise.all([fetchApiData('users'), fetchApiData('sleep'), fetchApiData('activity'), fetchApiData('hydration')]);
