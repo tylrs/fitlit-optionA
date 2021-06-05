@@ -81,7 +81,7 @@ window.addEventListener('load', fetchData);
 
 mainPage.addEventListener('click', showInfo);
 profileButton.addEventListener('click', function() {
-  domUpdates.showDropdown()});
+  domUpdates.showDropdown(userInfoDropdown)});
 stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
 stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
 
@@ -152,54 +152,24 @@ function populateFriends() {
     `;
   });
 
-  applyFriendStyling()
+  domUpdates.applyFriendStyling()
 }
 
-function applyFriendStyling() {
-  let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
-  friendsStepsParagraphs.forEach(paragraph => {
-    if (friendsStepsParagraphs[0] === paragraph) {
-      paragraph.classList.add('green-text');
-    }
-    if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
-      paragraph.classList.add('red-text');
-    }
-    if (paragraph.innerText.includes('YOU')) {
-      paragraph.classList.add('yellow-text');
-    }
-  });
-}
-
-// function populateStepCard() {
-//   stepsUserStepsToday.innerText = activityData.find(activity => {
-//     return activity.userID === user.id && activity.date === todayDate;
-//   }).numSteps;
-//
-//   stepsInfoActiveMinutesToday.innerText = activityData.find(activity => {
-//     return activity.userID === user.id && activity.date === todayDate;
-//   }).minutesActive;
-//
-//   stepsInfoMilesWalkedToday.innerText = user.activityRecord.find(activity => {
-//     return (activity.date === todayDate && activity.userId === user.id)
-//   }).calculateMiles(userRepository);
-//
-//   //refactored this function in userRepo
-//   // stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverageMinutesActive(todayDate);
-//
-//   stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive");
-//
-// //refactored in userRepo class to be calculateAverage
-//   // stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
-//   stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps");
-//
-//   stepsFriendAverageStepGoal.innerText = `${userRepository.calculateAverageStepGoal()}`;
-//
-//   stepsCalendarTotalActiveMinutesWeekly.innerText = user.calculateAverageMinutesActiveThisWeek(todayDate);
-//
-//   stepsCalendarTotalStepsWeekly.innerText = user.calculateAverageStepsThisWeek(todayDate);
-//
-//   user.findTrendingStepDays();
+// function applyFriendStyling() {
+//   let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
+//   friendsStepsParagraphs.forEach(paragraph => {
+//     if (friendsStepsParagraphs[0] === paragraph) {
+//       paragraph.classList.add('green-text');
+//     }
+//     if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
+//       paragraph.classList.add('red-text');
+//     }
+//     if (paragraph.innerText.includes('YOU')) {
+//       paragraph.classList.add('yellow-text');
+//     }
+//   });
 // }
+
 //////////// New stuff below
 function findData(data, property) {
   let found = data.find(activity => {
@@ -321,10 +291,38 @@ function updateTrendingStairsDOM() {
   domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
 }
 
-// function showDropdown() {
-//   userInfoDropdown.classList.toggle('hide');
-// }
 /////////////
+
+// function populateStepCard() {
+//   stepsUserStepsToday.innerText = activityData.find(activity => {
+//     return activity.userID === user.id && activity.date === todayDate;
+//   }).numSteps;
+//
+//   stepsInfoActiveMinutesToday.innerText = activityData.find(activity => {
+//     return activity.userID === user.id && activity.date === todayDate;
+//   }).minutesActive;
+//
+//   stepsInfoMilesWalkedToday.innerText = user.activityRecord.find(activity => {
+//     return (activity.date === todayDate && activity.userId === user.id)
+//   }).calculateMiles(userRepository);
+//
+//   //refactored this function in userRepo
+//   // stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverageMinutesActive(todayDate);
+//
+//   stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive");
+//
+// //refactored in userRepo class to be calculateAverage
+//   // stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
+//   stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps");
+//
+//   stepsFriendAverageStepGoal.innerText = `${userRepository.calculateAverageStepGoal()}`;
+//
+//   stepsCalendarTotalActiveMinutesWeekly.innerText = user.calculateAverageMinutesActiveThisWeek(todayDate);
+//
+//   stepsCalendarTotalStepsWeekly.innerText = user.calculateAverageStepsThisWeek(todayDate);
+//
+//   user.findTrendingStepDays();
+// }
 
 // function updateTrendingStepDays() {
 //   user.findTrendingStepDays();
