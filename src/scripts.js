@@ -133,7 +133,8 @@ function populateDOM() {
 }
 
 function populateUserCard() {
-  headerName.innerText = `${user.getFirstName()}'S `;
+  //headerName.innerText = `${user.getFirstName()}'S `;
+  domUpdates.headerDisplay(headerName, user.getFirstName())
   dropdownName.innerText = user.name.toUpperCase();
   dropdownEmail.innerText = `EMAIL | ${user.email}`;
   dropdownGoal.innerHTML = `DAILY STEP GOAL | ${user.dailyStepGoal}
@@ -240,9 +241,6 @@ function populateHydrationCard() {
 
 //find index of today's date
 //splice out all elements prior in array
-  // dailyOz.forEach((ounce, index) => {
-  //   ounce.innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[index])[0])
-  // })
   domUpdates.populateTextArray(dailyOz, sortedHydrationDataByDate, user)
 }
 
@@ -531,5 +529,3 @@ function showInfo(event) {
     cardToShow.classList.remove('hide');
   }
 }
-
-// export default scripts;

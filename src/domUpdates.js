@@ -1,4 +1,7 @@
 let domUpdates = {
+  headerDisplay(element, data) {
+    element.innerText = `${data}'S `
+  },
   cardDisplay(element, data) {
     element.innerText = data;
   },
