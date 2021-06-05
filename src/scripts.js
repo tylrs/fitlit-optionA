@@ -93,11 +93,49 @@ let adtlInfo = document.querySelector('#adtlInfo');
 
 window.addEventListener('load', fetchData);
 
-mainPage.addEventListener('click', showInfo);
+mainPage.addEventListener('click', determineShoworSubmit);
 profileButton.addEventListener('click', showDropdown);
 stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
 stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
 sleepSubmitButton.addEventListener('click', postSleep)
+
+function determineShoworSubmit(event) {
+  event.preventDefault()
+  if (event.target.classList.contains('.new-data-button')) {
+    sortForm(event);
+  } else {
+    showInfo(event);
+  }
+}
+
+function sortForm(event) {
+  let data, type;
+  if (event.target.id === 'sleepForm') {
+    let hoursSlept = parseInt(hoursSleptInput.value);
+    let sleepQuality = parseInt(sleepQualityInput.value);
+    data = {hoursSlept, sleepQuality};
+    type = 'sleep';
+  } else if (event.target.id === 'hydrationForm') {
+    let numOunces = parseInt(numOunces.value);
+    data = {numOunces}
+    type = 'hydration'
+  } else if (event.target.id === 'activityForm') {
+    let numSteps = numStepsInput.value;
+    let minutesActive = minutesActiveInput.value;
+    let flightsOfStairs = flightsOfStairsInput.value;
+    data = {numSteps, minutesActive, flightsOfStairs}
+    type = 'activity'
+  }
+  postData(type, data)
+}
+
+function postData(type, data) {
+  let userId = user.id;
+  postApiData(type, {userId, todayDate, data})
+
+  fetchApiData(type)
+  .then(data => {console.log(data)})
+}
 
 function postSleep(event) {
   event.preventDefault()
