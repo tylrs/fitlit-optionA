@@ -101,7 +101,7 @@ stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
 
 function determineShoworSubmit(event) {
   event.preventDefault()
-  if (event.target.classList.contains('.new-data-button')) {
+  if (event.target.classList.contains('new-data-submit-button')) {
     sortForm(event);
   } else {
     showInfo(event);
@@ -111,19 +111,19 @@ function determineShoworSubmit(event) {
 function sortForm(event) {
   let data, type;
   if (event.target.id === 'sleepSubmitButton') {
-    let hoursSlept = parseInt(hoursSleptInput.value);
-    let sleepQuality = parseInt(sleepQualityInput.value);
-    data = {hoursSlept, sleepQuality};
+    let hoursSleptInput = parseInt(hoursSleptInput.value);
+    let sleepQualityInput = parseInt(sleepQualityInput.value);
+    data = {hoursSleptInput, sleepQualityInput};
     type = 'sleep';
   } else if (event.target.id === 'hydrationSubmitButton') {
-    let numOunces = parseInt(numOunces.value);
-    data = {numOunces}
+    let numOuncesInput = parseInt(numOunces.value);
+    data = {numOuncesInput}
     type = 'hydration'
   } else if (event.target.id === 'activitySubmitButton') {
-    let numSteps = numStepsInput.value;
-    let minutesActive = minutesActiveInput.value;
-    let flightsOfStairs = flightsOfStairsInput.value;
-    data = {numSteps, minutesActive, flightsOfStairs};
+    let numStepsInput = parseInt(numStepsInput.value);
+    let minutesActiveInput = parseInt(minutesActiveInput.value);
+    let flightsOfStairsInput = parseInt(flightsOfStairsInput.value);
+    data = {numStepsInput, minutesActiveInput, flightsOfStairsInput};
     type = 'activity';
   }
   postData(type, data)
