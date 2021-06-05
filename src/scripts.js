@@ -219,7 +219,6 @@ function populateStepCard() {
   stepsUserStepsToday.innerText = findData(activityData, "numSteps");
   stepsInfoActiveMinutesToday.innerText = findData(activityData, "minutesActive")
   stepsInfoMilesWalkedToday.innerText = findRecord();
-
   stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive");
   stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps");
   stepsFriendAverageStepGoal.innerText = `${userRepository.calculateAverageStepGoal()}`;
