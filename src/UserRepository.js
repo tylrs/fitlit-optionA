@@ -1,19 +1,18 @@
-import sleepData from './data/sleep';
-
 class UserRepository {
   //needs a parameter to take in all user data from fetch call
-  constructor(userData) {
+  constructor(userData, sleepData, activityData, hydrationData) {
     //OG code below:
     // this.users = [];
     this.users = userData;
+    this.sleeps = sleepData;
+    this.activities = activityData;
+    this.hydrations = hydrationData;
   }
 
 //refactored to ES6 arrow functions - check for context on DOM
   getUser(id) {
-    return this.users.find(user => {
-      return user.id === id;
-    })
-  }
+    return this.users.find(user => user.id === id);
+  };
 
 //refactored to ES6 arrow functions - double check context on DOM
   calculateAverageStepGoal() {
@@ -26,12 +25,26 @@ class UserRepository {
 
 //Are they using this one on the DOM?? Where is this being called?
 //Where is the data coming from?
+  // calculateAverageSleepQuality() {
+  //   let totalSleepQuality = this.users.reduce((sum, user) => {
+  //     sum += user.sleepQualityAverage;
+  //     return sum;
+  //   }, 0);
+  //   return totalSleepQuality / this.users.length;
+  // }
   calculateAverageSleepQuality() {
-    let totalSleepQuality = this.users.reduce((sum, user) => {
-      sum += user.sleepQualityAverage;
-      return sum;
-    }, 0);
-    return totalSleepQuality / this.users.length;
+    let sleepQualityArray = this.users.reduce((newArray, currentUser) => {
+      this.sleeps.forEach(sleep => {
+        if (sleep.userID === currentUser.id) {
+          newArray.push(sleep.sleepQuality)
+        }
+      })
+      return newArray
+    },[])
+    let totalSleepQuality = sleepQualityArray.reduce((acc, currentNumber) => {
+      return acc + currentNumber
+    },0)
+    return (totalSleepQuality / sleepQualityArray.length).toFixed(2)
   }
 
 //
@@ -151,6 +164,8 @@ class UserRepository {
     if (qualifier === "best") {
       return sleeperData[0].userID;
     } else {
+      console.log(sleepData.length)
+      // console.log(sleeperData[sleeperData.length-1].userID)
       return sleeperData[sleeperData.length-1].userID
     }
   }
