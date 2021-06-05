@@ -33,11 +33,21 @@ let hydrationMainCard = document.querySelector('#hydration-main-card');
 let hydrationUserOuncesToday = document.querySelector('#hydration-user-ounces-today');
 let mainPage = document.querySelector('main');
 let profileButton = document.querySelector('#profile-button');
-
+// Form Query Selectors
 let sleepSubmitButton = document.querySelector('#sleepSubmitButton');
 let hoursSleptInput = document.querySelector('#hoursSlept');
 let sleepQualityInput = document.querySelector('#sleepQuality');
-let sleepFormCard = document.querySelector('#sleep-form-card')
+let sleepFormCard = document.querySelector('#sleep-form-card');
+
+let hydrationSubmitButton = document.querySelector('#hydrationSubmitButton');
+let numOuncesInput = document.querySelector('#numOunces');
+let hydrationFormCard = document.querySelector('#hydration-form-card');
+
+let activitySubmitButton = document.querySelector('#activitySubmitButton');
+let numStepsInput = document.querySelector('#numSteps');
+let minutesActiveInput = document.querySelector('#minutesActive');
+let flightsOfStairsInput = document.querySelector('#flightsOfStairs');
+let activityFormCard = document.querySelector('#activity-form-card');
 
 let sleepCalendarCard = document.querySelector('#sleep-calendar-card');
 let sleepCalendarHoursAverageWeekly = document.querySelector('#sleep-calendar-hours-average-weekly');
