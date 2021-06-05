@@ -97,7 +97,7 @@ mainPage.addEventListener('click', determineShoworSubmit);
 profileButton.addEventListener('click', showDropdown);
 stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
 stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
-sleepSubmitButton.addEventListener('click', postSleep)
+// sleepSubmitButton.addEventListener('click', postSleep)
 
 function determineShoworSubmit(event) {
   event.preventDefault()
@@ -110,43 +110,44 @@ function determineShoworSubmit(event) {
 
 function sortForm(event) {
   let data, type;
-  if (event.target.id === 'sleepForm') {
+  if (event.target.id === 'sleepSubmitButton') {
     let hoursSlept = parseInt(hoursSleptInput.value);
     let sleepQuality = parseInt(sleepQualityInput.value);
     data = {hoursSlept, sleepQuality};
     type = 'sleep';
-  } else if (event.target.id === 'hydrationForm') {
+  } else if (event.target.id === 'hydrationSubmitButton') {
     let numOunces = parseInt(numOunces.value);
     data = {numOunces}
     type = 'hydration'
-  } else if (event.target.id === 'activityForm') {
+  } else if (event.target.id === 'activitySubmitButton') {
     let numSteps = numStepsInput.value;
     let minutesActive = minutesActiveInput.value;
     let flightsOfStairs = flightsOfStairsInput.value;
-    data = {numSteps, minutesActive, flightsOfStairs}
-    type = 'activity'
+    data = {numSteps, minutesActive, flightsOfStairs};
+    type = 'activity';
   }
   postData(type, data)
 }
 
 function postData(type, data) {
   let userId = user.id;
-  postApiData(type, {userId, todayDate, data})
-
-  fetchApiData(type)
-  .then(data => {console.log(data)})
+  console.log(type, data);
+  // postApiData(type, {userId, todayDate, data})
+  //
+  // fetchApiData(type)
+  // .then(data => {console.log(data)})
 }
 
-function postSleep(event) {
-  event.preventDefault()
-  let hoursSlept = parseInt(hoursSleptInput.value);
-  let sleepQuality = parseInt(sleepQualityInput.value);
-  let userId = user.id;
-  postApiData('sleep', {userId, todayDate, hoursSlept, sleepQuality})
-  //This extra fetch api data is just here to prove that data is being added
-  fetchApiData('sleep')
-  .then(data => {console.log(data)})
-}
+// function postSleep(event) {
+//   event.preventDefault()
+//   let hoursSlept = parseInt(hoursSleptInput.value);
+//   let sleepQuality = parseInt(sleepQualityInput.value);
+//   let userId = user.id;
+//   postApiData('sleep', {userId, todayDate, hoursSlept, sleepQuality})
+//   //This extra fetch api data is just here to prove that data is being added
+//   fetchApiData('sleep')
+//   .then(data => {console.log(data)})
+// }
 
 function getData() {
   return Promise.all([fetchApiData('users'), fetchApiData('sleep'), fetchApiData('activity'), fetchApiData('hydration')]);
