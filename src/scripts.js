@@ -243,17 +243,17 @@ function updateTrendingStepsDOM() {
 // });
 
 function populateClimbedCard() {
-  stairsUserStairsToday.innerText = activityData.find(activity => {
-    return activity.userID === user.id && activity.date === todayDate;
-  }).flightsOfStairs * 12;
+  // stairsUserStairsToday.innerText = activityData.find(activity => {
+  //   return activity.userID === user.id && activity.date === todayDate;
+  // }).flightsOfStairs * 12;
 
-  // stairsUserStairsToday.innerText = (findData(activityData, "flightsOfStairs") * 12);
+  stairsUserStairsToday.innerText = (findData(activityData, "flightsOfStairs") * 12);
 
-  stairsInfoFlightsToday.innerText = activityData.find(activity => {
-    return activity.userID === user.id && activity.date === todayDate;
-  }).flightsOfStairs;
+  // stairsInfoFlightsToday.innerText = activityData.find(activity => {
+  //   return activity.userID === user.id && activity.date === todayDate;
+  // }).flightsOfStairs;
 
-  // stairsInfoFlightsToday.innerText = findData(activityData, "flightsOfStairs");
+  stairsInfoFlightsToday.innerText = findData(activityData, "flightsOfStairs");
 
 //refactored in userRepo class to be calculateAverage
   // stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverageStairs(todayDate) / 12).toFixed(1);
