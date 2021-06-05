@@ -120,27 +120,12 @@ describe('userRepository', function() {
   it('calculateAverageStepGoal should return average step goal for all users', function() {
     expect(userTestRepository.calculateAverageStepGoal()).to.equal(20000 / 3);
   })
-  it.only('calculateAverageSleepQuality should return average sleep quality for all users', function() {
+  it('calculateAverageSleepQuality should return average sleep quality for all users', function() {
     expect(userTestRepository.calculateAverageSleepQuality()).to.equal((11.6 / 3).toFixed(2));
   });
-  it('should have a method that calculates friends average ounces of water', function() {
-    user1.ouncesRecord = [
-      {"2019/06/15": 1},
-      {"2019/06/15": 1},
-      {"2019/06/16": 5}
-    ]
-    user2.ouncesRecord = [
-      {"2019/06/15": 1},
-      {"2019/06/15": 1},
-      {"2019/06/16": 8}
-    ]
-    user3.ouncesRecord = [
-      {"2019/06/15": 1},
-      {"2019/06/15": 1},
-      {"2019/06/16": 4}
-    ]
-    expect(userTestRepository.calculateAverageDailyWater("2019/06/16")).to.equal(5)
-  });
+  // it('should have a method that calculates friends average ounces of water for a given date', function() {
+  //   expect(userTestRepository.calculateAverageDailyWater(userTestRepository.users[0], "2019/06/15")).to.equal((75 + 47) / 2)
+  // });
   it('should have a method that finds the best sleepers', function() {
     expect(userTestRepository.findBestSleepers("2019/06/16")).to.deep.equal([user1, user2]);
   });
