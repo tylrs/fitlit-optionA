@@ -125,7 +125,7 @@ class UserRepository {
   //   }, 0)
   //   return Math.floor(sumDrankOnDate / todaysDrinkers.length);
   // }
-  // below is Alex beginning to refactor
+  // below is Alex beginning to refactor before abandonment
   // calculateAverageDailyWater(user, date) {
   //   console.log('USER', user)
   //   console.log('DATE', date)
@@ -133,10 +133,25 @@ class UserRepository {
   // }
 
 //Not called on DOM
+  // findBestSleepers(date) {
+  //   return this.users.filter(user => {
+  //     return user.calculateAverageQualityThisWeek(date) > 3;
+  //   })
+  // }
   findBestSleepers(date) {
-    return this.users.filter(user => {
-      return user.calculateAverageQualityThisWeek(date) > 3;
-    })
+    let sleepsThatDay = this.sleeps.filter(currentSleep => currentSleep.date === date)
+    let mostHoursSleptThatDay = sleepsThatDay.map(currentSleep => {
+      return currentSleep.hoursSlept
+    }).sort((a, b) => b - a)[0]
+    let bestSleepersThatDay = sleepsThatDay.filter(x => x.hoursSlept === mostHoursSleptThatDay)
+    return this.users.reduce((newArray, currentUser) => {
+      bestSleepersThatDay.forEach(currentBestSleeper => {
+        if (currentUser.id === currentBestSleeper.userID) {
+          newArray.push(currentUser)
+        }
+      })
+      return newArray
+    },[])
   }
 
 //Refactor these two into one function?
