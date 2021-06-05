@@ -288,13 +288,13 @@ function populateSleepCard() {
 
   sleepInfoQualityAverageAlltime.innerText = user.sleepQualityAverage;
 
-  sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate, "best")
-  }).getFirstName();
+  // sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
+  //   return user.id === userRepository.getSleeper(todayDate, "best")
+  // }).getFirstName();
 
-  sleepFriendWorstSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate)
-  }).getFirstName();
+  // sleepFriendWorstSleeper.innerText = userRepository.users.find(user => {
+  //   return user.id === userRepository.getSleeper(todayDate)
+  // }).getFirstName();
 
   sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
 
