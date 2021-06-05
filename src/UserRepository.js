@@ -97,19 +97,35 @@ class UserRepository {
   //   }, 0);
   //   return Math.round(sumOfMinutesActive / allUsersMinutesActiveCount.length);
   // }
+  // calculateAverage(date, quanitfier) {
+  //   let allUsersCount = this.users.map(user => {
+  //     return user.activityRecord.filter(activity => {
+  //       return activity.date === date;
+  //     });
+  //   })
+  //   let sumOfActivity = allUsersCount.reduce((sum, currentActivityCollection) => {
+  //     currentActivityCollection.forEach(activity => {
+  //       sum += activity[quanitfier]
+  //     })
+  //     return sum;
+  //   }, 0);
+  //   return Math.round(sumOfActivity / allUsersCount.length);
+  // }
   calculateAverage(date, quanitfier) {
-    let allUsersCount = this.users.map(user => {
-      return user.activityRecord.filter(activity => {
-        return activity.date === date;
-      });
-    })
-    let sumOfActivity = allUsersCount.reduce((sum, currentActivityCollection) => {
-      currentActivityCollection.forEach(activity => {
-        sum += activity[quanitfier]
-      })
-      return sum;
-    }, 0);
-    return Math.round(sumOfActivity / allUsersCount.length);
+    let activitiesThatDay = this.activities.filter(currentActivity => currentActivity.date === date)
+    let total = activitiesThatDay.reduce((acc, currentActivity) => {
+      if (quanitfier === 'minutesActive') {
+        acc += currentActivity.minutesActive
+      }
+      if (quanitfier === 'steps') {
+        acc += currentActivity.numSteps
+      }
+      if (quanitfier === 'flightsOfStairs') {
+        acc += currentActivity.flightsOfStairs
+      }
+      return acc
+    },0)
+    return total / activitiesThatDay.length
   }
 
 
