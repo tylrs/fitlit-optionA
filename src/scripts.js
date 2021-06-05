@@ -312,9 +312,11 @@ function populateSleepCard() {
   //   return user.id === userRepository.getSleeper(todayDate, "best", sleepData)
   // }).getFirstName();
 
-  sleepFriendLongestSleeper.innerText = findSleeper("best")
+  //sleepFriendLongestSleeper.innerText = findSleeper("best")
+  domUpdates.cardDisplay(sleepFriendLongestSleeper, findSleeper("best"));
 
-  sleepFriendWorstSleeper.innerText = findSleeper("worst")
+  //sleepFriendWorstSleeper.innerText = findSleeper("worst")
+  domUpdates.cardDisplay(sleepFriendWorstSleeper, findSleeper("worst"));
 
 //calendar card:
   //sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
