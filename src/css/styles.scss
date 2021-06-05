@@ -177,6 +177,19 @@ main {
   width: 20vw;
 }
 
+/* Forms */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form > * {
+  width: 70%;
+}
+
 /* BUTTONS */
 .info-button {
   background-position: center;
