@@ -126,7 +126,7 @@ describe('userRepository', function() {
   // it('should have a method that calculates friends average ounces of water for a given date', function() {
   //   expect(userTestRepository.calculateAverageDailyWater(userTestRepository.users[0], "2019/06/15")).to.equal((75 + 47) / 2)
   // });
-  it.only('For a given day, find the users who slept the most number of hours (one or more if they tied)', function() {
+  it('For a given day, find the users who slept the most number of hours (one or more if they tied)', function() {
     expect(userTestRepository.findBestSleepers("2019/06/15")).to.deep.equal([userTestRepository.users[1], userTestRepository.users[2]]);
   });
 
@@ -140,11 +140,11 @@ describe('userRepository', function() {
   // });
 
   it('should have a method that finds the longest sleepers', function() {
-    expect(userTestRepository.getSleeper("2019/06/15", "best")).to.equal(3);
+    expect(userTestRepository.getSleeper("2019/06/15", "best")).to.deep.equal([userTestRepository.users[1].id, userTestRepository.users[2].id]);
   });
 
   it('should have a method that finds the worst sleepers', function() {
-    expect(userTestRepository.getSleeper("2019/06/15", "worst")).to.equal(1);
+    expect(userTestRepository.getSleeper("2019/06/15", "worst")).to.deep.equal([userTestRepository.users[0].id]);
   });
 
   // it('should have a method that calculates average number of stairs for users', function() {

@@ -174,22 +174,22 @@ class UserRepository {
 
   //refactored into one function, tests updated but one fails
   getSleeper(date, qualifier) {
-    let sleeperData = sleepData.filter(sleep => {
-      return sleep.date === date;
-    }).sort((a, b) => {
-      return b.hoursSlept - a.hoursSlept;
-    });
+    let sleepsThatDay = this.sleeps.filter(currentSleep => currentSleep.date === date)
+    let mostHoursSleptThatDay = sleepsThatDay.map(currentSleep => {
+      return currentSleep.hoursSlept
+    }).sort((a, b) => b - a)[0]
+    let leastHoursSleptThatDay = sleepsThatDay.map(currentSleep => {
+      return currentSleep.hoursSlept
+    }).sort((a, b) => a - b)[0]
+    let bestSleepersThatDay = sleepsThatDay.filter(x => x.hoursSlept === mostHoursSleptThatDay)
+    let worstSleepersThatDay = sleepsThatDay.filter(x => x.hoursSlept === leastHoursSleptThatDay)
 
     if (qualifier === "best") {
-      return sleeperData[0].userID;
+      return bestSleepersThatDay.map(x => x.userID)
     } else {
-      console.log(sleepData.length)
-      // console.log(sleeperData[sleeperData.length-1].userID)
-      return sleeperData[sleeperData.length-1].userID
+      return worstSleepersThatDay.map(x => x.userID)
     }
   }
-
-
 }
 
 export default UserRepository;
