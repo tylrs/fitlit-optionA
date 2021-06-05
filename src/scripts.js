@@ -231,10 +231,8 @@ function populateStepCard() {
   domUpdates.cardDisplay(stepsFriendAverageStepGoal, `${userRepository.calculateAverageStepGoal()}`);
 
 //calendar card:
-  // stepsCalendarTotalActiveMinutesWeekly.innerText = user.calculateAverageMinutesActiveThisWeek(todayDate);
   domUpdates.cardDisplay(stepsCalendarTotalActiveMinutesWeekly, user.calculateAverageMinutesActiveThisWeek(todayDate));
 
-  //stepsCalendarTotalStepsWeekly.innerText = user.calculateAverageStepsThisWeek(todayDate);
   domUpdates.cardDisplay(stepsCalendarTotalStepsWeekly, user.calculateAverageStepsThisWeek(todayDate));
 
 
@@ -245,22 +243,17 @@ function populateStepCard() {
 
 function populateClimbedCard() {
   //main card:
-  //stairsUserStairsToday.innerText = (findData(activityData, "flightsOfStairs") * 12);
   domUpdates.cardDisplay(stairsUserStairsToday, (findData(activityData, "flightsOfStairs") * 12))
 
   //info card:
-  //stairsInfoFlightsToday.innerText = findData(activityData, "flightsOfStairs");
   domUpdates.cardDisplay(stairsInfoFlightsToday, findData(activityData, "flightsOfStairs"))
 
   //friend card:
-  // stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1);
   domUpdates.cardDisplay(stairsFriendFlightsAverageToday, (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1))
 
 //calendarCard:
-  // stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
   domUpdates.cardDisplay(stairsCalendarFlightsAverageWeekly, user.calculateAverageFlightsThisWeek(todayDate))
 
-  //stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
   domUpdates.cardDisplay(stairsCalendarStairsAverageWeekly, (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0))
 
   //trending card:
@@ -269,44 +262,31 @@ function populateClimbedCard() {
 
 function populateHydrationCard() {
   //main card:
-  hydrationUserOuncesToday.innerText = findData(hydrationData, "numOunces");
+  // hydrationUserOuncesToday.innerText = findData(hydrationData, "numOunces");
+  domUpdates.cardDisplay(hydrationUserOuncesToday, findData(hydrationData, "numOunces"));
 
   //info card:
-  hydrationInfoGlassesToday.innerText = (findData(hydrationData, "numOunces") / 8);
+  // hydrationInfoGlassesToday.innerText = (findData(hydrationData, "numOunces") / 8);
+  domUpdates.cardDisplay(hydrationInfoGlassesToday, (findData(hydrationData, "numOunces") / 8).toFixed(1));
 
 //friend card:
-  hydrationFriendOuncesToday.innerText = userRepository.calculateAverageDailyWater(todayDate);
+  //hydrationFriendOuncesToday.innerText = userRepository.calculateAverageDailyWater(todayDate);
+  domUpdates.cardDisplay(hydrationFriendOuncesToday, userRepository.calculateAverageDailyWater(todayDate));
 
 //console.log("ounces records", user.ouncesRecord)
 // console.log(user.addDailyOunces("2019/09/22"))
 
 //calendar card:
   let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
-    // if (Object.keys(a)[0] > Object.keys(b)[0]) {
-    //   return -1;
-    // }
-    // if (Object.keys(a)[0] < Object.keys(b)[0]) {
-    //   return 1;
-    // }
-    // return 0;
-
     return Object.keys(b)[0] - Object.keys(a)[0];
   });
-  console.log(sortedHydrationDataByDate)
-  // let sortedHydrationDataByDate = user.ouncesRecord
-  // console.log(user.ouncesRecord)
-
-  // for (var i = 0; i < dailyOz.length; i++) {
-  //   dailyOz[i].innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[i])[0])
-  // }
-  //console.log(Object.keys(sortedHydrationDataByDate[i])[0])
-
 //find index of today's date
 //splice out all elements prior in array
   dailyOz.forEach((ounce, index) => {
     //console.log(ounce)
     ounce.innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[index])[0])
   })
+  // domUpdates.populateArray(dailyOz,   user.addDailyOunces(Object.keys(sortedHydrationDataByDate[index])[0]))
 }
 
 function populateSleepCard() {
