@@ -146,29 +146,15 @@ function populateUserCard() {
 function populateFriends() {
   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
 
-  user.friendsActivityRecords.forEach(friend => {
-    dropdownFriendsStepsContainer.innerHTML += `
-    <p class='dropdown-p friends-steps'>${friend.firstName} |  ${friend.totalWeeklySteps}</p>
-    `;
-  });
+  // user.friendsActivityRecords.forEach(friend => {
+  //   dropdownFriendsStepsContainer.innerHTML += `
+  //   <p class='dropdown-p friends-steps'>${friend.firstName} |  ${friend.totalWeeklySteps}</p>
+  //   `;
+  // });
+  domUpdates.populateHTMLArray(user.friendsActivityRecords, dropdownFriendsStepsContainer)
 
   domUpdates.applyFriendStyling()
 }
-
-// function applyFriendStyling() {
-//   let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
-//   friendsStepsParagraphs.forEach(paragraph => {
-//     if (friendsStepsParagraphs[0] === paragraph) {
-//       paragraph.classList.add('green-text');
-//     }
-//     if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
-//       paragraph.classList.add('red-text');
-//     }
-//     if (paragraph.innerText.includes('YOU')) {
-//       paragraph.classList.add('yellow-text');
-//     }
-//   });
-// }
 
 //////////// New stuff below
 function findData(data, property) {
@@ -292,6 +278,22 @@ function updateTrendingStairsDOM() {
 }
 
 /////////////
+
+// function applyFriendStyling() {
+//   let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
+//   friendsStepsParagraphs.forEach(paragraph => {
+//     if (friendsStepsParagraphs[0] === paragraph) {
+//       paragraph.classList.add('green-text');
+//     }
+//     if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
+//       paragraph.classList.add('red-text');
+//     }
+//     if (paragraph.innerText.includes('YOU')) {
+//       paragraph.classList.add('yellow-text');
+//     }
+//   });
+// }
+
 
 // function populateStepCard() {
 //   stepsUserStepsToday.innerText = activityData.find(activity => {

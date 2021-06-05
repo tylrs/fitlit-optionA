@@ -10,14 +10,6 @@ let domUpdates = {
     element.innerHTML = `<p class='trend-line'>${data}</p>`
   },
 
-//refactor this bad boi to work
-  populateArray(element, data) {
-    element.forEach((ounce, index) => {
-      //console.log(ounce)
-      ounce.innerText = data
-    })
-  },
-
   showDropdown(element) {
     element.classList.toggle('hide');
   },
@@ -36,6 +28,22 @@ let domUpdates = {
       }
     });
   },
+  //refactor this bad boi to work
+  populateTextArray(element, data) {
+    element.forEach((ounce, index) => {
+      //console.log(ounce)
+      ounce.innerText = data
+    })
+  },
+
+  populateHTMLArray(array, location) {
+    array.forEach(element => {
+      location.innerHTML += `
+      <p class='dropdown-p friends-steps'>${element.firstName} |  ${element.totalWeeklySteps}</p>
+      `;
+    });
+  }
+
 
 }
 
