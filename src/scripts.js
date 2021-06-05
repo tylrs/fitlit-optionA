@@ -109,30 +109,30 @@ function determineShoworSubmit(event) {
 }
 
 function sortForm(event) {
-  let data, type;
+  let inputData, type;
   if (event.target.id === 'sleepSubmitButton') {
     let hoursSleptInput = parseInt(hoursSleptInput.value);
     let sleepQualityInput = parseInt(sleepQualityInput.value);
-    data = {hoursSleptInput, sleepQualityInput};
+    inputData = {hoursSleptInput, sleepQualityInput};
     type = 'sleep';
   } else if (event.target.id === 'hydrationSubmitButton') {
     let numOuncesInput = parseInt(numOunces.value);
-    data = {numOuncesInput}
+    inputData = {numOuncesInput}
     type = 'hydration'
   } else if (event.target.id === 'activitySubmitButton') {
     let numStepsInput = parseInt(numStepsInput.value);
     let minutesActiveInput = parseInt(minutesActiveInput.value);
     let flightsOfStairsInput = parseInt(flightsOfStairsInput.value);
-    data = {numStepsInput, minutesActiveInput, flightsOfStairsInput};
+    inputData = {numStepsInput, minutesActiveInput, flightsOfStairsInput};
     type = 'activity';
   }
-  postData(type, data)
+  postData(type, inputData)
 }
 
-function postData(type, data) {
+function postData(type, inputData) {
   let userId = user.id;
   console.log(type, data);
-  // postApiData(type, {userId, todayDate, data})
+  // postApiData(type, {userId, todayDate, inputData})
   //
   // fetchApiData(type)
   // .then(data => {console.log(data)})
