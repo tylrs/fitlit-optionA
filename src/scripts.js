@@ -80,7 +80,8 @@ let adtlInfo = document.querySelector('#adtlInfo');
 window.addEventListener('load', fetchData);
 
 mainPage.addEventListener('click', showInfo);
-profileButton.addEventListener('click', showDropdown);
+profileButton.addEventListener('click', function() {
+  domUpdates.showDropdown()});
 stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
 stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
 
@@ -294,37 +295,35 @@ function populateHydrationCard() {
 
 function populateSleepCard() {
   //main card:
-  //sleepUserHoursToday.innerText = findData(sleepData, "hoursSlept");
   domUpdates.cardDisplay(sleepUserHoursToday, findData(sleepData, "hoursSlept"));
 
   //info card:
-  //sleepInfoQualityToday.innerText = findData(sleepData, "sleepQuality");
   domUpdates.cardDisplay(sleepInfoQualityToday, findData(sleepData, "sleepQuality"));
-
-  //sleepInfoHoursAverageAlltime.innerText = user.hoursSleptAverage;
   domUpdates.cardDisplay(sleepInfoHoursAverageAlltime, user.hoursSleptAverage);
-
-  //sleepInfoQualityAverageAlltime.innerText = user.sleepQualityAverage;
   domUpdates.cardDisplay(sleepInfoQualityAverageAlltime, user.sleepQualityAverage);
 
 //friend card:
-  // sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
-  //   return user.id === userRepository.getSleeper(todayDate, "best", sleepData)
-  // }).getFirstName();
-
-  //sleepFriendLongestSleeper.innerText = findSleeper("best")
   domUpdates.cardDisplay(sleepFriendLongestSleeper, findSleeper("best"));
-
-  //sleepFriendWorstSleeper.innerText = findSleeper("worst")
   domUpdates.cardDisplay(sleepFriendWorstSleeper, findSleeper("worst"));
 
 //calendar card:
-  //sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
   domUpdates.cardDisplay(sleepCalendarHoursAverageWeekly, user.calculateAverageHoursThisWeek(todayDate));
 
-  //sleepCalendarQualityAverageWeekly.innerText = user.calculateAverageQualityThisWeek(todayDate);
   domUpdates.cardDisplay(sleepCalendarQualityAverageWeekly, user.calculateAverageQualityThisWeek(todayDate));
 }
+
+//is there a way we can refactor these without having the event listeners?
+function updateTrendingStepsDOM() {
+  domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
+}
+
+function updateTrendingStairsDOM() {
+  domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
+}
+
+// function showDropdown() {
+//   userInfoDropdown.classList.toggle('hide');
+// }
 /////////////
 
 // function updateTrendingStepDays() {
@@ -372,13 +371,13 @@ function populateSleepCard() {
 //   trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
 // }
 
-function updateTrendingStepsDOM() {
-  domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
-}
-
-function updateTrendingStairsDOM() {
-  trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
-}
+// function updateTrendingStepsDOM() {
+//   domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
+// }
+//
+// function updateTrendingStairsDOM() {
+//   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
+// }
 
 //  stairsTrendingButton.addEventListener('click', function () {
 //   user.findTrendingStairsDays();
@@ -438,9 +437,9 @@ function updateTrendingStairsDOM() {
 // }
 
 //HELPERS
-function showDropdown() {
-  userInfoDropdown.classList.toggle('hide');
-}
+// function showDropdown() {
+//   userInfoDropdown.classList.toggle('hide');
+// }
 
 // function showInfo(event) {
 //   if (event.target.classList.contains('steps-info-button')) {

@@ -10,11 +10,16 @@ let domUpdates = {
     element.innerHTML = `<p class='trend-line'>${data}</p>`
   },
 
+//refactor this bad boi to work
   populateArray(element, data) {
     element.forEach((ounce, index) => {
       //console.log(ounce)
       ounce.innerText = data
     })
+  },
+
+  function showDropdown() {
+    userInfoDropdown.classList.toggle('hide');
   }
 }
 
