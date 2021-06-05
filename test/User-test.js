@@ -63,6 +63,67 @@ describe('User', function() {
   it('should have friends', function() {
     expect(user.friends).to.deep.equal([16, 4, 8, 2, 3])
   });
+  it('getFirstName should return the first name of the user', function () {
+    expect(user.getFirstName()).to.equal('LUISA');
+  });
+  it('addDailyOunces should show the last week of water', function() {
+    user.ouncesRecord = [
+      {"2019/06/15": 1},
+      {"2019/06/15": 1},
+      {"2019/06/16": 4}
+    ]
+    expect(user.addDailyOunces("2019/06/15")).to.equal(2);
+  });
+  describe('updateSleep', function() {
+    beforeEach(() => {
+      user.updateSleep("2019/06/15", 7, 4.7);
+      user.updateSleep("2019/07/14", 6, 4);
+      user.updateSleep("2019/08/04", 8, 5.4);
+    })
+    it('should update user\'s quality of sleep record', function() {
+      expect(user.sleepQualityRecord.length).to.equal(3);
+    });
+    it('should update user\'s average hours of sleep', function() {
+      expect(user.hoursSleptAverage).to.equal('7.0');
+    });
+    it('should update user\'s average quality of sleep', function() {
+      expect(user.sleepQualityAverage).to.equal('4.7');
+    });
+  })
+  it('calculateAverageHoursThisWeek should calculate average sleep hours for week before given date', function() {
+    user.sleepHoursRecord = [{date: "2019/09/22", hours: 9.6}, {date: "2019/09/21", hours: 8.2}, {date: "2019/09/20", hours: 9.9}, {date: "2019/09/19", hours: 4.2}, {date: "2019/09/18", hours: 9.5}, {date: "2019/09/17", hours: 7.8}, {date: "2019/09/16", hours: 10.2}, {date: "2019/09/15", hours: 5.7}, {date: "2019/09/14", hours: 8.8}, {date: "2019/09/13", hours: 4.6}, {date: "2019/09/12", hours: 5.3}];
+    expect(user.calculateAverageHoursThisWeek('2019/09/21')).to.equal('7.9');
+  });
+  it('calculateAverageQualityThisWeek should calculate average quality of sleep for week before a given date', function() {
+    user.sleepQualityRecord = [{date: "2019/09/22", quality: 9.6}, {date: "2019/09/21", quality: 8.2}, {date: "2019/09/20", quality: 9.9}, {date: "2019/09/19", quality: 4.2}, {date: "2019/09/18", quality: 9.5}, {date: "2019/09/17", quality: 7.8}, {date: "2019/09/16", quality: 10.2}, {date: "2019/09/15", quality: 5.7}, {date: "2019/09/14", quality: 8.8}, {date: "2019/09/13", quality: 4.6}, {date: "2019/09/12", quality: 5.3}];
+    expect(user.calculateAverageQualityThisWeek('2019/09/22')).to.equal('8.5')
+  });
+  it('calculateAverageMinutesActiveThisWeek should calculate the average minutes active', function() {
+    user.activityRecord = [{date: "2019/09/18", minutesActive: 78}, {date: "2019/09/17", minutesActive: 100}, {date: "2019/09/16", minutesActive: 20}, {date: "2019/09/15", minutesActive: 21}, {date: "2019/09/14", minutesActive: 35}, {date: "2019/09/13", minutesActive: 37}, {date: "2019/06/12", minutesActive: 42}, {date: "2019/09/11", minutesActive: 18}, {date: "2019/09/10", minutesActive: 16}, {date: "2019/09/09", minutesActive: 81}];
+    expect(user.calculateAverageMinutesActiveThisWeek("2019/09/17")).to.equal('39')
+  });
+  it('updateAccomplishedDays should create an array of good days', function() {
+    user.updateActivities({
+      "userID": 1,
+      "date": "2019/06/15",
+      "numSteps": 3684,
+      "minutesActive": 140,
+      "flightsOfStairs": 16
+    });
+    user.updateActivities({
+      "userID": 1,
+      "date": "2019/06/15",
+      "numSteps": 14684,
+      "minutesActive": 140,
+      "flightsOfStairs": 16
+    });
+    expect(user.accomplishedDays.length).to.equal(1);
+  })
+  it('should have a method that return the highest climbing record', function() {
+    user.activityRecord = [{flightsOfStairs: 10}, {flightsOfStairs: 15}, {flightsOfStairs: 17}]
+    expect(user.findClimbingRecord()).to.equal(17)
+  });
+  // NOT REQUIRED BY SPEC
   it('should have a default ouncesAverage of 0', function() {
     expect(user.ouncesAverage).to.equal(0);
   });
@@ -93,37 +154,9 @@ describe('User', function() {
   it('should have a default value of [] for trendingStairsDays', function() {
     expect(user.trendingStairsDays).to.deep.equal([]);
   });
-  it('getFirstName should return the first name of the user', function () {
-    expect(user.getFirstName()).to.equal('LUISA');
-  });
-  //the description of this test does not match the spec or method
-  it.skip('addDailyOunces should show the last week of water', function() {
-    // user.ouncesRecord = [
-    //   {"2019/06/15": 1},
-    //   {"2019/06/15": 1},
-    //   {"2019/06/16": 4}
-    // ]
-    expect(user.addDailyOunces("2019/06/15")).to.equal(2);
-  });
-  it('calculateAverageHoursThisWeek should calculate average sleep hours for week before given date', function() {
-    user.sleepHoursRecord = [{date: "2019/09/22", hours: 9.6}, {date: "2019/09/21", hours: 8.2}, {date: "2019/09/20", hours: 9.9}, {date: "2019/09/19", hours: 4.2}, {date: "2019/09/18", hours: 9.5}, {date: "2019/09/17", hours: 7.8}, {date: "2019/09/16", hours: 10.2}, {date: "2019/09/15", hours: 5.7}, {date: "2019/09/14", hours: 8.8}, {date: "2019/09/13", hours: 4.6}, {date: "2019/09/12", hours: 5.3}];
-    expect(user.calculateAverageHoursThisWeek('2019/09/21')).to.equal('7.9');
-  });
-  it('calculateAverageQualityThisWeek should calculate average quality of sleep for week before a given date', function() {
-    user.sleepQualityRecord = [{date: "2019/09/22", quality: 9.6}, {date: "2019/09/21", quality: 8.2}, {date: "2019/09/20", quality: 9.9}, {date: "2019/09/19", quality: 4.2}, {date: "2019/09/18", quality: 9.5}, {date: "2019/09/17", quality: 7.8}, {date: "2019/09/16", quality: 10.2}, {date: "2019/09/15", quality: 5.7}, {date: "2019/09/14", quality: 8.8}, {date: "2019/09/13", quality: 4.6}, {date: "2019/09/12", quality: 5.3}];
-    expect(user.calculateAverageQualityThisWeek('2019/09/22')).to.equal('8.5')
-  });
-  it('should have a method that return the highest climbing record', function() {
-    user.activityRecord = [{flightsOfStairs: 10}, {flightsOfStairs: 15}, {flightsOfStairs: 17}]
-    expect(user.findClimbingRecord()).to.equal(17)
-  });
   it('should have a method that calculates daily calories burned', function() {
     user.activityRecord = [{date: "2019/09/16", activityRecord: 78}, {date: "2019/09/17", minutesActive: 100}, {date: "2019/09/17", minutesActive: 20}];
     expect(user.calculateDailyCalories("2019/09/17")).to.equal(912)
-  });
-  it('calculateAverageMinutesActiveThisWeek should calculate the average minutes active', function() {
-    user.activityRecord = [{date: "2019/09/18", minutesActive: 78}, {date: "2019/09/17", minutesActive: 100}, {date: "2019/09/16", minutesActive: 20}, {date: "2019/09/15", minutesActive: 21}, {date: "2019/09/14", minutesActive: 35}, {date: "2019/09/13", minutesActive: 37}, {date: "2019/06/12", minutesActive: 42}, {date: "2019/09/11", minutesActive: 18}, {date: "2019/09/10", minutesActive: 16}, {date: "2019/09/09", minutesActive: 81}];
-    expect(user.calculateAverageMinutesActiveThisWeek("2019/09/17")).to.equal('39')
   });
   it('calculateAverageStepsThisWeek should calculate the average steps taken in a given week', function() {
     user.activityRecord = [{date: "2019/09/18", steps: 1178}, {date: "2019/09/17", steps: 1080}, {date: "2019/09/16", steps: 120}, {date: "2019/09/15", steps: 891}, {date: "2019/09/14", steps: 380}, {date: "2019/09/13", steps: 3234}, {date: "2019/06/12", steps: 1111}, {date: "2019/09/11", steps: 18}, {date: "2019/09/10", steps: 345}, {date: "2019/09/09", steps: 81}];
@@ -133,24 +166,6 @@ describe('User', function() {
     user.activityRecord = [{date: "2019/09/18", flightsOfStairs: 4}, {date: "2019/09/17", flightsOfStairs: 6}, {date: "2019/09/16", flightsOfStairs: 1}, {date: "2019/09/15", flightsOfStairs: 2}, {date: "2019/09/14", flightsOfStairs: 12}, {date: "2019/09/13", flightsOfStairs: 21}, {date: "2019/06/12", flightsOfStairs: 3}, {date: "2019/09/11", flightsOfStairs: 14}, {date: "2019/09/10", flightsOfStairs: 2}, {date: "2019/09/09", flightsOfStairs: 8}];
     expect(user.calculateAverageFlightsThisWeek("2019/09/17")).to.equal('8.4')
   });
-
-  it('updateAccomplishedDays should create an array of good days', function() {
-    user.updateActivities({
-      "userID": 1,
-      "date": "2019/06/15",
-      "numSteps": 3684,
-      "minutesActive": 140,
-      "flightsOfStairs": 16
-    });
-    user.updateActivities({
-      "userID": 1,
-      "date": "2019/06/15",
-      "numSteps": 14684,
-      "minutesActive": 140,
-      "flightsOfStairs": 16
-    });
-    expect(user.accomplishedDays.length).to.equal(1);
-  })
   it('findTrendingStepDays should find 3+ days with positive trend', function() {
     user.activityRecord = [{
     "date": "2019/06/29", "steps": 2},
@@ -275,20 +290,4 @@ describe('User', function() {
     user.findFriendsTotalStepsForWeek(users, '2019/06/29');
     expect(user.friendsActivityRecords).to.deep.equal([{"id": 4, "totalWeeklySteps": 734}, {"id": 16, "totalWeeklySteps": 248}, {"id": 8, "totalWeeklySteps": 34}]);
   });
-  describe('updateSleep', function() {
-    beforeEach(() => {
-      user.updateSleep("2019/06/15", 7, 4.7);
-      user.updateSleep("2019/07/14", 6, 4);
-      user.updateSleep("2019/08/04", 8, 5.4);
-    })
-    it('should update user\'s quality of sleep record', function() {
-      expect(user.sleepQualityRecord.length).to.equal(3);
-    });
-    it('should update user\'s average hours of sleep', function() {
-      expect(user.hoursSleptAverage).to.equal('7.0');
-    });
-    it('should update user\'s average quality of sleep', function() {
-      expect(user.sleepQualityAverage).to.equal('4.7');
-    });
-  })
 });

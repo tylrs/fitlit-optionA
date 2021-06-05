@@ -56,6 +56,20 @@ describe('Activity', function() {
       "flightsOfStairs": 22
     }, userRepository);
   });
+  it('should have a method that calculate miles walked', function() {
+    expect(activity1.calculateMiles(userRepository)).to.equal('3.0');
+  });
+  describe('compareStepGoal', function() {
+    it('should return false if goal isn\'t met', function() {
+      activity1.compareStepGoal(userRepository);
+      expect(activity1.reachedStepGoal).to.equal(false);
+    });
+    it('should return true if goal is met', function() {
+      activity2.compareStepGoal(userRepository);
+      expect(activity2.reachedStepGoal).to.equal(true);
+    });
+  });
+  // NOT REQUIRED BY SPEC
   it('should be a function', function() {
     expect(Activity).to.be.a('function');
   });
@@ -85,18 +99,5 @@ describe('Activity', function() {
   });
   it('doActivity should add activities to user record', function() {
     expect(user1.activityRecord.length).to.equal(1);
-  });
-  it('should have a method that calculate miles walked', function() {
-    expect(activity1.calculateMiles(userRepository)).to.equal('3.0');
-  });
-  describe('compareStepGoal', function() {
-    it('should return false if goal isn\'t met', function() {
-      activity1.compareStepGoal(userRepository);
-      expect(activity1.reachedStepGoal).to.equal(false);
-    });
-    it('should return true if goal is met', function() {
-      activity2.compareStepGoal(userRepository);
-      expect(activity2.reachedStepGoal).to.equal(true);
-    });
   });
 });

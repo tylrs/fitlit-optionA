@@ -61,6 +61,7 @@ describe('Hydration', function() {
       "numOunces": 91
     }, userRepository)
   })
+  // NOT REQUIRED BY SPEC
   it('should be a function', function() {
     expect(Hydration).to.be.a('function');
   });

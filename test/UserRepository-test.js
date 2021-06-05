@@ -20,7 +20,6 @@ describe('userRepository', function() {
     user = userTestRepository.users[0];
     // user.findFriendsNames(userTestRepository.users);
   });
-
     // user1 = new User({
     //   'id': 1,
     //   'name': 'Luisa Hane',
@@ -114,7 +113,7 @@ describe('userRepository', function() {
     expect(userTestRepository.users).to.deep.equal(usersData);
     expect(userTestRepository.users.length).to.equal(3);
   });
-  it('getUser should return user object when given a user id', function() {
+  it('should return user when given a user id', function() {
     expect(userTestRepository.getUser(2)).to.equal(usersData[1]);
   })
   it('calculateAverageStepGoal should return average step goal for all users', function() {
@@ -129,7 +128,6 @@ describe('userRepository', function() {
   it('For a given day, find the users who slept the most number of hours (one or more if they tied)', function() {
     expect(userTestRepository.findBestSleepers("2019/06/15")).to.deep.equal([userTestRepository.users[1], userTestRepository.users[2]]);
   });
-
   //Original getLongestSleepers and getWorstSleepers functions
   // it('should have a method that finds the longest sleepers', function() {
   //   expect(userTestRepository.getLongestSleepers("2019/06/15")).to.equal(3);
@@ -146,11 +144,10 @@ describe('userRepository', function() {
   it('should have a method that finds the worst sleepers', function() {
     expect(userTestRepository.getSleeper("2019/06/15", "worst")).to.deep.equal([userTestRepository.users[0].id]);
   });
-
   // it('should have a method that calculates average number of stairs for users', function() {
-  //   user1.activityRecord = [{date: "2019/09/17", flightsOfStairs: 10}, {date: "2019/09/17", flightsOfStairs: 15}];
-  //   user2.activityRecord = [{date: "2019/09/16", flightsOfStairs: 8}, {date: "2019/09/17", flightsOfStairs: 4}];
-  //   expect(userTestRepository.calculateAverageStairs("2019/09/17")).to.equal(10);
+    // user1.activityRecord = [{date: "2019/09/17", flightsOfStairs: 10}, {date: "2019/09/17", flightsOfStairs: 15}];
+    // user2.activityRecord = [{date: "2019/09/16", flightsOfStairs: 8}, {date: "2019/09/17", flightsOfStairs: 4}];
+    // expect(userTestRepository.calculateAverageStairs("2019/09/17")).to.equal(10);
   // })
   // it('should have a method that calculates average number of steps for users', function() {
   //   user1.activityRecord = [{date: "2019/09/17", steps: 100}, {date: "2019/09/17", steps: 2000}];
@@ -166,11 +163,9 @@ describe('userRepository', function() {
   it('What is the average number of active minutes among all users for a given day', function() {
     expect(userTestRepository.calculateAverage("2019/06/15", "minutesActive")).to.equal((140 + 138 + 116) / 3);
   })
-
   it('What is the average number of steps among all users for a given day', function() {
     expect(userTestRepository.calculateAverage("2019/06/15", "steps")).to.equal((3577 + 4294 + 7402) / 3);
   })
-
   it('What is the average number of stairs among all users for a given day', function() {
     expect(userTestRepository.calculateAverage("2019/06/15", "flightsOfStairs")).to.equal((16 + 10 + 33) / 3);
   })
