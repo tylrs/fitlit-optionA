@@ -215,6 +215,15 @@ function findRecord() {
   return record;
 }
 
+function findSleeper(qualifier) {
+  //console.log(qualifier)
+  let found = userRepository.users.find(user => {
+    //console.log(qualifier)
+    return user.id === userRepository.getSleeper(todayDate, qualifier, sleepData)
+  }).getFirstName()
+  return found
+}
+
 function populateStepCard() {
   //main card:
   domUpdates.cardDisplay(stepsUserStepsToday, findData(activityData, "numSteps"))
@@ -299,18 +308,20 @@ function populateSleepCard() {
   domUpdates.cardDisplay(sleepInfoQualityAverageAlltime, user.sleepQualityAverage);
 
 //friend card:
-  sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate, "best", sleepData)
-  }).getFirstName();
+  // sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
+  //   return user.id === userRepository.getSleeper(todayDate, "best", sleepData)
+  // }).getFirstName();
 
-  sleepFriendWorstSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate, "worst", sleepData)
-  }).getFirstName();
+  sleepFriendLongestSleeper.innerText = findSleeper("best")
+
+  sleepFriendWorstSleeper.innerText = findSleeper("worst")
 
 //calendar card:
-  sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
+  //sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
+  domUpdates.cardDisplay(sleepCalendarHoursAverageWeekly, user.calculateAverageHoursThisWeek(todayDate));
 
-  sleepCalendarQualityAverageWeekly.innerText = user.calculateAverageQualityThisWeek(todayDate);
+  //sleepCalendarQualityAverageWeekly.innerText = user.calculateAverageQualityThisWeek(todayDate);
+  domUpdates.cardDisplay(sleepCalendarQualityAverageWeekly, user.calculateAverageQualityThisWeek(todayDate));
 }
 /////////////
 
