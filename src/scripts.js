@@ -395,6 +395,7 @@ function showInfo(event) {
     hydrationInfoCard,
     hydrationFriendsCard,
     hydrationCalendarCard,
+    hydrationFormCard,
     stairsMainCard,
     stairsInfoCard,
     stairsFriendsCard,
