@@ -137,26 +137,33 @@ function postData(type, inputData) {
   let userId = user.id;
   postApiData(type, {userId, todayDate, inputData})
   .then(data => {
-    showPostSuccessMessage(type);
+    showPostMessage(type, 'success');
   })
-  .catch(err => console.log("API error"))
+  .catch(err => {
+    showPostMessage(type, 'fail');
+  })
  //just checking that its working////there will be a delay here because of async
   fetchApiData(type)
   .then(data => {console.log(data)})
 }
 
-function showPostSuccessMessage(type) {
+function showPostMessage(type, status) {
+  let newMessage;
   let messageSelectors = {
     hydrationFormMessage,
     sleepFormMessage,
     activityFormMessage
   }
   let originalMessage = messageSelectors[`${type}FormMessage`].innerText;
-  messageSelectors[`${type}FormMessage`].innerText = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`
+  if (status === 'success') {
+    newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
+  } else {
+    newMessage = 'ERROR';
+  }
+  messageSelectors[`${type}FormMessage`].innerText = newMessage;
   const resetMessage = setTimeout(() => {
-    console.log('hello')
     messageSelectors[`${type}FormMessage`].innerText = originalMessage;
-  }, 5000)
+  }, 4000)
 }
 
 function getData() {

@@ -27,5 +27,4 @@ export const postApiData = (type, data) => {
     }
   })
   .then((response) => response.json())
-  .catch(err => console.log("API error"))
 }
