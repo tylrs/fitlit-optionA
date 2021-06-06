@@ -125,19 +125,21 @@ class UserRepository {
 //Test calls this data in a very weird way - how do we access
 // this data? via hydration?
 //Is there a reason we want that 0 in there? can we remove it?
-  // calculateAverageDailyWater(date) {
-  //   let todaysDrinkers = this.users.filter(user => {
-  //     return user.addDailyOunces(date) > 0;
-  //   });
-  //   let sumDrankOnDate = todaysDrinkers.reduce((sum, drinker) => {
-  //     return sum += drinker.addDailyOunces(date);
-  //   }, 0)
-  //   return Math.floor(sumDrankOnDate / todaysDrinkers.length);
-  // }
-  // below is Alex beginning to refactor before abandonment
-  // calculateAverageDailyWater(user, date) {
-  //   console.log('USER', user)
-  //   console.log('DATE', date)
+  calculateAverageDailyWater(date) {
+    let todaysDrinkers = this.users.filter(user => {
+      return user.addDailyOunces(date) > 0;
+    });
+    let sumDrankOnDate = todaysDrinkers.reduce((sum, drinker) => {
+      return sum += drinker.addDailyOunces(date);
+    }, 0)
+    return Math.floor(sumDrankOnDate / todaysDrinkers.length);
+  }
+
+  // calculateAverageDailyWater() {
+  //   let totalOunces = this.users.reduce((acc, currentUser) => {
+  //     return acc + currentUser.ouncesAverage
+  //   },0)
+  //   return totalOunces / this.users.length
   // }
 
 //Not called on DOM
