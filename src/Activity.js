@@ -10,7 +10,7 @@ class Activity {
     this.milesWalked = 0;
     this.reachedStepGoal = null;
     // this.userRepository = userRepository;
-    // this.doActivity(userRepository);
+    this.doActivity(userRepository);
   }
   doActivity(userRepo) {
     var activity = this;

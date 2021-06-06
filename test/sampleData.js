@@ -10,8 +10,6 @@ export const userTestData = [
       16,
       4,
       8,
-      2,
-      3
     ]
   },
   {

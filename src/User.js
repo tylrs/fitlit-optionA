@@ -181,13 +181,8 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
     }
   }
   findFriendsNames(users) {
-    console.log(this.friends);
     this.friends.forEach(friend => {
-      // console.log(users.find(user => user.id === friend).getFirstName());
-      // let name = users.find(user => user.id === friend);
-      // console.log(name);
-      // this.friendsNames.push(name);
-      // this.friendsNames.push(users.find(user => user.id === friend).getFirstName());
+      this.friendsNames.push(users.find(user => user.id === friend).getFirstName());
     })
   }
   calculateTotalStepsThisWeek(todayDate) {

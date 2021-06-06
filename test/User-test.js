@@ -215,9 +215,7 @@ describe('User', function() {
       'name': 'Nick Adams',
     })
     let users = [user2, user3, user4];
-    console.log(user.friendsNames)
     user.findFriendsNames(users);
-    console.log(user.friendsNames)
     expect(user.friendsNames).to.deep.equal(['BEN', 'JOHN', 'NICK']);
   });
   it('calculateTotalStepsThisWeek should add users steps for week', function() {
