@@ -167,9 +167,16 @@ function findSleeper(qualifier) {
   return found
 }
 
+
+//Population Card Functions
+function populateMainCard(element, data) {
+  domUpdates.cardDisplay(element, data);
+}
+
 function populateStepCard() {
   //main card:
-  domUpdates.cardDisplay(stepsUserStepsToday, findData(activityData, "numSteps"))
+  // domUpdates.cardDisplay(stepsUserStepsToday, findData(activityData, "numSteps"))
+  populateMainCard(stepsUserStepsToday, findData(activityData, "numSteps"))
 
 //info-card
   domUpdates.cardDisplay(stepsInfoActiveMinutesToday, findData(activityData, "minutesActive"))
@@ -195,7 +202,8 @@ function populateStepCard() {
 
 function populateClimbedCard() {
   //main card:
-  domUpdates.cardDisplay(stairsUserStairsToday, (findData(activityData, "flightsOfStairs") * 12))
+  //domUpdates.cardDisplay(stairsUserStairsToday, (findData(activityData, "flightsOfStairs") * 12))
+  populateMainCard(stairsUserStairsToday, (findData(activityData, "flightsOfStairs") * 12))
 
   //info card:
   domUpdates.cardDisplay(stairsInfoFlightsToday, findData(activityData, "flightsOfStairs"))
@@ -214,7 +222,8 @@ function populateClimbedCard() {
 
 function populateHydrationCard() {
   //main card:
-  domUpdates.cardDisplay(hydrationUserOuncesToday, findData(hydrationData, "numOunces"));
+  //domUpdates.cardDisplay(hydrationUserOuncesToday, findData(hydrationData, "numOunces"));
+  populateMainCard(hydrationUserOuncesToday, findData(hydrationData, "numOunces"));
 
   //info card:
   domUpdates.cardDisplay(hydrationInfoGlassesToday, (findData(hydrationData, "numOunces") / 8).toFixed(1));
@@ -234,7 +243,8 @@ function populateHydrationCard() {
 
 function populateSleepCard() {
   //main card:
-  domUpdates.cardDisplay(sleepUserHoursToday, findData(sleepData, "hoursSlept"));
+  //domUpdates.cardDisplay(sleepUserHoursToday, findData(sleepData, "hoursSlept"));
+  populateMainCard(sleepUserHoursToday, findData(sleepData, "hoursSlept"));
 
   //info card:
   domUpdates.cardDisplay(sleepInfoQualityToday, findData(sleepData, "sleepQuality"));
@@ -258,6 +268,30 @@ function updateTrendingStepsDOM() {
 
 function updateTrendingStairsDOM() {
   domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
+}
+
+function showInfo(event) {
+  let cards = {
+    stepsMainCard,
+    stepsInfoCard,
+    stepsFriendsCard,
+    stepsTrendingCard,
+    stepsCalendarCard,
+    hydrationMainCard,
+    hydrationInfoCard,
+    hydrationFriendsCard,
+    hydrationCalendarCard,
+    stairsMainCard,
+    stairsInfoCard,
+    stairsFriendsCard,
+    stairsTrendingCard,
+    stairsCalendarCard,
+    sleepMainCard,
+    sleepInfoCard,
+    sleepFriendsCard,
+    sleepCalendarCard,
+  }
+  domUpdates.facilitateCardChange(event, cards)
 }
 
 /////////////
@@ -512,32 +546,6 @@ function updateTrendingStairsDOM() {
 //   cardToHide.classList.add('hide');
 //   cardToShow.classList.remove('hide');
 // }
-
-
-
-function showInfo(event) {
-  let cards = {
-    stepsMainCard,
-    stepsInfoCard,
-    stepsFriendsCard,
-    stepsTrendingCard,
-    stepsCalendarCard,
-    hydrationMainCard,
-    hydrationInfoCard,
-    hydrationFriendsCard,
-    hydrationCalendarCard,
-    stairsMainCard,
-    stairsInfoCard,
-    stairsFriendsCard,
-    stairsTrendingCard,
-    stairsCalendarCard,
-    sleepMainCard,
-    sleepInfoCard,
-    sleepFriendsCard,
-    sleepCalendarCard,
-  }
-  domUpdates.facilitateCardChange(event, cards)
-}
 
 // function showInfo(event) {
 //   let cards = {
