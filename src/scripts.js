@@ -173,7 +173,7 @@ function populateMainCard(element, data) {
   domUpdates.cardDisplay(element, data);
 }
 
-function populateInfoFriendCard(queries, finds) {
+function populateIterateCard(queries, finds) {
   //iterate through queries and finds to match up the same indexes
   queries.forEach((query, queryIndex) => {
     finds.forEach((find, findIndex) => {
@@ -199,7 +199,7 @@ function populateStepCard() {
 //info-card
   // domUpdates.cardDisplay(stepsInfoActiveMinutesToday, findData(activityData, "minutesActive"))
   // domUpdates.cardDisplay(stepsInfoMilesWalkedToday, findRecord())
-  populateInfoFriendCard([stepsInfoActiveMinutesToday, stepsInfoMilesWalkedToday], [findData(activityData, "minutesActive"), findRecord()])
+  populateIterateCard([stepsInfoActiveMinutesToday, stepsInfoMilesWalkedToday], [findData(activityData, "minutesActive"), findRecord()])
 
 //friends card:
   // domUpdates.cardDisplay(stepsFriendActiveMinutesAverageToday, userRepository.calculateAverage(todayDate, "minutesActive"));
@@ -208,12 +208,14 @@ function populateStepCard() {
   //
   // domUpdates.cardDisplay(stepsFriendAverageStepGoal, `${userRepository.calculateAverageStepGoal()}`);
 
-  populateInfoFriendCard([stepsFriendActiveMinutesAverageToday, stepsFriendStepsAverageToday, stepsFriendAverageStepGoal], [userRepository.calculateAverage(todayDate, "minutesActive"), userRepository.calculateAverage(todayDate, "steps"), `${userRepository.calculateAverageStepGoal()}`]);
+  populateIterateCard([stepsFriendActiveMinutesAverageToday, stepsFriendStepsAverageToday, stepsFriendAverageStepGoal], [userRepository.calculateAverage(todayDate, "minutesActive"), userRepository.calculateAverage(todayDate, "steps"), `${userRepository.calculateAverageStepGoal()}`]);
 
 //calendar card:
-  domUpdates.cardDisplay(stepsCalendarTotalActiveMinutesWeekly, user.calculateAverageMinutesActiveThisWeek(todayDate));
+  // domUpdates.cardDisplay(stepsCalendarTotalActiveMinutesWeekly, user.calculateAverageMinutesActiveThisWeek(todayDate));
+  //
+  // domUpdates.cardDisplay(stepsCalendarTotalStepsWeekly, user.calculateAverageStepsThisWeek(todayDate));
 
-  domUpdates.cardDisplay(stepsCalendarTotalStepsWeekly, user.calculateAverageStepsThisWeek(todayDate));
+  populateIterateCard([stepsCalendarTotalActiveMinutesWeekly, stepsCalendarTotalStepsWeekly], [user.calculateAverageMinutesActiveThisWeek(todayDate), user.calculateAverageStepsThisWeek(todayDate)]);
 
 
 //trending card
@@ -228,17 +230,19 @@ function populateClimbedCard() {
 
   //info card:
   //domUpdates.cardDisplay(stairsInfoFlightsToday, findData(activityData, "flightsOfStairs"))
-  populateInfoFriendCard([stairsInfoFlightsToday], [findData(activityData, "flightsOfStairs")])
+  populateIterateCard([stairsInfoFlightsToday], [findData(activityData, "flightsOfStairs")])
 
   //friend card:
   //domUpdates.cardDisplay(stairsFriendFlightsAverageToday, (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1))
 
-  populateInfoFriendCard([stairsFriendFlightsAverageToday], [(userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1)])
+  populateIterateCard([stairsFriendFlightsAverageToday], [(userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1)])
 
 //calendarCard:
-  domUpdates.cardDisplay(stairsCalendarFlightsAverageWeekly, user.calculateAverageFlightsThisWeek(todayDate))
+  //domUpdates.cardDisplay(stairsCalendarFlightsAverageWeekly, user.calculateAverageFlightsThisWeek(todayDate))
 
-  domUpdates.cardDisplay(stairsCalendarStairsAverageWeekly, (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0))
+  //domUpdates.cardDisplay(stairsCalendarStairsAverageWeekly, (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0))
+
+  populateIterateCard([stairsCalendarFlightsAverageWeekly, stairsCalendarStairsAverageWeekly], [user.calculateAverageFlightsThisWeek(todayDate), (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0)]);
 
   //trending card:
   user.findTrendingStairsDays();
@@ -251,11 +255,11 @@ function populateHydrationCard() {
 
   //info card:
   //domUpdates.cardDisplay(hydrationInfoGlassesToday, (findData(hydrationData, "numOunces") / 8).toFixed(1));
-  populateInfoFriendCard([hydrationInfoGlassesToday], [(findData(hydrationData, "numOunces") / 8).toFixed(1)])
+  populateIterateCard([hydrationInfoGlassesToday], [(findData(hydrationData, "numOunces") / 8).toFixed(1)])
 
 //friend card:
   //domUpdates.cardDisplay(hydrationFriendOuncesToday, userRepository.calculateAverageDailyWater(todayDate));
-  populateInfoFriendCard([hydrationFriendOuncesToday], [userRepository.calculateAverageDailyWater(todayDate)]);
+  populateIterateCard([hydrationFriendOuncesToday], [userRepository.calculateAverageDailyWater(todayDate)]);
 
 //calendar card:
   let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
@@ -276,17 +280,19 @@ function populateSleepCard() {
   //domUpdates.cardDisplay(sleepInfoQualityToday, findData(sleepData, "sleepQuality"));
   //domUpdates.cardDisplay(sleepInfoHoursAverageAlltime, user.hoursSleptAverage);
   //domUpdates.cardDisplay(sleepInfoQualityAverageAlltime, user.sleepQualityAverage);
-  populateInfoFriendCard([sleepInfoQualityToday, sleepInfoHoursAverageAlltime, sleepInfoQualityAverageAlltime], [findData(sleepData, "sleepQuality"), user.hoursSleptAverage, user.sleepQualityAverage])
+  populateIterateCard([sleepInfoQualityToday, sleepInfoHoursAverageAlltime, sleepInfoQualityAverageAlltime], [findData(sleepData, "sleepQuality"), user.hoursSleptAverage, user.sleepQualityAverage])
 
 //friend card:
   //domUpdates.cardDisplay(sleepFriendLongestSleeper, findSleeper("best"));
   //domUpdates.cardDisplay(sleepFriendWorstSleeper, findSleeper("worst"));
-  populateInfoFriendCard([sleepFriendLongestSleeper, sleepFriendWorstSleeper], [findSleeper("best"), findSleeper("worst")]);
+  populateIterateCard([sleepFriendLongestSleeper, sleepFriendWorstSleeper], [findSleeper("best"), findSleeper("worst")]);
 
 //calendar card:
-  domUpdates.cardDisplay(sleepCalendarHoursAverageWeekly, user.calculateAverageHoursThisWeek(todayDate));
+  //domUpdates.cardDisplay(sleepCalendarHoursAverageWeekly, user.calculateAverageHoursThisWeek(todayDate));
 
-  domUpdates.cardDisplay(sleepCalendarQualityAverageWeekly, user.calculateAverageQualityThisWeek(todayDate));
+  //domUpdates.cardDisplay(sleepCalendarQualityAverageWeekly, user.calculateAverageQualityThisWeek(todayDate));
+
+  populateIterateCard([sleepCalendarHoursAverageWeekly, sleepCalendarQualityAverageWeekly], [user.calculateAverageHoursThisWeek(todayDate), user.calculateAverageQualityThisWeek(todayDate)]);
 }
 
 //is there a way we can refactor these without having the event listeners?
