@@ -183,11 +183,11 @@ function populateStepCard() {
   //refactored this function in userRepo
   // stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverageMinutesActive(todayDate);
 
-  stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive");
+  stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive").toFixed(0);
 
 //refactored in userRepo class to be calculateAverage
   // stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
-  stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps");
+  stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps").toFixed(0);
 
   stepsFriendAverageStepGoal.innerText = `${userRepository.calculateAverageStepGoal()}`;
 
