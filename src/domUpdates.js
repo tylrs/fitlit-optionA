@@ -20,20 +20,20 @@ let domUpdates = {
   },
 
 //this needs to be figured out - move to css?
-  applyFriendStyling() {
-    let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
-    friendsStepsParagraphs.forEach(paragraph => {
-      if (friendsStepsParagraphs[0] === paragraph) {
-        paragraph.classList.add('green-text');
-      }
-      if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
-        paragraph.classList.add('red-text');
-      }
-      if (paragraph.innerText.includes('YOU')) {
-        paragraph.classList.add('yellow-text');
-      }
-    });
-  },
+  // applyFriendStyling() {
+  //   let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
+  //   friendsStepsParagraphs.forEach(paragraph => {
+  //     if (friendsStepsParagraphs[0] === paragraph) {
+  //       paragraph.classList.add('green-text');
+  //     }
+  //     if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
+  //       paragraph.classList.add('red-text');
+  //     }
+  //     if (paragraph.innerText.includes('YOU')) {
+  //       paragraph.classList.add('yellow-text');
+  //     }
+  //   });
+  // },
 
   populateDropDown(element, data, collectiveData) {
     element.innerHTML = `DAILY STEP GOAL | ${data.dailyStepGoal}

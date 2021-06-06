@@ -139,7 +139,7 @@ function populateFriends() {
   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
   domUpdates.populateHTMLArray(user.friendsActivityRecords, dropdownFriendsStepsContainer)
 
-  domUpdates.applyFriendStyling()
+  //domUpdates.applyFriendStyling()
 }
 
 function populateUserCard() {
@@ -301,14 +301,6 @@ function populateSleepCard() {
   populateIterateCard([sleepCalendarHoursAverageWeekly, sleepCalendarQualityAverageWeekly], [user.calculateAverageHoursThisWeek(todayDate), user.calculateAverageQualityThisWeek(todayDate)]);
 }
 
-//is there a way we can refactor these without having the event listeners?
-// function updateTrendingStepsDOM() {
-//   domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
-// }
-//
-// function updateTrendingStairsDOM() {
-//   domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
-// }
 
 function updateTrending(element, data) {
   domUpdates.trendingDisplay(element, data)
@@ -338,7 +330,17 @@ function showInfo(event) {
   domUpdates.facilitateCardChange(event, cards)
 }
 
+//is there a way we can refactor these without having the event listeners?
+// function updateTrendingStepsDOM() {
+  //   domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
+  // }
+  //
+  // function updateTrendingStairsDOM() {
+    //   domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
+    // }
 /////////////
+
+
 // function populateFriends() {
 //   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
 //
