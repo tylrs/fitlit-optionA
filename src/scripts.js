@@ -15,7 +15,7 @@ import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
-let todayDate = "2020/01/16";
+let todayDate = "2019/09/22";
 let userData, activityData, hydrationData, sleepData, user, userRepository;
 
 let dailyOz = document.querySelectorAll('.daily-oz');
@@ -134,14 +134,22 @@ function populateDOM() {
 
 function populateUserCard() {
   //headerName.innerText = `${user.getFirstName()}'S `;
-  domUpdates.headerDisplay(headerName, user.getFirstName())
-  dropdownName.innerText = user.name.toUpperCase();
-  dropdownEmail.innerText = `EMAIL | ${user.email}`;
-  dropdownGoal.innerHTML = `DAILY STEP GOAL | ${user.dailyStepGoal}
-  <br>average step goal amongst all users | ${userRepository.calculateAverageStepGoal()}
-  <br>your goal/average of all users goal | ${((user.dailyStepGoal / userRepository.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
+  domUpdates.headerDisplay(headerName, user.getFirstName());
+
+  //dropdownName.innerText = user.name.toUpperCase();
+  domUpdates.cardDisplay(dropdownName, user.name.toUpperCase());
+
+  //dropdownEmail.innerText = `EMAIL | ${user.email}`;
+  domUpdates.emailDisplay(dropdownEmail, user.email);
+
+  // dropdownGoal.innerHTML = `DAILY STEP GOAL | ${user.dailyStepGoal}
+  // <br>average step goal amongst all users | ${userRepository.calculateAverageStepGoal()}
+  // <br>your goal/average of all users goal | ${((user.dailyStepGoal / userRepository.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
+  domUpdates.populateDropDown(dropdownGoal, user, userRepository);
   populateFriends()
-  adtlInfo.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
+  // adtlInfo.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
+  domUpdates.populateAdditionalInfo(adtlInfo, user);
+
 }
 
 function populateFriends() {

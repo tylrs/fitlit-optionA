@@ -2,6 +2,11 @@ let domUpdates = {
   headerDisplay(element, data) {
     element.innerText = `${data}'S `
   },
+
+  emailDisplay(element, data) {
+    element.innerText = `EMAIL | ${data}`
+  },
+
   cardDisplay(element, data) {
     element.innerText = data;
   },
@@ -27,6 +32,16 @@ let domUpdates = {
         paragraph.classList.add('yellow-text');
       }
     });
+  },
+
+  populateDropDown(element, data, collectiveData) {
+    element.innerHTML = `DAILY STEP GOAL | ${data.dailyStepGoal}
+    <br>average step goal amongst all users | ${collectiveData.calculateAverageStepGoal()}
+    <br>your goal/average of all users goal | ${((data.dailyStepGoal / collectiveData.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
+  },
+
+  populateAdditionalInfo(element, user) {
+    element.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
   },
   //refactor to make more dynamic?
   populateTextArray(element, data, user) {
