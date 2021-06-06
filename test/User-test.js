@@ -30,9 +30,9 @@ describe('User', function() {
     usersData = userTestData.map(user => new User(user));
     userTestRepository = new UserRepository(usersData, sleepTestData, activityTestData, hydrationTestData);
     necessity = new Necessity(userTestRepository);
-    sleepTestData.forEach(sleep => new Sleep(sleep, userTestRepository));
+    // sleepTestData.forEach(sleep => new Sleep(sleep, userTestRepository));
     activityTestData.forEach(activity => new Activity(activity, userTestRepository));
-    hydrationTestData.forEach(hydration => new Hydration(hydration, userTestRepository));
+    // hydrationTestData.forEach(hydration => new Hydration(hydration, userTestRepository));
     user = userTestRepository.users[0];
     // user.findFriendsNames(userTestRepository.users);
   });

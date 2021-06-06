@@ -23,7 +23,7 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
     this.trendingStepDays = [];
     this.trendingStairsDays = [];
     this.friendsNames = [];
-    this.friendsActivityRecords = []
+    this.friendsActivityRecords = [];
   }
   getFirstName() {
     var names = this.name.split(' ');

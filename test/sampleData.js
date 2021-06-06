@@ -122,6 +122,20 @@ export const activityTestData = [
     "flightsOfStairs": 10
   },
   {
+    "userID": 1,
+    "date": "2019/06/22",
+    "numSteps": 10289,
+    "minutesActive": 119,
+    "flightsOfStairs": 6
+  },
+  {
+    "userID": 1,
+    "date": "2019/06/24",
+    "numSteps": 7186,
+    "minutesActive": 25,
+    "flightsOfStairs": 15
+  },
+  {
     "userID": 3,
     "date": "2019/06/15",
     "numSteps": 7402,

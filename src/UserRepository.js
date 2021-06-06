@@ -30,6 +30,15 @@ class UserRepository {
       userToUpdate.updateHydration(hydration.date, hydration.ounces);
     })
   }
+
+  updateUsersActivity() {
+    this.activities.forEach((activity) => {
+      let userToUpdate = this.users.find((user) => {
+        return user.id === activity.userID
+      })
+      userToUpdate.updateActivities(activity);
+    })
+  }
 //refactored to ES6 arrow functions - double check context on DOM
   calculateAverageStepGoal() {
     const total = this.users.reduce((accumulator, currentUser) => {
