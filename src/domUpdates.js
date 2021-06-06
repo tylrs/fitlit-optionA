@@ -19,21 +19,20 @@ let domUpdates = {
     element.classList.toggle('hide');
   },
 
-//this needs to be figured out - move to css?
-  // applyFriendStyling() {
-  //   let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
-  //   friendsStepsParagraphs.forEach(paragraph => {
-  //     if (friendsStepsParagraphs[0] === paragraph) {
-  //       paragraph.classList.add('green-text');
-  //     }
-  //     if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
-  //       paragraph.classList.add('red-text');
-  //     }
-  //     if (paragraph.innerText.includes('YOU')) {
-  //       paragraph.classList.add('yellow-text');
-  //     }
-  //   });
-  // },
+  applyFriendStyling() {
+    let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
+    friendsStepsParagraphs.forEach(paragraph => {
+      if (friendsStepsParagraphs[0] === paragraph) {
+        paragraph.classList.add('green-text');
+      }
+      if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
+        paragraph.classList.add('red-text');
+      }
+      if (paragraph.innerText.includes('YOU')) {
+        paragraph.classList.add('yellow-text');
+      }
+    });
+  },
 
   populateDropDown(element, data, collectiveData) {
     element.innerHTML = `DAILY STEP GOAL | ${data.dailyStepGoal}
@@ -69,7 +68,31 @@ let domUpdates = {
       let cardToShow = cards[`${event.target.id}Card`]
       cardToShow.classList.remove('hide');
     }
+  },
+
+  // determineShoworSubmit(event) {
+  //   event.preventDefault()
+  //   if (event.target.classList.contains('new-data-submit-button')) {
+  //     sortForm(event);
+  //   } else {
+  //     showInfo(event);
+  //   }
+  // },
+
+  facilitatePostMessage(type, status, responseStatus, messageSelectors, user) {
+    let newMessage;
+    let originalMessage = messageSelectors[`${type}FormMessage`].innerText;
+    if (status === 'success') {
+      newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
+    } else {
+      newMessage = `Sorry ${user.getFirstName()}, there was an ${responseStatus.message}`;
+    }
+    messageSelectors[`${type}FormMessage`].innerText = newMessage;
+    const resetMessage = setTimeout(() => {
+      messageSelectors[`${type}FormMessage`].innerText = originalMessage;
+    }, 5000)
   }
+
 
 }
 
