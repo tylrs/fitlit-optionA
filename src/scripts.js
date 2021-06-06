@@ -216,17 +216,23 @@ function instantiateData() {
   userRepository = new UserRepository(usersData, sleepData, activityData, hydrationData);
   // userRepository = new UserRepository(usersData);
 
-  sleepData.forEach(sleep => {
-    sleep = new Sleep(sleep, userRepository);
-  });
+
+  userRepository.updateUsersSleep();
+  userRepository.updateUsersActivity();
+  userRepository.updateUsersHydration();
+
+
+  // sleepData.forEach(sleep => {
+  //   sleep = new Sleep(sleep, userRepository);
+  // });
 
   activityData.forEach(activity => {
     activity = new Activity(activity, userRepository);
   });
-  console.log(userRepository.users[0].activityRecord)
-  hydrationData.forEach(hydration => {
-    hydration = new Hydration(hydration, userRepository);
-  });
+  // console.log(userRepository.users[0].activityRecord)
+  // hydrationData.forEach(hydration => {
+  //   hydration = new Hydration(hydration, userRepository);
+  // });
 
   user = userRepository.users[0];
   user.findFriendsNames(userRepository.users);
