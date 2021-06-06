@@ -90,6 +90,16 @@ export const hydrationTestData = [
     "numOunces": 75
   },
   {
+    "userID": 1,
+    "date": "2019/06/21",
+    "numOunces": 50
+  },
+  {
+    "userID": 1,
+    "date": "2019/06/25",
+    "numOunces": 51
+  },
+  {
     "userID": 3,
     "date": "2019/06/15",
     "numOunces": 47

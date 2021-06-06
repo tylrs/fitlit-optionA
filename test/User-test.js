@@ -74,6 +74,37 @@ describe('User', function() {
     ]
     expect(user.addDailyOunces("2019/06/15")).to.equal(2);
   });
+
+  it('should have a default ouncesAverage of 0', function() {
+    expect(user.ouncesAverage).to.equal(0);
+  });
+  it('should have a default ouncesRecord of []', function() {
+    expect(user.ouncesRecord).to.deep.equal([]);
+  });
+  it('should have a default hoursSleptAverage of 0', function() {
+    expect(user.hoursSleptAverage).to.equal(0);
+  });
+  it('should have a default sleepQualityAverage of 0', function() {
+    expect(user.sleepQualityAverage).to.equal(0);
+  });
+  it('should have a default sleepHoursRecord of []', function() {
+    expect(user.sleepHoursRecord).to.deep.equal([]);
+  });
+  it('should have a default sleepQualityRecord of []', function() {
+    expect(user.sleepQualityRecord).to.deep.equal([]);
+  });
+  it('should have a default activityRecord of []', function() {
+    expect(user.activityRecord).to.deep.equal([]);
+  });
+  it('should have a default value of [] for accomplishedDays', function() {
+    expect(user.accomplishedDays).to.deep.equal([]);
+  });
+  it('should have a default value of [] for trendingStepDays', function() {
+    expect(user.trendingStepDays).to.deep.equal([]);
+  });
+  it('should have a default value of [] for trendingStairsDays', function() {
+    expect(user.trendingStairsDays).to.deep.equal([]);
+  });
   describe('updateSleep', function() {
     beforeEach(() => {
       user.updateSleep("2019/06/15", 7, 4.7);
@@ -124,36 +155,6 @@ describe('User', function() {
     expect(user.findClimbingRecord()).to.equal(17)
   });
   // NOT REQUIRED BY SPEC
-  it('should have a default ouncesAverage of 0', function() {
-    expect(user.ouncesAverage).to.equal(0);
-  });
-  it('should have a default ouncesRecord of []', function() {
-    expect(user.ouncesRecord).to.deep.equal([]);
-  });
-  it('should have a default hoursSleptAverage of 0', function() {
-    expect(user.hoursSleptAverage).to.equal(0);
-  });
-  it('should have a default sleepQualityAverage of 0', function() {
-    expect(user.sleepQualityAverage).to.equal(0);
-  });
-  it('should have a default sleepHoursRecord of []', function() {
-    expect(user.sleepHoursRecord).to.deep.equal([]);
-  });
-  it('should have a default sleepQualityRecord of []', function() {
-    expect(user.sleepQualityRecord).to.deep.equal([]);
-  });
-  it('should have a default activityRecord of []', function() {
-    expect(user.activityRecord).to.deep.equal([]);
-  });
-  it('should have a default value of [] for accomplishedDays', function() {
-    expect(user.accomplishedDays).to.deep.equal([]);
-  });
-  it('should have a default value of [] for trendingStepDays', function() {
-    expect(user.trendingStepDays).to.deep.equal([]);
-  });
-  it('should have a default value of [] for trendingStairsDays', function() {
-    expect(user.trendingStairsDays).to.deep.equal([]);
-  });
   it('should have a method that calculates daily calories burned', function() {
     user.activityRecord = [{date: "2019/09/16", activityRecord: 78}, {date: "2019/09/17", minutesActive: 100}, {date: "2019/09/17", minutesActive: 20}];
     expect(user.calculateDailyCalories("2019/09/17")).to.equal(912)

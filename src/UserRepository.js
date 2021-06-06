@@ -21,6 +21,15 @@ class UserRepository {
       userToUpdate.updateSleep(sleep.date, sleep.hoursSlept, sleep.sleepQuality);
     })
   }
+
+  updateUsersHydration() {
+    this.hydrations.forEach((hydration) => {
+      let userToUpdate = this.users.find((user) => {
+        return user.id === hydration.userID
+      })
+      userToUpdate.updateHydration(hydration.date, hydration.ounces);
+    })
+  }
 //refactored to ES6 arrow functions - double check context on DOM
   calculateAverageStepGoal() {
     const total = this.users.reduce((accumulator, currentUser) => {
