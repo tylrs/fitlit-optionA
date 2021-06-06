@@ -29,7 +29,10 @@
             <h3>YOU HAVE WALKED</h3>
             <button type='button' name='button' class='friends-button steps-friends-button' id='stepsFriends'></button>
           </div>
-          <h2 id='steps-user-steps-today'>X</h2>
+          <div class="main-card-middle-row">
+            <h2 id='steps-user-steps-today'>X</h2>
+            <button type='button' name='button' class='new-data-button activity-form-button' id='activityForm'>Submit New Data Stairs and Steps</button>
+          </div>
           <div class='main-card-top-row'>
             <button type='button' name='button' class='trending-button steps-trending-button' id='stepsTrending'></button>
             <h3>STEPS TODAY</h3>
@@ -78,6 +81,18 @@
             <h4 id='steps-calendar-total-steps-weekly'></h4>
           </div>
         </section>
+        <section class='form-card hide' id='activity-form-card'>
+          <form class='activity-form form' action='index.html' method='post'>
+            <h3>HOW MANY STEPS AND STAIRS TODAY?</h3>
+            <label for='numSteps'>Number of Steps</label>
+            <input type='number' name='numSteps' id='numSteps' value='0' step='1' min='0' max='15000'>
+            <label for='minutesActive'>Minutes Active</label>
+            <input type='number' name='minutesActive' id='minutesActive' value='0' step='1' min='0' max='300'>
+            <label for='flightsOfStairs'>Flights of Stairs</label>
+            <input type='number' name='flightsOfStairs' id='flightsOfStairs' value='0' step='1' min='0' max='50'>
+            <button type='button' name='button' class='new-data-submit-button'id='activitySubmitButton'>Submit</button>
+          </form>
+        </section>
       </section>
       <section class='card-container hydration-card-container' id='hydration-card-container'>
         <section class='main-card' id='hydration-main-card'>
@@ -86,7 +101,10 @@
             <h3>YOU HAVE HAD</h3>
             <button type='button' name='button' class='friends-button hydration-friends-button' id='hydrationFriends'></button>
           </div>
-          <h2 id='hydration-user-ounces-today'></h2>
+          <div class="main-card-middle-row">
+            <h2 id='hydration-user-ounces-today'></h2>
+            <button type='button' name='button' class='new-data-button hydration-form-button' id='hydrationForm'>Submit New Data</button>
+          </div>
           <div class='main-card-bottom-row'>
             <h3>OZ OF WATER TODAY</h3>
             <button type='button' name='button' class='calendar-button hydration-calendar-button' id='hydrationCalendar'></button>
@@ -133,6 +151,14 @@
             <h4 class='hydration-weekly-amount'><span class='daily-oz' id='hydration-calendar-ounces-6day'></span> oz</h4>
           </div>
         </section>
+        <section class='form-card hide' id='hydration-form-card'>
+          <form class='hydration-form form' action='index.html' method='post'>
+            <h3>HOW WAS YOUR HYDRATION TODAY?</h3>
+            <label for='numOunces'>Number of Ounces</label>
+            <input type='number' name='numOunces' id='numOunces' value='0' step='1' min='0' max='100'>
+            <button type='button' name='button' class='new-data-submit-button' id='hydrationSubmitButton'>Submit</button>
+          </form>
+        </section>
       </section>
       <section class='card-container stairs-card-container' id='stairs-card-container'>
         <section class='main-card' id='stairs-main-card'>
@@ -141,7 +167,7 @@
             <h3>YOU HAVE CLIMBED</h3>
             <button type='button' name='button' class='friends-button stairs-friends-button' id='stairsFriends'></button>
           </div>
-          <h2 id='stairs-user-stairs-today'></h2>
+            <h2 id='stairs-user-stairs-today'></h2>
           <div class='main-card-top-row'>
             <button type='button' name='button' class='trending-button stairs-trending-button'id='stairsTrending'></button>
             <h3>STAIRS TODAY</h3>
@@ -186,7 +212,10 @@
             <h3>YOU SLEPT</h3>
             <button type='button' name='button' class='friends-button sleep-friends-button' id='sleepFriends'></button>
           </div>
-          <h2 id='sleep-user-hours-today'></h2>
+          <div class="main-card-middle-row">
+            <h2 id='sleep-user-hours-today'></h2>
+            <button type='button' name='button' class='new-data-button sleep-form-button' id='sleepForm'>Submit New Data</button>
+          </div>
           <div class='main-card-bottom-row'>
             <h3>HOURS LAST NIGHT</h3>
             <button type='button' name='button' class='calendar-button sleep-calendar-button' id='sleepCalendar'></button>
@@ -228,6 +257,16 @@
             <p>LAST WEEK'S QUALITY AVERAGE</p>
             <h4 id='sleep-calendar-quality-average-weekly'></h4>
           </div>
+        </section>
+        <section class='form-card hide' id='sleep-form-card'>
+          <form class='sleep-form form' action='index.html' method='post'>
+            <h3>HOW'D YOU SLEEP LAST NIGHT?</h3>
+            <label for='hoursSlept'>Hours Slept</label>
+            <input type='number' name='hoursSlept' id='hoursSlept' value='0' step='0.1' min='0' max='24'>
+            <label for='sleepQuality'>Sleep Quality (on a scale of 0 to 5)</label>
+            <input type='number' name='sleepQuality' id='sleepQuality' value='0' step='0.1' min='0' max='10'>
+            <button type='button' name='button' class='new-data-submit-button' id='sleepSubmitButton'>Submit</button>
+          </form>
         </section>
       </section>
     </main>

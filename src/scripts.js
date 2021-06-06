@@ -1,6 +1,6 @@
 import './css/base.scss';
 import './css/styles.scss';
-import { fetchApiData } from './apiCalls';
+import { fetchApiData, postApiData } from './apiCalls';
 // import domUpdates from  './domUpdates';
 
 // import userData from './data/users';
@@ -33,6 +33,27 @@ let hydrationMainCard = document.querySelector('#hydration-main-card');
 let hydrationUserOuncesToday = document.querySelector('#hydration-user-ounces-today');
 let mainPage = document.querySelector('main');
 let profileButton = document.querySelector('#profile-button');
+// Form Query Selectors
+let sleepSubmitButton = document.querySelector('#sleepSubmitButton');
+let hoursSleptUserInput = document.querySelector('#hoursSlept');
+let sleepQualityUserInput = document.querySelector('#sleepQuality');
+let sleepFormCard = document.querySelector('#sleep-form-card');
+
+let hydrationSubmitButton = document.querySelector('#hydrationSubmitButton');
+let numOuncesUserInput = document.querySelector('#numOunces');
+let hydrationFormCard = document.querySelector('#hydration-form-card');
+
+let activitySubmitButton = document.querySelector('#activitySubmitButton');
+let numStepsUserInput = document.querySelector('#numSteps');
+let minutesActiveUserInput = document.querySelector('#minutesActive');
+let flightsOfStairsUserInput = document.querySelector('#flightsOfStairs');
+let activityFormCard = document.querySelector('#activity-form-card');
+
+let hydrationFormMessage = document.querySelector('.hydration-form h3');
+let sleepFormMessage = document.querySelector('.sleep-form h3');
+let activityFormMessage = document.querySelector('.activity-form h3');
+
+//
 let sleepCalendarCard = document.querySelector('#sleep-calendar-card');
 let sleepCalendarHoursAverageWeekly = document.querySelector('#sleep-calendar-hours-average-weekly');
 let sleepCalendarQualityAverageWeekly = document.querySelector('#sleep-calendar-quality-average-weekly');
@@ -77,10 +98,89 @@ let adtlInfo = document.querySelector('#adtlInfo');
 
 window.addEventListener('load', fetchData);
 
-mainPage.addEventListener('click', showInfo);
+mainPage.addEventListener('click', determineShoworSubmit);
 profileButton.addEventListener('click', showDropdown);
 stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
 stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
+
+function determineShoworSubmit(event) {
+  event.preventDefault()
+  if (event.target.classList.contains('new-data-submit-button')) {
+    sortForm(event);
+  } else {
+    showInfo(event);
+  }
+}
+
+function sortForm(event) {
+  let inputData, type;
+  if (event.target.id === 'sleepSubmitButton') {
+    let hoursSleptInput = parseInt(hoursSleptUserInput.value);
+    let sleepQualityInput = parseInt(sleepQualityUserInput.value);
+    inputData = {hoursSleptInput, sleepQualityInput};
+    type = 'sleep';
+  } else if (event.target.id === 'hydrationSubmitButton') {
+    let numOuncesInput = parseInt(numOuncesUserInput.value);
+    inputData = {numOuncesInput};
+    type = 'hydration';
+  } else if (event.target.id === 'activitySubmitButton') {
+    let numStepsInput = parseInt(numStepsUserInput.value);
+    let minutesActiveInput = parseInt(minutesActiveUserInput.value);
+    let flightsOfStairsInput = parseInt(flightsOfStairsUserInput.value);
+    inputData = {numStepsInput, minutesActiveInput, flightsOfStairsInput};
+    type = 'activity';
+  }
+  postData(type, inputData)
+}
+
+function postData(type, inputData) {
+  let userId = user.id;
+  postApiData(type, {userId, todayDate, inputData})
+  .then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    } else {
+      renderSuccessfulPost(type);
+    }
+  })
+  .catch(error => {
+    showPostMessage(type, 'fail', error)
+  })
+}
+function renderSuccessfulPost(type) {
+  showPostMessage(type, 'success')
+  fetchApiData(type)
+  .then((data) => {
+    if (type === 'sleep') {
+      sleepData = data.sleepData;
+    } else if (type === 'hydration') {
+      hydrationData = data.hydrationData;
+    } else if (type === 'activity') {
+      activityData = data.activityData;
+    }
+    instantiateData();
+    populateDOM();
+  })
+}
+
+function showPostMessage(type, status, responseStatus) {
+  let newMessage;
+  let messageSelectors = {
+    hydrationFormMessage,
+    sleepFormMessage,
+    activityFormMessage
+  }
+  let originalMessage = messageSelectors[`${type}FormMessage`].innerText;
+  if (status === 'success') {
+    newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
+  } else {
+    newMessage = `Sorry ${user.getFirstName()}, there was an ${responseStatus.message}`;
+  }
+  messageSelectors[`${type}FormMessage`].innerText = newMessage;
+  const resetMessage = setTimeout(() => {
+    messageSelectors[`${type}FormMessage`].innerText = originalMessage;
+  }, 5000)
+}
 
 function getData() {
   return Promise.all([fetchApiData('users'), fetchApiData('sleep'), fetchApiData('activity'), fetchApiData('hydration')]);
@@ -103,6 +203,7 @@ function instantiateData() {
     return new User(user);
     // userRepository.users.push(user)
   });
+
   userRepository = new UserRepository(usersData);
 
   sleepData.forEach(sleep => {
@@ -375,10 +476,12 @@ function showInfo(event) {
     stepsFriendsCard,
     stepsTrendingCard,
     stepsCalendarCard,
+    activityFormCard,
     hydrationMainCard,
     hydrationInfoCard,
     hydrationFriendsCard,
     hydrationCalendarCard,
+    hydrationFormCard,
     stairsMainCard,
     stairsInfoCard,
     stairsFriendsCard,
@@ -388,6 +491,7 @@ function showInfo(event) {
     sleepInfoCard,
     sleepFriendsCard,
     sleepCalendarCard,
+    sleepFormCard
   }
   if (event.target.classList.contains('go-back-button')) {
     event.target.closest('section').classList.add('hide');
