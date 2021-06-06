@@ -58,6 +58,7 @@ let domUpdates = {
     });
   },
 
+//how to resolve this with new post functionality
   facilitateCardChange(event, cards) {
     if (event.target.classList.contains('go-back-button')) {
       event.target.closest('section').classList.add('hide');
@@ -77,6 +78,27 @@ let domUpdates = {
   //   } else {
   //     showInfo(event);
   //   }
+  // },
+
+  // determinePostData(event, inputFields) {
+  //   let inputData, type;
+  //   if (event.target.id === 'sleepSubmitButton') {
+  //     let hoursSleptInput = parseInt(hoursSleptUserInput.value);
+  //     let sleepQualityInput = parseInt(sleepQualityUserInput.value);
+  //     inputData = {hoursSleptInput, sleepQualityInput};
+  //     type = 'sleep';
+  //   } else if (event.target.id === 'hydrationSubmitButton') {
+  //     let numOuncesInput = parseInt(numOuncesUserInput.value);
+  //     inputData = {numOuncesInput};
+  //     type = 'hydration';
+  //   } else if (event.target.id === 'activitySubmitButton') {
+  //     let numStepsInput = parseInt(numStepsUserInput.value);
+  //     let minutesActiveInput = parseInt(minutesActiveUserInput.value);
+  //     let flightsOfStairsInput = parseInt(flightsOfStairsUserInput.value);
+  //     inputData = {numStepsInput, minutesActiveInput, flightsOfStairsInput};
+  //     type = 'activity';
+  //   }
+  //   postData(type, inputData)
   // },
 
   facilitatePostMessage(type, status, responseStatus, messageSelectors, user) {

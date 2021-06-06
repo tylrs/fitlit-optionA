@@ -107,8 +107,11 @@ stairsTrendingButton.addEventListener('click', function () {
 stepsTrendingButton.addEventListener('click', function () {
   updateTrending(trendingStepsPhraseContainer, user.trendingStepDays[0])
 });
-mainPage.addEventListener('click', function () {
-  domUpdates.determineShoworSubmit(event)});
+mainPage.addEventListener('click', function() {
+  determineShoworSubmit(event)
+});
+// mainPage.addEventListener('click', function () {
+//   domUpdates.determineShoworSubmit(event)});
 // profileButton.addEventListener('click', showDropdown);
 
 function determineShoworSubmit(event) {
@@ -155,6 +158,7 @@ function postData(type, inputData) {
     showPostMessage(type, 'fail', error)
   })
 }
+
 function renderSuccessfulPost(type) {
   showPostMessage(type, 'success')
   fetchApiData(type)
@@ -181,24 +185,25 @@ function renderSuccessfulPost(type) {
 //     minutesActiveUserInput,
 //     flightsOfStairsUserInput,
 //   }
-//   let inputData, type;
-//   if (event.target.id === 'sleepSubmitButton') {
-//     let hoursSleptInput = parseInt(hoursSleptUserInput.value);
-//     let sleepQualityInput = parseInt(sleepQualityUserInput.value);
-//     inputData = {hoursSleptInput, sleepQualityInput};
-//     type = 'sleep';
-//   } else if (event.target.id === 'hydrationSubmitButton') {
-//     let numOuncesInput = parseInt(numOuncesUserInput.value);
-//     inputData = {numOuncesInput};
-//     type = 'hydration';
-//   } else if (event.target.id === 'activitySubmitButton') {
-//     let numStepsInput = parseInt(numStepsUserInput.value);
-//     let minutesActiveInput = parseInt(minutesActiveUserInput.value);
-//     let flightsOfStairsInput = parseInt(flightsOfStairsUserInput.value);
-//     inputData = {numStepsInput, minutesActiveInput, flightsOfStairsInput};
-//     type = 'activity';
-//   }
-//   postData(type, inputData)
+//   domUpdates.determinePostData(event, inputFields);
+  // let inputData, type;
+  // if (event.target.id === 'sleepSubmitButton') {
+  //   let hoursSleptInput = parseInt(hoursSleptUserInput.value);
+  //   let sleepQualityInput = parseInt(sleepQualityUserInput.value);
+  //   inputData = {hoursSleptInput, sleepQualityInput};
+  //   type = 'sleep';
+  // } else if (event.target.id === 'hydrationSubmitButton') {
+  //   let numOuncesInput = parseInt(numOuncesUserInput.value);
+  //   inputData = {numOuncesInput};
+  //   type = 'hydration';
+  // } else if (event.target.id === 'activitySubmitButton') {
+  //   let numStepsInput = parseInt(numStepsUserInput.value);
+  //   let minutesActiveInput = parseInt(minutesActiveUserInput.value);
+  //   let flightsOfStairsInput = parseInt(flightsOfStairsUserInput.value);
+  //   inputData = {numStepsInput, minutesActiveInput, flightsOfStairsInput};
+  //   type = 'activity';
+  // }
+  // postData(type, inputData)
 // }
 function showPostMessage(type, status, responseStatus) {
   let messageSelectors = {
@@ -469,6 +474,9 @@ function showInfo(event) {
     sleepInfoCard,
     sleepFriendsCard,
     sleepCalendarCard,
+    sleepFormCard,
+    hydrationFormCard,
+    activityFormCard
   }
   domUpdates.facilitateCardChange(event, cards)
 }
