@@ -61,6 +61,7 @@ main {
   'steps hydration'
   'stairs sleep';
   height: 100%;
+  gap: .5vw;
 }
 
 .main-card {
@@ -86,25 +87,21 @@ main {
 .steps-card-container {
   background-color: $step-card-bgcolor;
   grid-area: steps;
-  margin: .5vw;
 }
 
 .hydration-card-container {
   background-color: $hydration-card-bgcolor;
   grid-area: hydration;
-  margin: .5vw;
 }
 
 .stairs-card-container {
   background-color: $stairs-card-bgcolor;
   grid-area: stairs;
-  margin: .5vw;
 }
 
 .sleep-card-container {
   background-color: $sleep-card-bgcolor;
   grid-area: sleep;
-  margin: .5vw;
 }
 
 .card-data-line {
