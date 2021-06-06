@@ -1,8 +1,8 @@
 // import './css/base.scss';
 // import './css/styles.scss';
 import './sass/index.scss';
+import domUpdates from './domUpdates';
 import { fetchApiData, postApiData } from './apiCalls';
-// import domUpdates from  './domUpdates';
 
 // import userData from './data/users';
 // import activityData from './data/activity';
@@ -17,7 +17,6 @@ import Sleep from './Sleep';
 
 let todayDate = "2019/09/22";
 let userData, activityData, hydrationData, sleepData, user, userRepository;
-// let userRepository = new UserRepository();
 
 let dailyOz = document.querySelectorAll('.daily-oz');
 let dropdownEmail = document.querySelector('#dropdown-email');
@@ -99,10 +98,18 @@ let adtlInfo = document.querySelector('#adtlInfo');
 
 window.addEventListener('load', fetchData);
 
+profileButton.addEventListener('click', function() {
+  domUpdates.showDropdown(userInfoDropdown)});
+// stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
+// stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
+stairsTrendingButton.addEventListener('click', function () {
+  updateTrending(trendingStairsPhraseContainer, user.trendingStairsDays[0])
+});
+stepsTrendingButton.addEventListener('click', function () {
+  updateTrending(trendingStepsPhraseContainer, user.trendingStepDays[0])
+});
 mainPage.addEventListener('click', determineShoworSubmit);
-profileButton.addEventListener('click', showDropdown);
-stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
-stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
+// profileButton.addEventListener('click', showDropdown);
 
 function determineShoworSubmit(event) {
   event.preventDefault()
@@ -202,7 +209,6 @@ function fetchData() {
 function instantiateData() {
   let usersData = userData.map(user => {
     return new User(user);
-    // userRepository.users.push(user)
   });
 
   userRepository = new UserRepository(usersData);
@@ -231,78 +237,287 @@ function populateDOM() {
   populateSleepCard()
 }
 
-function populateUserCard() {
-  headerName.innerText = `${user.getFirstName()}'S `;
-  dropdownName.innerText = user.name.toUpperCase();
-  dropdownEmail.innerText = `EMAIL | ${user.email}`;
-  dropdownGoal.innerHTML = `DAILY STEP GOAL | ${user.dailyStepGoal}
-  <br>average step goal amongst all users | ${userRepository.calculateAverageStepGoal()}
-  <br>your goal/average of all users goal | ${((user.dailyStepGoal / userRepository.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
-  populateFriends()
-  adtlInfo.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
-}
-
+//////////// New stuff below
 function populateFriends() {
   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
+  domUpdates.populateHTMLArray(user.friendsActivityRecords, dropdownFriendsStepsContainer)
 
-  user.friendsActivityRecords.forEach(friend => {
-    dropdownFriendsStepsContainer.innerHTML += `
-    <p class='dropdown-p friends-steps'>${friend.firstName} |  ${friend.totalWeeklySteps}</p>
-    `;
-  });
-
-  applyFriendStyling()
+  //domUpdates.applyFriendStyling()
 }
 
-function applyFriendStyling() {
-  let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
-  friendsStepsParagraphs.forEach(paragraph => {
-    if (friendsStepsParagraphs[0] === paragraph) {
-      paragraph.classList.add('green-text');
-    }
-    if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
-      paragraph.classList.add('red-text');
-    }
-    if (paragraph.innerText.includes('YOU')) {
-      paragraph.classList.add('yellow-text');
-    }
-  });
+function populateUserCard() {
+  domUpdates.headerDisplay(headerName, user.getFirstName());
+  domUpdates.cardDisplay(dropdownName, user.name.toUpperCase());
+  domUpdates.emailDisplay(dropdownEmail, user.email);
+  domUpdates.populateDropDown(dropdownGoal, user, userRepository);
+  populateFriends()
+  domUpdates.populateAdditionalInfo(adtlInfo, user);
 }
 
-function populateStepCard() {
-  stepsUserStepsToday.innerText = activityData.find(activity => {
-    return activity.userID === user.id && activity.date === todayDate;
-  }).numSteps;
 
-  stepsInfoActiveMinutesToday.innerText = activityData.find(activity => {
+function findData(data, property) {
+  let found = data.find(activity => {
     return activity.userID === user.id && activity.date === todayDate;
-  }).minutesActive;
+  })[property]
+  return found
+}
 
-  stepsInfoMilesWalkedToday.innerText = user.activityRecord.find(activity => {
+function findRecord() {
+  let record = user.activityRecord.find(activity => {
     return (activity.date === todayDate && activity.userId === user.id)
   }).calculateMiles(userRepository);
+  return record;
+}
 
-  //refactored this function in userRepo
-  // stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverageMinutesActive(todayDate);
+function findSleeper(qualifier) {
+  let found = userRepository.users.find(user => {
+    return user.id === userRepository.getSleeper(todayDate, qualifier, sleepData)
+  }).getFirstName()
+  return found
+}
 
-  stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive");
 
-//refactored in userRepo class to be calculateAverage
-  // stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
-  stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps");
+//Population Card Functions
+function populateMainCard(element, data) {
+  domUpdates.cardDisplay(element, data);
+}
 
-  stepsFriendAverageStepGoal.innerText = `${userRepository.calculateAverageStepGoal()}`;
+function populateIterateCard(queries, finds) {
+  //iterate through queries and finds to match up the same indexes
+  queries.forEach((query, queryIndex) => {
+    finds.forEach((find, findIndex) => {
+      if (queryIndex === findIndex) {
+        domUpdates.cardDisplay(query, find)
+      }
+    })
+  })
+}
 
-  stepsCalendarTotalActiveMinutesWeekly.innerText = user.calculateAverageMinutesActiveThisWeek(todayDate);
+// function populateFriendCard(friendInfo) {
+//   for (const query in friendInfo) {
+//     domUpdates.cardDisplay(query, friendInfo[query])
+//   }
+// }
 
-  stepsCalendarTotalStepsWeekly.innerText = user.calculateAverageStepsThisWeek(todayDate);
+//Individual Card functions
+function populateStepCard() {
+  //main card:
+  // domUpdates.cardDisplay(stepsUserStepsToday, findData(activityData, "numSteps"))
+  populateMainCard(stepsUserStepsToday, findData(activityData, "numSteps"))
 
+//info-card
+  // domUpdates.cardDisplay(stepsInfoActiveMinutesToday, findData(activityData, "minutesActive"))
+  // domUpdates.cardDisplay(stepsInfoMilesWalkedToday, findRecord())
+  populateIterateCard([stepsInfoActiveMinutesToday, stepsInfoMilesWalkedToday], [findData(activityData, "minutesActive"), findRecord()])
+
+//friends card:
+  // domUpdates.cardDisplay(stepsFriendActiveMinutesAverageToday, userRepository.calculateAverage(todayDate, "minutesActive"));
+  //
+  // domUpdates.cardDisplay(stepsFriendStepsAverageToday, userRepository.calculateAverage(todayDate, "steps"));
+  //
+  // domUpdates.cardDisplay(stepsFriendAverageStepGoal, `${userRepository.calculateAverageStepGoal()}`);
+
+  populateIterateCard([stepsFriendActiveMinutesAverageToday, stepsFriendStepsAverageToday, stepsFriendAverageStepGoal], [userRepository.calculateAverage(todayDate, "minutesActive"), userRepository.calculateAverage(todayDate, "steps"), `${userRepository.calculateAverageStepGoal()}`]);
+
+//calendar card:
+  // domUpdates.cardDisplay(stepsCalendarTotalActiveMinutesWeekly, user.calculateAverageMinutesActiveThisWeek(todayDate));
+  //
+  // domUpdates.cardDisplay(stepsCalendarTotalStepsWeekly, user.calculateAverageStepsThisWeek(todayDate));
+
+  populateIterateCard([stepsCalendarTotalActiveMinutesWeekly, stepsCalendarTotalStepsWeekly], [user.calculateAverageMinutesActiveThisWeek(todayDate), user.calculateAverageStepsThisWeek(todayDate)]);
+
+
+//trending card
+//Is there DOM shit in the user class method below?
   user.findTrendingStepDays();
 }
 
-function updateTrendingStepsDOM() {
-  trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
+function populateClimbedCard() {
+  //main card:
+  //domUpdates.cardDisplay(stairsUserStairsToday, (findData(activityData, "flightsOfStairs") * 12))
+  populateMainCard(stairsUserStairsToday, (findData(activityData, "flightsOfStairs") * 12))
+
+  //info card:
+  //domUpdates.cardDisplay(stairsInfoFlightsToday, findData(activityData, "flightsOfStairs"))
+  populateIterateCard([stairsInfoFlightsToday], [findData(activityData, "flightsOfStairs")])
+
+  //friend card:
+  //domUpdates.cardDisplay(stairsFriendFlightsAverageToday, (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1))
+
+  populateIterateCard([stairsFriendFlightsAverageToday], [(userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1)])
+
+//calendarCard:
+  //domUpdates.cardDisplay(stairsCalendarFlightsAverageWeekly, user.calculateAverageFlightsThisWeek(todayDate))
+
+  //domUpdates.cardDisplay(stairsCalendarStairsAverageWeekly, (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0))
+
+  populateIterateCard([stairsCalendarFlightsAverageWeekly, stairsCalendarStairsAverageWeekly], [user.calculateAverageFlightsThisWeek(todayDate), (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0)]);
+
+  //trending card:
+  user.findTrendingStairsDays();
 }
+
+function populateHydrationCard() {
+  //main card:
+  //domUpdates.cardDisplay(hydrationUserOuncesToday, findData(hydrationData, "numOunces"));
+  populateMainCard(hydrationUserOuncesToday, findData(hydrationData, "numOunces"));
+
+  //info card:
+  //domUpdates.cardDisplay(hydrationInfoGlassesToday, (findData(hydrationData, "numOunces") / 8).toFixed(1));
+  populateIterateCard([hydrationInfoGlassesToday], [(findData(hydrationData, "numOunces") / 8).toFixed(1)])
+
+//friend card:
+  //domUpdates.cardDisplay(hydrationFriendOuncesToday, userRepository.calculateAverageDailyWater(todayDate));
+  populateIterateCard([hydrationFriendOuncesToday], [userRepository.calculateAverageDailyWater(todayDate)]);
+
+//calendar card:
+  let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
+    return Object.keys(b)[0] - Object.keys(a)[0];
+  });
+
+//find index of today's date
+//splice out all elements prior in array
+  domUpdates.populateTextArray(dailyOz, sortedHydrationDataByDate, user)
+}
+
+function populateSleepCard() {
+  //main card:
+  //domUpdates.cardDisplay(sleepUserHoursToday, findData(sleepData, "hoursSlept"));
+  populateMainCard(sleepUserHoursToday, findData(sleepData, "hoursSlept"));
+
+  //info card:
+  //domUpdates.cardDisplay(sleepInfoQualityToday, findData(sleepData, "sleepQuality"));
+  //domUpdates.cardDisplay(sleepInfoHoursAverageAlltime, user.hoursSleptAverage);
+  //domUpdates.cardDisplay(sleepInfoQualityAverageAlltime, user.sleepQualityAverage);
+  populateIterateCard([sleepInfoQualityToday, sleepInfoHoursAverageAlltime, sleepInfoQualityAverageAlltime], [findData(sleepData, "sleepQuality"), user.hoursSleptAverage, user.sleepQualityAverage])
+
+//friend card:
+  //domUpdates.cardDisplay(sleepFriendLongestSleeper, findSleeper("best"));
+  //domUpdates.cardDisplay(sleepFriendWorstSleeper, findSleeper("worst"));
+  populateIterateCard([sleepFriendLongestSleeper, sleepFriendWorstSleeper], [findSleeper("best"), findSleeper("worst")]);
+
+//calendar card:
+  //domUpdates.cardDisplay(sleepCalendarHoursAverageWeekly, user.calculateAverageHoursThisWeek(todayDate));
+
+  //domUpdates.cardDisplay(sleepCalendarQualityAverageWeekly, user.calculateAverageQualityThisWeek(todayDate));
+
+  populateIterateCard([sleepCalendarHoursAverageWeekly, sleepCalendarQualityAverageWeekly], [user.calculateAverageHoursThisWeek(todayDate), user.calculateAverageQualityThisWeek(todayDate)]);
+}
+
+
+function updateTrending(element, data) {
+  domUpdates.trendingDisplay(element, data)
+}
+
+function showInfo(event) {
+  let cards = {
+    stepsMainCard,
+    stepsInfoCard,
+    stepsFriendsCard,
+    stepsTrendingCard,
+    stepsCalendarCard,
+    hydrationMainCard,
+    hydrationInfoCard,
+    hydrationFriendsCard,
+    hydrationCalendarCard,
+    stairsMainCard,
+    stairsInfoCard,
+    stairsFriendsCard,
+    stairsTrendingCard,
+    stairsCalendarCard,
+    sleepMainCard,
+    sleepInfoCard,
+    sleepFriendsCard,
+    sleepCalendarCard,
+  }
+  domUpdates.facilitateCardChange(event, cards)
+}
+
+//is there a way we can refactor these without having the event listeners?
+// function updateTrendingStepsDOM() {
+  //   domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
+  // }
+  //
+  // function updateTrendingStairsDOM() {
+    //   domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
+    // }
+/////////////
+
+
+// function populateFriends() {
+//   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
+//
+//   // user.friendsActivityRecords.forEach(friend => {
+//   //   dropdownFriendsStepsContainer.innerHTML += `
+//   //   <p class='dropdown-p friends-steps'>${friend.firstName} |  ${friend.totalWeeklySteps}</p>
+//   //   `;
+//   // });
+//   domUpdates.populateHTMLArray(user.friendsActivityRecords, dropdownFriendsStepsContainer)
+//
+//   domUpdates.applyFriendStyling()
+// }
+// function populateUserCard() {
+//   //headerName.innerText = `${user.getFirstName()}'S `;
+//
+//   //dropdownName.innerText = user.name.toUpperCase();
+//
+//   //dropdownEmail.innerText = `EMAIL | ${user.email}`;
+//
+//   // dropdownGoal.innerHTML = `DAILY STEP GOAL | ${user.dailyStepGoal}
+//   // <br>average step goal amongst all users | ${userRepository.calculateAverageStepGoal()}
+//   // <br>your goal/average of all users goal | ${((user.dailyStepGoal / userRepository.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
+//
+//   // adtlInfo.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
+//
+// }
+
+
+// function applyFriendStyling() {
+//   let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
+//   friendsStepsParagraphs.forEach(paragraph => {
+//     if (friendsStepsParagraphs[0] === paragraph) {
+//       paragraph.classList.add('green-text');
+//     }
+//     if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
+//       paragraph.classList.add('red-text');
+//     }
+//     if (paragraph.innerText.includes('YOU')) {
+//       paragraph.classList.add('yellow-text');
+//     }
+//   });
+// }
+
+
+// function populateStepCard() {
+//   stepsUserStepsToday.innerText = activityData.find(activity => {
+//     return activity.userID === user.id && activity.date === todayDate;
+//   }).numSteps;
+//
+//   stepsInfoActiveMinutesToday.innerText = activityData.find(activity => {
+//     return activity.userID === user.id && activity.date === todayDate;
+//   }).minutesActive;
+//
+//   stepsInfoMilesWalkedToday.innerText = user.activityRecord.find(activity => {
+//     return (activity.date === todayDate && activity.userId === user.id)
+//   }).calculateMiles(userRepository);
+//
+//   //refactored this function in userRepo
+//   // stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverageMinutesActive(todayDate);
+//
+//   stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive");
+//
+// //refactored in userRepo class to be calculateAverage
+//   // stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
+//   stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps");
+//
+//   stepsFriendAverageStepGoal.innerText = `${userRepository.calculateAverageStepGoal()}`;
+//
+//   stepsCalendarTotalActiveMinutesWeekly.innerText = user.calculateAverageMinutesActiveThisWeek(todayDate);
+//
+//   stepsCalendarTotalStepsWeekly.innerText = user.calculateAverageStepsThisWeek(todayDate);
+//
+//   user.findTrendingStepDays();
+// }
 
 // function updateTrendingStepDays() {
 //   user.findTrendingStepDays();
@@ -314,99 +529,110 @@ function updateTrendingStepsDOM() {
 //   trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
 // });
 
-function populateClimbedCard() {
-  stairsUserStairsToday.innerText = activityData.find(activity => {
-    return activity.userID === user.id && activity.date === todayDate;
-  }).flightsOfStairs * 12;
-
-  stairsInfoFlightsToday.innerText = activityData.find(activity => {
-    return activity.userID === user.id && activity.date === todayDate;
-  }).flightsOfStairs;
-
-//refactored in userRepo class to be calculateAverage
-  // stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverageStairs(todayDate) / 12).toFixed(1);
-  stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1);
-
-
-  stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
-  // stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
-  stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
-  // stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
-
-  user.findTrendingStairsDays();
-}
+// function populateClimbedCard() {
+//   // stairsUserStairsToday.innerText = activityData.find(activity => {
+//   //   return activity.userID === user.id && activity.date === todayDate;
+//   // }).flightsOfStairs * 12;
+//
+//   stairsUserStairsToday.innerText = (findData(activityData, "flightsOfStairs") * 12);
+//
+//   // stairsInfoFlightsToday.innerText = activityData.find(activity => {
+//   //   return activity.userID === user.id && activity.date === todayDate;
+//   // }).flightsOfStairs;
+//
+//   stairsInfoFlightsToday.innerText = findData(activityData, "flightsOfStairs");
+//
+// //refactored in userRepo class to be calculateAverage
+//   // stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverageStairs(todayDate) / 12).toFixed(1);
+//   stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1);
+//
+//
+//   stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
+//   // stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
+//   stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
+//   // stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
+//
+//   user.findTrendingStairsDays();
+// }
 
 // function updateTrendingStairsDays() {
 //   console.log(user)
 //   user.findTrendingStairsDays();
 //   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
 // }
+// function updateTrendingStepsDOM() {
+//   trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
+// }
 
-function updateTrendingStairsDOM() {
-  trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
-}
+// function updateTrendingStepsDOM() {
+//   domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
+// }
+//
+// function updateTrendingStairsDOM() {
+//   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
+// }
 
 //  stairsTrendingButton.addEventListener('click', function () {
 //   user.findTrendingStairsDays();
 //   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
 // });
 
-function populateHydrationCard() {
-  hydrationUserOuncesToday.innerText = hydrationData.find(hydration => {
-    return hydration.userID === user.id && hydration.date === todayDate;
-  }).numOunces;
+// function populateHydrationCard() {
+//   hydrationUserOuncesToday.innerText = hydrationData.find(hydration => {
+//     return hydration.userID === user.id && hydration.date === todayDate;
+//   }).numOunces;
+//
+//   hydrationInfoGlassesToday.innerText = hydrationData.find(hydration => {
+//     return hydration.userID === user.id && hydration.date === todayDate;
+//   }).numOunces / 8;
+//
+//   hydrationFriendOuncesToday.innerText = userRepository.calculateAverageDailyWater(todayDate);
+//
+//   let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
+//     if (Object.keys(a)[0] > Object.keys(b)[0]) {
+//       return -1;
+//     }
+//     if (Object.keys(a)[0] < Object.keys(b)[0]) {
+//       return 1;
+//     }
+//     return 0;
+//   });
+//
+//   for (var i = 0; i < dailyOz.length; i++) {
+//     dailyOz[i].innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[i])[0])
+//   }
+// }
 
-  hydrationInfoGlassesToday.innerText = hydrationData.find(hydration => {
-    return hydration.userID === user.id && hydration.date === todayDate;
-  }).numOunces / 8;
-
-  hydrationFriendOuncesToday.innerText = userRepository.calculateAverageDailyWater(todayDate);
-
-  let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
-    if (Object.keys(a)[0] > Object.keys(b)[0]) {
-      return -1;
-    }
-    if (Object.keys(a)[0] < Object.keys(b)[0]) {
-      return 1;
-    }
-    return 0;
-  });
-
-  for (var i = 0; i < dailyOz.length; i++) {
-    dailyOz[i].innerText = user.addDailyOunces(Object.keys(sortedHydrationDataByDate[i])[0])
-  }
-}
-
-function populateSleepCard() {
-  sleepUserHoursToday.innerText = sleepData.find(sleep => {
-    return sleep.userID === user.id && sleep.date === todayDate;
-  }).hoursSlept;
-
-  sleepInfoQualityToday.innerText = sleepData.find(sleep => {
-    return sleep.userID === user.id && sleep.date === todayDate;
-  }).sleepQuality;
-
-  sleepInfoHoursAverageAlltime.innerText = user.hoursSleptAverage;
-
-  sleepInfoQualityAverageAlltime.innerText = user.sleepQualityAverage;
-
-  sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate, "best")
-  }).getFirstName();
-
-  sleepFriendWorstSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate)
-  }).getFirstName();
-
-  sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
-
-  sleepCalendarQualityAverageWeekly.innerText = user.calculateAverageQualityThisWeek(todayDate);
-}
+// function populateSleepCard() {
+//   sleepUserHoursToday.innerText = sleepData.find(sleep => {
+//     return sleep.userID === user.id && sleep.date === todayDate;
+//   }).hoursSlept;
+//
+//   sleepInfoQualityToday.innerText = sleepData.find(sleep => {
+//     return sleep.userID === user.id && sleep.date === todayDate;
+//   }).sleepQuality;
+//
+//   sleepInfoHoursAverageAlltime.innerText = user.hoursSleptAverage;
+//
+//   sleepInfoQualityAverageAlltime.innerText = user.sleepQualityAverage;
+//
+//   sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
+//     return user.id === userRepository.getSleeper(todayDate, "best")
+//   }).getFirstName();
+//
+//   sleepFriendWorstSleeper.innerText = userRepository.users.find(user => {
+//     return user.id === userRepository.getSleeper(todayDate)
+//   }).getFirstName();
+//
+//   sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
+//
+//   sleepCalendarQualityAverageWeekly.innerText = user.calculateAverageQualityThisWeek(todayDate);
+// }
 
 //HELPERS
-function showDropdown() {
-  userInfoDropdown.classList.toggle('hide');
-}
+// function showDropdown() {
+//   userInfoDropdown.classList.toggle('hide');
+// }
 
 // function showInfo(event) {
 //   if (event.target.classList.contains('steps-info-button')) {
@@ -470,37 +696,34 @@ function showDropdown() {
 //   cardToShow.classList.remove('hide');
 // }
 
-function showInfo(event) {
-  let cards = {
-    stepsMainCard,
-    stepsInfoCard,
-    stepsFriendsCard,
-    stepsTrendingCard,
-    stepsCalendarCard,
-    activityFormCard,
-    hydrationMainCard,
-    hydrationInfoCard,
-    hydrationFriendsCard,
-    hydrationCalendarCard,
-    hydrationFormCard,
-    stairsMainCard,
-    stairsInfoCard,
-    stairsFriendsCard,
-    stairsTrendingCard,
-    stairsCalendarCard,
-    sleepMainCard,
-    sleepInfoCard,
-    sleepFriendsCard,
-    sleepCalendarCard,
-    sleepFormCard
-  }
-  if (event.target.classList.contains('go-back-button')) {
-    event.target.closest('section').classList.add('hide');
-    let cardToShow = cards[`${event.target.closest('section').id.split('-')[0]}MainCard`]
-    cardToShow.classList.remove('hide');
-  } else if (event.target.type === 'button') {
-    event.target.closest('.main-card').classList.add('hide');
-    let cardToShow = cards[`${event.target.id}Card`]
-    cardToShow.classList.remove('hide');
-  }
-}
+// function showInfo(event) {
+//   let cards = {
+//     stepsMainCard,
+//     stepsInfoCard,
+//     stepsFriendsCard,
+//     stepsTrendingCard,
+//     stepsCalendarCard,
+//     hydrationMainCard,
+//     hydrationInfoCard,
+//     hydrationFriendsCard,
+//     hydrationCalendarCard,
+//     stairsMainCard,
+//     stairsInfoCard,
+//     stairsFriendsCard,
+//     stairsTrendingCard,
+//     stairsCalendarCard,
+//     sleepMainCard,
+//     sleepInfoCard,
+//     sleepFriendsCard,
+//     sleepCalendarCard,
+//   }
+//   if (event.target.classList.contains('go-back-button')) {
+//     event.target.closest('section').classList.add('hide');
+//     let cardToShow = cards[`${event.target.closest('section').id.split('-')[0]}MainCard`]
+//     cardToShow.classList.remove('hide');
+//   } else if (event.target.type === 'button') {
+//     event.target.closest('.main-card').classList.add('hide');
+//     let cardToShow = cards[`${event.target.id}Card`]
+//     cardToShow.classList.remove('hide');
+//   }
+//}
