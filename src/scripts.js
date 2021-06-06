@@ -136,18 +136,34 @@ function sortForm(event) {
 function postData(type, inputData) {
   let userId = user.id;
   postApiData(type, {userId, todayDate, inputData})
-  .then(data => {
-    showPostMessage(type, 'success');
+  .then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    } else {
+      renderSuccessfulPost(type);
+    }
   })
-  .catch(err => {
-    showPostMessage(type, 'fail');
+  .catch(error => {
+    showPostMessage(type, 'fail', error)
   })
- //just checking that its working////there will be a delay here because of async
+}
+function renderSuccessfulPost(type) {
+  showPostMessage(type, 'success')
   fetchApiData(type)
-  .then(data => {console.log(data)})
+  .then((data) => {
+    if (type === 'sleep') {
+      sleepData = data.sleepData;
+    } else if (type === 'hydration') {
+      hydrationData = data.hydrationData;
+    } else if (type === 'activity') {
+      activityData = data.activityData;
+    }
+    instantiateData();
+    populateDOM();
+  })
 }
 
-function showPostMessage(type, status) {
+function showPostMessage(type, status, responseStatus) {
   let newMessage;
   let messageSelectors = {
     hydrationFormMessage,
@@ -158,12 +174,12 @@ function showPostMessage(type, status) {
   if (status === 'success') {
     newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
   } else {
-    newMessage = 'ERROR';
+    newMessage = `Sorry ${user.getFirstName()}, there was an ${responseStatus.message}`;
   }
   messageSelectors[`${type}FormMessage`].innerText = newMessage;
   const resetMessage = setTimeout(() => {
     messageSelectors[`${type}FormMessage`].innerText = originalMessage;
-  }, 4000)
+  }, 5000)
 }
 
 function getData() {

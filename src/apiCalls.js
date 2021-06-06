@@ -26,5 +26,4 @@ export const postApiData = (type, data) => {
       'Content-type': 'application/json'
     }
   })
-  .then((response) => response.json())
 }
