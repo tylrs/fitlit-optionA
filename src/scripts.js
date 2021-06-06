@@ -173,14 +173,26 @@ function populateMainCard(element, data) {
   domUpdates.cardDisplay(element, data);
 }
 
+function populateInfoCard(queries, finds) {
+  //iterate through queries and finds to match up the same indexes
+  queries.forEach((query, queryIndex) => {
+    finds.forEach((find, findIndex) => {
+      if (queryIndex === findIndex) {
+        domUpdates.cardDisplay(query, find)
+      }
+    })
+  })
+}
+
 function populateStepCard() {
   //main card:
   // domUpdates.cardDisplay(stepsUserStepsToday, findData(activityData, "numSteps"))
   populateMainCard(stepsUserStepsToday, findData(activityData, "numSteps"))
 
 //info-card
-  domUpdates.cardDisplay(stepsInfoActiveMinutesToday, findData(activityData, "minutesActive"))
-  domUpdates.cardDisplay(stepsInfoMilesWalkedToday, findRecord())
+  // domUpdates.cardDisplay(stepsInfoActiveMinutesToday, findData(activityData, "minutesActive"))
+  // domUpdates.cardDisplay(stepsInfoMilesWalkedToday, findRecord())
+  populateInfoCard([stepsInfoActiveMinutesToday, stepsInfoMilesWalkedToday], [findData(activityData, "minutesActive"), findRecord()])
 
 //friends card:
   domUpdates.cardDisplay(stepsFriendActiveMinutesAverageToday, userRepository.calculateAverage(todayDate, "minutesActive"));
@@ -206,7 +218,8 @@ function populateClimbedCard() {
   populateMainCard(stairsUserStairsToday, (findData(activityData, "flightsOfStairs") * 12))
 
   //info card:
-  domUpdates.cardDisplay(stairsInfoFlightsToday, findData(activityData, "flightsOfStairs"))
+  //domUpdates.cardDisplay(stairsInfoFlightsToday, findData(activityData, "flightsOfStairs"))
+  populateInfoCard([stairsInfoFlightsToday], [findData(activityData, "flightsOfStairs")])
 
   //friend card:
   domUpdates.cardDisplay(stairsFriendFlightsAverageToday, (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1))
@@ -226,7 +239,8 @@ function populateHydrationCard() {
   populateMainCard(hydrationUserOuncesToday, findData(hydrationData, "numOunces"));
 
   //info card:
-  domUpdates.cardDisplay(hydrationInfoGlassesToday, (findData(hydrationData, "numOunces") / 8).toFixed(1));
+  //domUpdates.cardDisplay(hydrationInfoGlassesToday, (findData(hydrationData, "numOunces") / 8).toFixed(1));
+  populateInfoCard([hydrationInfoGlassesToday], [(findData(hydrationData, "numOunces") / 8).toFixed(1)])
 
 //friend card:
   domUpdates.cardDisplay(hydrationFriendOuncesToday, userRepository.calculateAverageDailyWater(todayDate));
@@ -247,9 +261,10 @@ function populateSleepCard() {
   populateMainCard(sleepUserHoursToday, findData(sleepData, "hoursSlept"));
 
   //info card:
-  domUpdates.cardDisplay(sleepInfoQualityToday, findData(sleepData, "sleepQuality"));
-  domUpdates.cardDisplay(sleepInfoHoursAverageAlltime, user.hoursSleptAverage);
-  domUpdates.cardDisplay(sleepInfoQualityAverageAlltime, user.sleepQualityAverage);
+  //domUpdates.cardDisplay(sleepInfoQualityToday, findData(sleepData, "sleepQuality"));
+  //domUpdates.cardDisplay(sleepInfoHoursAverageAlltime, user.hoursSleptAverage);
+  //domUpdates.cardDisplay(sleepInfoQualityAverageAlltime, user.sleepQualityAverage);
+  populateInfoCard([sleepInfoQualityToday, sleepInfoHoursAverageAlltime, sleepInfoQualityAverageAlltime], [findData(sleepData, "sleepQuality"), user.hoursSleptAverage, user.sleepQualityAverage])
 
 //friend card:
   domUpdates.cardDisplay(sleepFriendLongestSleeper, findSleeper("best"));
