@@ -1,6 +1,6 @@
 class Necessity {
   constructor(userRepository) {
-    this.userRepo = userRepository;
+    this.userRepository = userRepository;
   }
 
   // doActivity() {

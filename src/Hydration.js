@@ -1,8 +1,8 @@
 import Necessity from '../src/Necessity';
 
-class Hydration extends Necessity {
+class Hydration {
   constructor(data, userRepository) {
-    super(data);
+    // super(userRepository);
     this.userId = data.userID;
     this.date = data.date;
     this.ounces = data.numOunces;

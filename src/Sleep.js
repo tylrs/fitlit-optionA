@@ -1,8 +1,8 @@
 import Necessity from '../src/Necessity';
 
-class Sleep extends Necessity {
+class Sleep {
   constructor(data, userRepository) {
-    super(data);
+    // super(userRepository);
     this.userId = data.userID;
     this.date = data.date;
     this.hoursSlept = data.hoursSlept;

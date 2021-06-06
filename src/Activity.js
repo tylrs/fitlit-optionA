@@ -1,8 +1,7 @@
-import Necessity from '../src/Necessity';
+import Necessity from './Necessity';
 
-class Activity extends Necessity {
+class Activity {
   constructor(data, userRepository) {
-    super(data);
     this.userId = data.userID;
     this.date = data.date;
     this.steps = data.numSteps;
@@ -10,13 +9,14 @@ class Activity extends Necessity {
     this.flightsOfStairs = data.flightsOfStairs;
     this.milesWalked = 0;
     this.reachedStepGoal = null;
+    // this.userRepository = userRepository;
     this.doActivity(userRepository);
   }
   doActivity(userRepo) {
     var activity = this;
-    userRepo.users.find(function(user) {
+    userRepo.users.find((user) => {
       return user.id === activity.userId;
-    }).updateActivities(this); 
+    }).updateActivities(this);
   }
   calculateMiles(userRepository) {
     let walkingUser = userRepository.users.find(user => {

@@ -12,11 +12,14 @@ describe('userRepository', function() {
   // let necessity, user1, user2, user3, userTestRepository, sleep1, sleep2, sleep3, sleepData, userTestData;
   beforeEach(() => {
     usersData = userTestData.map(user => new User(user));
+
     userTestRepository = new UserRepository(usersData, sleepTestData, activityTestData, hydrationTestData);
     necessity = new Necessity(userTestRepository);
-    sleepTestData.forEach(sleep => new Sleep(sleep));
-    activityTestData.forEach(activity => new Activity(activity));
-    hydrationTestData.forEach(hydration => new Hydration(hydration));
+      // console.log(userTestRepository);
+    sleepTestData.forEach(sleep => new Sleep(sleep, userTestRepository));
+    activityTestData.forEach(activity => new Activity(activity, userTestRepository));
+    // console.log(activityTestData[0])
+    hydrationTestData.forEach(hydration => new Hydration(hydration, userTestRepository));
     user = userTestRepository.users[0];
     // user.findFriendsNames(userTestRepository.users);
   });

@@ -103,6 +103,7 @@ function instantiateData() {
     return new User(user);
     // userRepository.users.push(user)
   });
+
   userRepository = new UserRepository(usersData, sleepData, activityData, hydrationData);
 
   sleepData.forEach(sleep => {
@@ -112,7 +113,7 @@ function instantiateData() {
   activityData.forEach(activity => {
     activity = new Activity(activity, userRepository);
   });
-
+  console.log(userRepository.users[0].activityRecord)
   hydrationData.forEach(hydration => {
     hydration = new Hydration(hydration, userRepository);
   });
