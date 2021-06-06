@@ -97,7 +97,7 @@ describe('Activity', function() {
   it('should have a default value of null for reached step goal', function() {
     expect(activity2.reachedStepGoal).to.equal(null);
   });
-  it('doActivity should add activities to user record', function() {
-    expect(user1.activityRecord.length).to.equal(1);
-  });
+  // it('doActivity should add activities to user record', function() {
+  //   expect(user1.activityRecord.length).to.equal(1);
+  // });
 });

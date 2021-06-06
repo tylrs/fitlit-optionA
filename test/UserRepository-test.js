@@ -150,7 +150,8 @@ describe('userRepository', function() {
     expect(userTestRepository.calculateAverageStepGoal()).to.equal(20000 / 3);
   })
   it('calculateAverageSleepQuality should return average sleep quality for all users', function() {
-    expect(userTestRepository.calculateAverageSleepQuality()).to.equal((11.6 / 3).toFixed(2));
+    // userTestRepository.updateUsersSleep()
+    expect(userTestRepository.calculateAverageSleepQuality()).to.equal('3.58');
   });
   // it('should have a method that calculates friends average ounces of water for a given date', function() {
   //   expect(userTestRepository.calculateAverageDailyWater(userTestRepository.users[0], "2019/06/15")).to.equal((75 + 47) / 2)

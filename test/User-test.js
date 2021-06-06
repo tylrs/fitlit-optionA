@@ -61,7 +61,7 @@ describe('User', function() {
     expect(user.dailyStepGoal).to.equal(10000);
   });
   it('should have friends', function() {
-    expect(user.friends).to.deep.equal([16, 4, 8, 2, 3])
+    expect(user.friends).to.deep.equal([16, 4, 8])
   });
   it('getFirstName should return the first name of the user', function () {
     expect(user.getFirstName()).to.equal('LUISA');
