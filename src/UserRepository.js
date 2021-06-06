@@ -141,7 +141,7 @@ class UserRepository {
   // }
 
   //refactored into one function, tests updated but one fails
-  getSleeper(date, qualifier) {
+  getSleeper(date, qualifier, sleepData) {
     let sleeperData = sleepData.filter(sleep => {
       return sleep.date === date;
     }).sort((a, b) => {
