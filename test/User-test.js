@@ -29,7 +29,7 @@ describe('User', function() {
   beforeEach(() => {
     usersData = userTestData.map(user => new User(user));
     userTestRepository = new UserRepository(usersData, sleepTestData, activityTestData, hydrationTestData);
-    necessity = new Necessity(userTestRepository);
+    // necessity = new Necessity(userTestRepository);
     // sleepTestData.forEach(sleep => new Sleep(sleep, userTestRepository));
     activityTestData.forEach(activity => new Activity(activity, userTestRepository));
     // hydrationTestData.forEach(hydration => new Hydration(hydration, userTestRepository));
@@ -201,7 +201,7 @@ describe('User', function() {
     user.findTrendingStairsDays()
     expect(user.trendingStairsDays).to.deep.equal(['Your most recent positive climbing streak was 2019/06/26 - 2019/06/29!', 'Your most recent positive climbing streak was 2019/06/19 - 2019/06/24!']);
   });
-  it('findFriendsNames should find the first names of friends', function() {
+  it('findFriendsNames should find the first name of each friend', function() {
     let user2 = new User({
       'id': 16,
       'name': 'Ben Nist',
@@ -215,7 +215,9 @@ describe('User', function() {
       'name': 'Nick Adams',
     })
     let users = [user2, user3, user4];
+    console.log(user.friendsNames)
     user.findFriendsNames(users);
+    console.log(user.friendsNames)
     expect(user.friendsNames).to.deep.equal(['BEN', 'JOHN', 'NICK']);
   });
   it('calculateTotalStepsThisWeek should add users steps for week', function() {
