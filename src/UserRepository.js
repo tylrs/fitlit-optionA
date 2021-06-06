@@ -192,6 +192,12 @@ class UserRepository {
     }).sort((a, b) => a - b)[0]
     let bestSleepersThatDay = sleepsThatDay.filter(x => x.hoursSlept === mostHoursSleptThatDay)
     let worstSleepersThatDay = sleepsThatDay.filter(x => x.hoursSlept === leastHoursSleptThatDay)
+  // getSleeper(date, qualifier, sleepData) {
+  //   let sleeperData = sleepData.filter(sleep => {
+  //     return sleep.date === date;
+  //   }).sort((a, b) => {
+  //     return b.hoursSlept - a.hoursSlept;
+  //   });
 
     if (qualifier === "best") {
       return bestSleepersThatDay.map(x => x.userID)
