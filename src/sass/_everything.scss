@@ -8,7 +8,7 @@ padding: 0;
 
 body {
   background-color: $window-bgcolor;
-  font-family: 'Oswald', sans-serif;
+  font-family: $primary-font;
 }
 
 /* HEADER */
@@ -69,7 +69,7 @@ h2 {
 
 h3 {
   display: inline;
-  font-family: 'Work Sans', sans-serif;
+  font-family: $secondary-font;
   font-size: 3vw;
   font-weight: 700;
   letter-spacing: .2em;
@@ -86,7 +86,7 @@ h5 {
 }
 
 p {
-  font-family: 'Work Sans', sans-serif;
+  font-family: $secondary-font;
   font-size: 1.2vw;
   font-weight: 600;
   letter-spacing: .2vw;
