@@ -58,12 +58,24 @@ export const sleepTestData = [
     "sleepQuality": 4.7
   },
   {
+    "userID": 1,
+    "date": "2019/06/17",
+    "hoursSlept": 8,
+    "sleepQuality": 2.6
+  },
+  {
+    "userID": 1,
+    "date": "2019/06/25",
+    "hoursSlept": 5.1,
+    "sleepQuality": 3.7
+  },
+  {
     "userID": 3,
     "date": "2019/06/15",
     "hoursSlept": 10.8,
     "sleepQuality": 4.7
   }
-  
+
 ]
 
 export const hydrationTestData = [
