@@ -7,7 +7,7 @@ padding: 0;
 }
 
 body {
-  background-color: #1F1F1F;
+  background-color: $window-bgcolor;
   font-family: 'Oswald', sans-serif;
 }
 
@@ -36,8 +36,8 @@ button:active {
 }
 
 .user-info-dropdown {
-  background-color: #1F1F1F;
-  color: white;
+  background-color: $window-bgcolor;
+  color: $light-text-color;
   margin-left: 60%;
   margin-top: -1.2%;
   position: relative;
@@ -56,7 +56,7 @@ button:active {
 
 /* TEXT ELEMENTS */
 h1 {
-  color: #fff;
+  color: $light-text-color;
   display: inline;
   font-size: 5.4vw;
   letter-spacing: .2em;
@@ -127,25 +127,25 @@ main {
 }
 
 .steps-card-container {
-  background-color: #F5634B;
+  background-color: $step-card-bgcolor;
   grid-area: steps;
   margin: .5vw;
 }
 
 .hydration-card-container {
-  background-color: #54C6BE;
+  background-color: $hydration-card-bgcolor;
   grid-area: hydration;
   margin: .5vw;
 }
 
 .stairs-card-container {
-  background-color: #8975B2;
+  background-color: $stairs-card-bgcolor;
   grid-area: stairs;
   margin: .5vw;
 }
 
 .sleep-card-container {
-  background-color: #FBD089;
+  background-color: $sleep-card-bgcolor;
   grid-area: sleep;
   margin: .5vw;
 }
@@ -306,13 +306,13 @@ main {
 }
 
 .green-text {
-  color: green;
+  color: $green-text-color;
 }
 
 .red-text {
-  color: red;
+  color: $red-text-color;
 }
 
 .yellow-text {
-  color: #F8BA00;
+  color: $yellow-text-color;
 }
