@@ -56,8 +56,19 @@ let domUpdates = {
       <p class='dropdown-p friends-steps'>${element.firstName} |  ${element.totalWeeklySteps}</p>
       `;
     });
-  }
+  },
 
+  facilitateCardChange(event, cards) {
+    if (event.target.classList.contains('go-back-button')) {
+      event.target.closest('section').classList.add('hide');
+      let cardToShow = cards[`${event.target.closest('section').id.split('-')[0]}MainCard`]
+      cardToShow.classList.remove('hide');
+    } else if (event.target.type === 'button') {
+      event.target.closest('.main-card').classList.add('hide');
+      let cardToShow = cards[`${event.target.id}Card`]
+      cardToShow.classList.remove('hide');
+    }
+  }
 
 }
 
