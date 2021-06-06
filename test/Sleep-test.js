@@ -5,10 +5,10 @@ import UserRepository from '../src/UserRepository';
 import User from '../src/User';
 
 describe('Sleep', function() {
-  let sleep;
-  let user1;
-  let user2;
-  let userRepository;
+  let sleep, user1, user2, userData, userRepository, sleep1, sleep2, sleep3;
+  // let user1;
+  // let user2;
+  // let userRepository;
   beforeEach(() => {
     user1 = new User({
       'id': 1,
@@ -37,8 +37,10 @@ describe('Sleep', function() {
         19
       ]
     })
-    userRepository = new UserRepository();
-    userRepository.users.push(user1, user2);
+    // userRepository = new UserRepository();
+    // userRepository.users.push(user1, user2);
+    userData = [user1, user2];
+    userRepository = new UserRepository(userData);
     sleep1 = new Sleep({
       "userID": 1,
       "date": "2019/06/15",
