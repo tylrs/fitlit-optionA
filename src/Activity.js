@@ -22,7 +22,7 @@ class Activity extends Necessity {
     let walkingUser = userRepository.users.find(user => {
       return user.id === this.userId;
     });
-    return Math.round(this.steps * walkingUser.strideLength / 5280).toFixed(1);
+    return Math.round((this.steps * walkingUser.strideLength / 5280) * 10) / 10
   }
   compareStepGoal(userRepository) {
     let userStepGoal = userRepository.users.find(user => {

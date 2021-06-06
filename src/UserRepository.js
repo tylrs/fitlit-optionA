@@ -41,7 +41,7 @@ class UserRepository {
     let totalSleepQuality = sleepQualityArray.reduce((acc, currentNumber) => {
       return acc + currentNumber
     },0)
-    return (totalSleepQuality / sleepQualityArray.length).toFixed(2)
+    return Math.round((totalSleepQuality / sleepQualityArray.length) * 100) / 100
   }
   // calculateAverageSteps(date) {
   //   //iterates over the users and then each user's activity record

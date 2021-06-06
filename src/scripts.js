@@ -135,7 +135,7 @@ function populateUserCard() {
   dropdownEmail.innerText = `EMAIL | ${user.email}`;
   dropdownGoal.innerHTML = `DAILY STEP GOAL | ${user.dailyStepGoal}
   <br>average step goal amongst all users | ${userRepository.calculateAverageStepGoal()}
-  <br>your goal/average of all users goal | ${((user.dailyStepGoal / userRepository.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
+  <br>your goal/average of all users goal | ${Math.round((user.dailyStepGoal / userRepository.calculateAverageStepGoal()) * 100)}%`;
   populateFriends()
   adtlInfo.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
 }
@@ -182,12 +182,11 @@ function populateStepCard() {
 
   //refactored this function in userRepo
   // stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverageMinutesActive(todayDate);
-
-  stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive").toFixed(0);
+  stepsFriendActiveMinutesAverageToday.innerText = Math.round(userRepository.calculateAverage(todayDate, "minutesActive"));
 
 //refactored in userRepo class to be calculateAverage
   // stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
-  stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps").toFixed(0);
+  stepsFriendStepsAverageToday.innerText = Math.round(userRepository.calculateAverage(todayDate, "steps"));
 
   stepsFriendAverageStepGoal.innerText = `${userRepository.calculateAverageStepGoal()}`;
 
@@ -223,12 +222,12 @@ function populateClimbedCard() {
 
 //refactored in userRepo class to be calculateAverage
   // stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverageStairs(todayDate) / 12).toFixed(1);
-  stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1);
+  stairsFriendFlightsAverageToday.innerText = Math.round((userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12) * 10) / 10
 
 
   stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
   // stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
-  stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
+  stairsCalendarStairsAverageWeekly.innerText = Math.round(user.calculateAverageFlightsThisWeek(todayDate) * 12)
   // stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
 
   user.findTrendingStairsDays();
