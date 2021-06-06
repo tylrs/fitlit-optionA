@@ -14,9 +14,9 @@ import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
-let userRepository = new UserRepository();
 let todayDate = "2019/09/22";
-let userData, activityData, hydrationData, sleepData, user
+let userData, activityData, hydrationData, sleepData, user, userRepository;
+// let userRepository = new UserRepository();
 
 let dailyOz = document.querySelectorAll('.daily-oz');
 let dropdownEmail = document.querySelector('#dropdown-email');
@@ -199,10 +199,12 @@ function fetchData() {
 };
 
 function instantiateData() {
-  userData.forEach(user => {
-    user = new User(user);
-    userRepository.users.push(user)
+  let usersData = userData.map(user => {
+    return new User(user);
+    // userRepository.users.push(user)
   });
+
+  userRepository = new UserRepository(usersData);
 
   sleepData.forEach(sleep => {
     sleep = new Sleep(sleep, userRepository);
@@ -279,11 +281,19 @@ function populateStepCard() {
     return (activity.date === todayDate && activity.userId === user.id)
   }).calculateMiles(userRepository);
 
-  stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverageMinutesActive(todayDate);
-  stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
+  //refactored this function in userRepo
+  // stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverageMinutesActive(todayDate);
+
+  stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive");
+
+//refactored in userRepo class to be calculateAverage
+  // stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
+  stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps");
+
   stepsFriendAverageStepGoal.innerText = `${userRepository.calculateAverageStepGoal()}`;
 
   stepsCalendarTotalActiveMinutesWeekly.innerText = user.calculateAverageMinutesActiveThisWeek(todayDate);
+
   stepsCalendarTotalStepsWeekly.innerText = user.calculateAverageStepsThisWeek(todayDate);
 
   user.findTrendingStepDays();
@@ -312,7 +322,10 @@ function populateClimbedCard() {
     return activity.userID === user.id && activity.date === todayDate;
   }).flightsOfStairs;
 
-  stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverageStairs(todayDate) / 12).toFixed(1);
+//refactored in userRepo class to be calculateAverage
+  // stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverageStairs(todayDate) / 12).toFixed(1);
+  stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1);
+
 
   stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
   // stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
@@ -377,11 +390,11 @@ function populateSleepCard() {
   sleepInfoQualityAverageAlltime.innerText = user.sleepQualityAverage;
 
   sleepFriendLongestSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getLongestSleepers(todayDate)
+    return user.id === userRepository.getSleeper(todayDate, "best")
   }).getFirstName();
 
   sleepFriendWorstSleeper.innerText = userRepository.users.find(user => {
-    return user.id === userRepository.getWorstSleepers(todayDate)
+    return user.id === userRepository.getSleeper(todayDate)
   }).getFirstName();
 
   sleepCalendarHoursAverageWeekly.innerText = user.calculateAverageHoursThisWeek(todayDate);
