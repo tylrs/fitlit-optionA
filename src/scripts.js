@@ -1,5 +1,6 @@
-import './css/base.scss';
-import './css/styles.scss';
+// import './css/base.scss';
+// import './css/styles.scss';
+import './sass/index.scss';
 import { fetchApiData, postApiData } from './apiCalls';
 // import domUpdates from  './domUpdates';
 
