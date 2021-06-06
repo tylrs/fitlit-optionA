@@ -79,8 +79,14 @@ window.addEventListener('load', fetchData);
 mainPage.addEventListener('click', showInfo);
 profileButton.addEventListener('click', function() {
   domUpdates.showDropdown(userInfoDropdown)});
-stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
-stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
+// stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
+// stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
+stairsTrendingButton.addEventListener('click', function () {
+  updateTrending(trendingStairsPhraseContainer, user.trendingStairsDays[0])
+});
+stepsTrendingButton.addEventListener('click', function () {
+  updateTrending(trendingStepsPhraseContainer, user.trendingStepDays[0])
+});
 
 function getData() {
   return Promise.all([fetchApiData('users'), fetchApiData('sleep'), fetchApiData('activity'), fetchApiData('hydration')]);
@@ -296,12 +302,16 @@ function populateSleepCard() {
 }
 
 //is there a way we can refactor these without having the event listeners?
-function updateTrendingStepsDOM() {
-  domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
-}
+// function updateTrendingStepsDOM() {
+//   domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
+// }
+//
+// function updateTrendingStairsDOM() {
+//   domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
+// }
 
-function updateTrendingStairsDOM() {
-  domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
+function updateTrending(element, data) {
+  domUpdates.trendingDisplay(element, data)
 }
 
 function showInfo(event) {

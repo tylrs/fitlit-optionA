@@ -19,6 +19,7 @@ let domUpdates = {
     element.classList.toggle('hide');
   },
 
+//this needs to be figured out - move to css?
   applyFriendStyling() {
     let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
     friendsStepsParagraphs.forEach(paragraph => {
