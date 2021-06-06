@@ -132,40 +132,24 @@ function populateDOM() {
   populateSleepCard()
 }
 
-function populateUserCard() {
-  //headerName.innerText = `${user.getFirstName()}'S `;
-  domUpdates.headerDisplay(headerName, user.getFirstName());
-
-  //dropdownName.innerText = user.name.toUpperCase();
-  domUpdates.cardDisplay(dropdownName, user.name.toUpperCase());
-
-  //dropdownEmail.innerText = `EMAIL | ${user.email}`;
-  domUpdates.emailDisplay(dropdownEmail, user.email);
-
-  // dropdownGoal.innerHTML = `DAILY STEP GOAL | ${user.dailyStepGoal}
-  // <br>average step goal amongst all users | ${userRepository.calculateAverageStepGoal()}
-  // <br>your goal/average of all users goal | ${((user.dailyStepGoal / userRepository.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
-  domUpdates.populateDropDown(dropdownGoal, user, userRepository);
-  populateFriends()
-  // adtlInfo.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
-  domUpdates.populateAdditionalInfo(adtlInfo, user);
-
-}
-
+//////////// New stuff below
 function populateFriends() {
   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
-
-  // user.friendsActivityRecords.forEach(friend => {
-  //   dropdownFriendsStepsContainer.innerHTML += `
-  //   <p class='dropdown-p friends-steps'>${friend.firstName} |  ${friend.totalWeeklySteps}</p>
-  //   `;
-  // });
   domUpdates.populateHTMLArray(user.friendsActivityRecords, dropdownFriendsStepsContainer)
 
   domUpdates.applyFriendStyling()
 }
 
-//////////// New stuff below
+function populateUserCard() {
+  domUpdates.headerDisplay(headerName, user.getFirstName());
+  domUpdates.cardDisplay(dropdownName, user.name.toUpperCase());
+  domUpdates.emailDisplay(dropdownEmail, user.email);
+  domUpdates.populateDropDown(dropdownGoal, user, userRepository);
+  populateFriends()
+  domUpdates.populateAdditionalInfo(adtlInfo, user);
+}
+
+
 function findData(data, property) {
   let found = data.find(activity => {
     return activity.userID === user.id && activity.date === todayDate;
@@ -281,6 +265,33 @@ function updateTrendingStairsDOM() {
 }
 
 /////////////
+function populateFriends() {
+//   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
+//
+//   // user.friendsActivityRecords.forEach(friend => {
+//   //   dropdownFriendsStepsContainer.innerHTML += `
+//   //   <p class='dropdown-p friends-steps'>${friend.firstName} |  ${friend.totalWeeklySteps}</p>
+//   //   `;
+//   // });
+//   domUpdates.populateHTMLArray(user.friendsActivityRecords, dropdownFriendsStepsContainer)
+//
+//   domUpdates.applyFriendStyling()
+// }
+// function populateUserCard() {
+//   //headerName.innerText = `${user.getFirstName()}'S `;
+//
+//   //dropdownName.innerText = user.name.toUpperCase();
+//
+//   //dropdownEmail.innerText = `EMAIL | ${user.email}`;
+//
+//   // dropdownGoal.innerHTML = `DAILY STEP GOAL | ${user.dailyStepGoal}
+//   // <br>average step goal amongst all users | ${userRepository.calculateAverageStepGoal()}
+//   // <br>your goal/average of all users goal | ${((user.dailyStepGoal / userRepository.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
+//
+//   // adtlInfo.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
+//
+// }
+
 
 // function applyFriendStyling() {
 //   let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
