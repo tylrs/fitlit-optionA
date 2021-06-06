@@ -1,9 +1,8 @@
 import './css/base.scss';
 import './css/styles.scss';
 import { fetchApiData } from './apiCalls';
-// import { populateUserCard } from  './domUpdates';
 import domUpdates from './domUpdates';
-// console.log(domUpdates)
+
 // import userData from './data/users';
 // import activityData from './data/activity';
 // import sleepData from './data/sleep';
@@ -75,8 +74,6 @@ let trendingStairsPhraseContainer = document.querySelector('.trending-stairs-phr
 let userInfoDropdown = document.querySelector('#user-info-dropdown');
 let adtlInfo = document.querySelector('#adtlInfo');
 
-// import { populateUserCard } from  './domUpdates';
-
 window.addEventListener('load', fetchData);
 
 mainPage.addEventListener('click', showInfo);
@@ -104,7 +101,6 @@ function fetchData() {
 function instantiateData() {
   let usersData = userData.map(user => {
     return new User(user);
-    // userRepository.users.push(user)
   });
   userRepository = new UserRepository(usersData);
 
@@ -265,7 +261,7 @@ function updateTrendingStairsDOM() {
 }
 
 /////////////
-function populateFriends() {
+// function populateFriends() {
 //   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
 //
 //   // user.friendsActivityRecords.forEach(friend => {
