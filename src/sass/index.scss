@@ -1,4 +1,7 @@
-@use 'normalize';
-@use 'variables';
+@import 'normalize';
+@import 'variables';
 
-@use 'everything';
+@import 'everything';
+@import 'buttons';
+@import 'icons';
+@import 'helpers';
