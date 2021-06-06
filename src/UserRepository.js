@@ -12,6 +12,15 @@ class UserRepository {
   getUser(id) {
     return this.users.find(user => user.id === id);
   };
+
+  updateUsersSleep() {
+    this.sleeps.forEach((sleep) => {
+      let userToUpdate = this.users.find((user) => {
+        return user.id === sleep.userID
+      })
+      userToUpdate.updateSleep(sleep.date, sleep.hoursSlept, sleep.sleepQuality);
+    })
+  }
 //refactored to ES6 arrow functions - double check context on DOM
   calculateAverageStepGoal() {
     const total = this.users.reduce((accumulator, currentUser) => {

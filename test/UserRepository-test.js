@@ -14,9 +14,9 @@ describe('userRepository', function() {
     usersData = userTestData.map(user => new User(user));
 
     userTestRepository = new UserRepository(usersData, sleepTestData, activityTestData, hydrationTestData);
-    necessity = new Necessity(userTestRepository);
+    // necessity = new Necessity(userTestRepository);
       // console.log(userTestRepository);
-    sleepTestData.forEach(sleep => new Sleep(sleep, userTestRepository));
+    // sleepTestData.forEach(sleep => new Sleep(sleep, userTestRepository));
     activityTestData.forEach(activity => new Activity(activity, userTestRepository));
     // console.log(activityTestData[0])
     hydrationTestData.forEach(hydration => new Hydration(hydration, userTestRepository));
@@ -118,6 +118,19 @@ describe('userRepository', function() {
   });
   it('should return user when given a user id', function() {
     expect(userTestRepository.getUser(2)).to.equal(usersData[1]);
+  })
+
+  it.only('should update all users info based on sleep data', function() {
+
+    expect(userTestRepository.users[0].sleepQualityRecord.length).to.equal(0);
+    expect(userTestRepository.users[0].sleepHoursRecord.length).to.equal(0);
+    console.log('before', userTestRepository.users[0].sleepHoursRecord)
+
+    userTestRepository.updateUsersSleep()
+    console.log(userTestRepository.users[0].sleepHoursRecord)
+    expect(userTestRepository.users[0].sleepQualityRecord.length).to.equal(3);
+    expect(userTestRepository.users[0].sleepHoursRecord.length).to.equal(3);
+    // expect(userTestRepository.user[0].activityRecord;
   })
   it('calculateAverageStepGoal should return average step goal for all users', function() {
     expect(userTestRepository.calculateAverageStepGoal()).to.equal(20000 / 3);
