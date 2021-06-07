@@ -1,25 +1,41 @@
 import { expect } from 'chai';
-
+import UserRepository from '../src/UserRepository';
 import User from '../src/User';
+import Sleep from '../src/Sleep';
+import Activity from '../src/Activity';
+import Hydration from '../src/Hydration';
+import Necessity from '../src/Necessity';
+import { userTestData, sleepTestData, activityTestData, hydrationTestData } from './sampleData';
 
-
+// describe('User', function() {
+//   let user;
+//   beforeEach(() => {
+//     user = new User({
+//       'id': 1,
+//       'name': 'Luisa Hane',
+//       'address': '15195 Nakia Tunnel, Erdmanport VA 19901-1697',
+//       'email': 'Diana.Hayes1@hotmail.com',
+//       'strideLength': 4.3,
+//       'dailyStepGoal': 10000,
+//       'friends': [
+//         16,
+//         4,
+//         8
+//       ]
+//     })
+//   })
 describe('User', function() {
-  let user;
+  let user, usersData, userTestRepository, necessity;
   beforeEach(() => {
-    user = new User({
-      'id': 1,
-      'name': 'Luisa Hane',
-      'address': '15195 Nakia Tunnel, Erdmanport VA 19901-1697',
-      'email': 'Diana.Hayes1@hotmail.com',
-      'strideLength': 4.3,
-      'dailyStepGoal': 10000,
-      'friends': [
-        16,
-        4,
-        8
-      ]
-    })
-  })
+    usersData = userTestData.map(user => new User(user));
+    userTestRepository = new UserRepository(usersData, sleepTestData, activityTestData, hydrationTestData);
+    // necessity = new Necessity(userTestRepository);
+    // sleepTestData.forEach(sleep => new Sleep(sleep, userTestRepository));
+    // activityTestData.forEach(activity => new Activity(activity, userTestRepository));
+    // hydrationTestData.forEach(hydration => new Hydration(hydration, userTestRepository));
+    user = userTestRepository.users[0];
+    // user.findFriendsNames(userTestRepository.users);
+  });
   it('should be a function', function() {
     expect(User).to.be.a('function');
   });
@@ -47,6 +63,18 @@ describe('User', function() {
   it('should have friends', function() {
     expect(user.friends).to.deep.equal([16, 4, 8])
   });
+  it('getFirstName should return the first name of the user', function () {
+    expect(user.getFirstName()).to.equal('LUISA');
+  });
+  it('addDailyOunces should show the last week of water', function() {
+    user.ouncesRecord = [
+      {"2019/06/15": 1},
+      {"2019/06/15": 1},
+      {"2019/06/16": 4}
+    ]
+    expect(user.addDailyOunces("2019/06/15")).to.equal(2);
+  });
+
   it('should have a default ouncesAverage of 0', function() {
     expect(user.ouncesAverage).to.equal(0);
   });
@@ -77,17 +105,6 @@ describe('User', function() {
   it('should have a default value of [] for trendingStairsDays', function() {
     expect(user.trendingStairsDays).to.deep.equal([]);
   });
-  it('getFirstName should return the first name of the user', function () {
-    expect(user.getFirstName()).to.equal('LUISA');
-  });
-  it('addDailyOunces should show the last week of water', function() {
-    user.ouncesRecord = [
-      {"2019/06/15": 1},
-      {"2019/06/15": 1},
-      {"2019/06/16": 4}
-    ]
-    expect(user.addDailyOunces("2019/06/15")).to.equal(2);
-  });
   describe('updateSleep', function() {
     beforeEach(() => {
       user.updateSleep("2019/06/15", 7, 4.7);
@@ -112,27 +129,10 @@ describe('User', function() {
     user.sleepQualityRecord = [{date: "2019/09/22", quality: 9.6}, {date: "2019/09/21", quality: 8.2}, {date: "2019/09/20", quality: 9.9}, {date: "2019/09/19", quality: 4.2}, {date: "2019/09/18", quality: 9.5}, {date: "2019/09/17", quality: 7.8}, {date: "2019/09/16", quality: 10.2}, {date: "2019/09/15", quality: 5.7}, {date: "2019/09/14", quality: 8.8}, {date: "2019/09/13", quality: 4.6}, {date: "2019/09/12", quality: 5.3}];
     expect(user.calculateAverageQualityThisWeek('2019/09/22')).to.equal('8.5')
   });
-  it('should have a method that return the highest climbing record', function() {
-    user.activityRecord = [{flightsOfStairs: 10}, {flightsOfStairs: 15}, {flightsOfStairs: 17}]
-    expect(user.findClimbingRecord()).to.equal(17)
-  });
-  it('should have a method that calculates daily calories burned', function() {
-    user.activityRecord = [{date: "2019/09/16", activityRecord: 78}, {date: "2019/09/17", minutesActive: 100}, {date: "2019/09/17", minutesActive: 20}];
-    expect(user.calculateDailyCalories("2019/09/17")).to.equal(912)
-  });
   it('calculateAverageMinutesActiveThisWeek should calculate the average minutes active', function() {
     user.activityRecord = [{date: "2019/09/18", minutesActive: 78}, {date: "2019/09/17", minutesActive: 100}, {date: "2019/09/16", minutesActive: 20}, {date: "2019/09/15", minutesActive: 21}, {date: "2019/09/14", minutesActive: 35}, {date: "2019/09/13", minutesActive: 37}, {date: "2019/06/12", minutesActive: 42}, {date: "2019/09/11", minutesActive: 18}, {date: "2019/09/10", minutesActive: 16}, {date: "2019/09/09", minutesActive: 81}];
     expect(user.calculateAverageMinutesActiveThisWeek("2019/09/17")).to.equal('39')
   });
-  it('calculateAverageStepsThisWeek should calculate the average steps taken in a given week', function() {
-    user.activityRecord = [{date: "2019/09/18", steps: 1178}, {date: "2019/09/17", steps: 1080}, {date: "2019/09/16", steps: 120}, {date: "2019/09/15", steps: 891}, {date: "2019/09/14", steps: 380}, {date: "2019/09/13", steps: 3234}, {date: "2019/06/12", steps: 1111}, {date: "2019/09/11", steps: 18}, {date: "2019/09/10", steps: 345}, {date: "2019/09/09", steps: 81}];
-    expect(user.calculateAverageStepsThisWeek("2019/09/17")).to.equal('976')
-  });
-  it('calculateAverageFlightsThisWeek should calculate the average flights of stairs taken in a given week', function() {
-    user.activityRecord = [{date: "2019/09/18", flightsOfStairs: 4}, {date: "2019/09/17", flightsOfStairs: 6}, {date: "2019/09/16", flightsOfStairs: 1}, {date: "2019/09/15", flightsOfStairs: 2}, {date: "2019/09/14", flightsOfStairs: 12}, {date: "2019/09/13", flightsOfStairs: 21}, {date: "2019/06/12", flightsOfStairs: 3}, {date: "2019/09/11", flightsOfStairs: 14}, {date: "2019/09/10", flightsOfStairs: 2}, {date: "2019/09/09", flightsOfStairs: 8}];
-    expect(user.calculateAverageFlightsThisWeek("2019/09/17")).to.equal('8.4')
-  });
-
   it('updateAccomplishedDays should create an array of good days', function() {
     user.updateActivities({
       "userID": 1,
@@ -150,6 +150,41 @@ describe('User', function() {
     });
     expect(user.accomplishedDays.length).to.equal(1);
   })
+  it('should have a method that return the highest climbing record', function() {
+    user.activityRecord = [{flightsOfStairs: 10}, {flightsOfStairs: 15}, {flightsOfStairs: 17}]
+    expect(user.findClimbingRecord()).to.equal(17)
+  });
+
+  it('should have a compareStepGoal method which should return false if goal isn\'t met', function() {
+    userTestRepository.updateUsersActivity();
+
+    expect(user.compareStepGoal("2019/06/15")).to.equal(false);
+  });
+
+  it('should have a compareStepGoal method which should return true if goal is met', function() {
+    userTestRepository.updateUsersActivity();
+
+    expect(user.compareStepGoal("2019/06/22")).to.equal(true);
+  });
+
+  it('should have a method that calculate miles walked', function() {
+    userTestRepository.updateUsersActivity();
+  
+    expect(user.calculateMiles("2019/06/22")).to.equal('8.0');
+  });
+  // NOT REQUIRED BY SPEC
+  it('should have a method that calculates daily calories burned', function() {
+    user.activityRecord = [{date: "2019/09/16", activityRecord: 78}, {date: "2019/09/17", minutesActive: 100}, {date: "2019/09/17", minutesActive: 20}];
+    expect(user.calculateDailyCalories("2019/09/17")).to.equal(912)
+  });
+  it('calculateAverageStepsThisWeek should calculate the average steps taken in a given week', function() {
+    user.activityRecord = [{date: "2019/09/18", steps: 1178}, {date: "2019/09/17", steps: 1080}, {date: "2019/09/16", steps: 120}, {date: "2019/09/15", steps: 891}, {date: "2019/09/14", steps: 380}, {date: "2019/09/13", steps: 3234}, {date: "2019/06/12", steps: 1111}, {date: "2019/09/11", steps: 18}, {date: "2019/09/10", steps: 345}, {date: "2019/09/09", steps: 81}];
+    expect(user.calculateAverageStepsThisWeek("2019/09/17")).to.equal('976')
+  });
+  it('calculateAverageFlightsThisWeek should calculate the average flights of stairs taken in a given week', function() {
+    user.activityRecord = [{date: "2019/09/18", flightsOfStairs: 4}, {date: "2019/09/17", flightsOfStairs: 6}, {date: "2019/09/16", flightsOfStairs: 1}, {date: "2019/09/15", flightsOfStairs: 2}, {date: "2019/09/14", flightsOfStairs: 12}, {date: "2019/09/13", flightsOfStairs: 21}, {date: "2019/06/12", flightsOfStairs: 3}, {date: "2019/09/11", flightsOfStairs: 14}, {date: "2019/09/10", flightsOfStairs: 2}, {date: "2019/09/09", flightsOfStairs: 8}];
+    expect(user.calculateAverageFlightsThisWeek("2019/09/17")).to.equal('8.4')
+  });
   it('findTrendingStepDays should find 3+ days with positive trend', function() {
     user.activityRecord = [{
     "date": "2019/06/29", "steps": 2},
@@ -184,7 +219,7 @@ describe('User', function() {
     user.findTrendingStairsDays()
     expect(user.trendingStairsDays).to.deep.equal(['Your most recent positive climbing streak was 2019/06/26 - 2019/06/29!', 'Your most recent positive climbing streak was 2019/06/19 - 2019/06/24!']);
   });
-  it('findFriendsNames should find the first names of friends', function() {
+  it('findFriendsNames should find the first name of each friend', function() {
     let user2 = new User({
       'id': 16,
       'name': 'Ben Nist',
