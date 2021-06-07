@@ -29,6 +29,14 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
     var names = this.name.split(' ');
     return names[0].toUpperCase();
   }
+
+  calculateMiles(todayDate) {
+    let foundActivity = this.activityRecord.find((activity) => {
+      return activity.date === todayDate;
+    })
+    return Math.round(foundActivity.numSteps * this.strideLength / 5280).toFixed(1)
+  }
+
   updateHydration(date, amount) {
     this.ouncesRecord.unshift({[date]: amount});
     if (this.ouncesRecord.length) {

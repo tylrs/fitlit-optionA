@@ -212,6 +212,10 @@ function instantiateData() {
   let usersData = userData.map(user => {
     return new User(user);
   });
+  // let newActivityData = activityData.map((activity) => {
+  //   let newActivity = new Activity(activity);
+  //   return newActivity;
+  // })
 
   userRepository = new UserRepository(usersData, sleepData, activityData, hydrationData);
   // userRepository = new UserRepository(usersData);
@@ -226,9 +230,9 @@ function instantiateData() {
   //   sleep = new Sleep(sleep, userRepository);
   // });
 
-  activityData.forEach(activity => {
-    activity = new Activity(activity, userRepository);
-  });
+  // activityData.forEach(activity => {
+  //   activity = new Activity(activity, userRepository);
+  // });
   // console.log(userRepository.users[0].activityRecord)
   // hydrationData.forEach(hydration => {
   //   hydration = new Hydration(hydration, userRepository);
@@ -270,19 +274,26 @@ function findData(data, property) {
   })[property]
   return found
 }
-
-function findRecord() {
-  let record = user.activityRecord.find(activity => {
-    return (activity.date === todayDate && activity.userId === user.id)
-  }).calculateMiles(userRepository);
-  return record;
-}
+//this just calls calculate miles on user class
+// function find() {
+//   // let record = user.activityRecord.find(activity => {
+//   //   return (activity.date === todayDate && activity.userId === user.id)
+//   // }).calculateMiles(userRepository);
+//   let record = user.calculateMiles(todayDate);
+//   return record;
+// }
 
 function findSleeper(qualifier) {
-  let found = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate, qualifier, sleepData)
-  }).getFirstName()
-  return found
+  let foundSleepers = userRepository.users.filter(user => {
+    return userRepository.getSleeper(todayDate, qualifier).includes(user.id);
+  })
+  let names = foundSleepers.map((sleeper) => {
+    return sleeper.getFirstName();
+  })
+  if (names.length > 1) {
+    names = names.join(' AND ')
+  }
+  return names;
 }
 
 
@@ -322,7 +333,7 @@ function populateStepCard() {
 //info-card
   // domUpdates.cardDisplay(stepsInfoActiveMinutesToday, findData(activityData, "minutesActive"))
   // domUpdates.cardDisplay(stepsInfoMilesWalkedToday, findRecord())
-  populateIterateCard([stepsInfoActiveMinutesToday, stepsInfoMilesWalkedToday], [findData(activityData, "minutesActive"), findRecord()])
+  populateIterateCard([stepsInfoActiveMinutesToday, stepsInfoMilesWalkedToday], [findData(activityData, "minutesActive"), user.calculateMiles(todayDate)])
 
 //friends card:
   // domUpdates.cardDisplay(stepsFriendActiveMinutesAverageToday, userRepository.calculateAverage(todayDate, "minutesActive"));
@@ -443,6 +454,9 @@ function showInfo(event) {
     sleepInfoCard,
     sleepFriendsCard,
     sleepCalendarCard,
+    sleepFormCard,
+    hydrationFormCard,
+    activityFormCard
   }
   domUpdates.facilitateCardChange(event, cards)
 }
