@@ -60,6 +60,7 @@ describe('Sleep', function() {
       "sleepQuality": 1.4
     }, userRepository);
   });
+  // NOT REQUIRED BY SPEC
   it('should be a function', function() {
     expect(Sleep).to.be.a('function');
   });

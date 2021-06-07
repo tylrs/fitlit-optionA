@@ -1,5 +1,6 @@
-import './css/base.scss';
-import './css/styles.scss';
+// import './css/base.scss';
+// import './css/styles.scss';
+import './sass/index.scss';
 import domUpdates from './domUpdates';
 import { fetchApiData, postApiData } from './apiCalls';
 
@@ -14,7 +15,7 @@ import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
-let todayDate = "2019/09/22";
+let todayDate = "2019/09/05";
 let userData, activityData, hydrationData, sleepData, user, userRepository;
 
 let dailyOz = document.querySelectorAll('.daily-oz');
@@ -65,6 +66,7 @@ let sleepInfoQualityAverageAlltime = document.querySelector('#sleep-info-quality
 let sleepInfoQualityToday = document.querySelector('#sleep-info-quality-today');
 let sleepMainCard = document.querySelector('#sleep-main-card');
 let sleepUserHoursToday = document.querySelector('#sleep-user-hours-today');
+
 let stairsCalendarCard = document.querySelector('#stairs-calendar-card');
 let stairsCalendarFlightsAverageWeekly = document.querySelector('#stairs-calendar-flights-average-weekly');
 let stairsCalendarStairsAverageWeekly = document.querySelector('#stairs-calendar-stairs-average-weekly');
@@ -73,6 +75,7 @@ let stepsInfoCard = document.querySelector('#steps-info-card');
 let stepsFriendsCard = document.querySelector('#steps-friends-card');
 let stepsTrendingCard = document.querySelector('#steps-trending-card');
 let stepsCalendarCard = document.querySelector('#steps-calendar-card');
+
 let stairsFriendFlightsAverageToday = document.querySelector('#stairs-friend-flights-average-today');
 let stairsFriendsCard = document.querySelector('#stairs-friends-card');
 let stairsInfoCard = document.querySelector('#stairs-info-card');
@@ -81,6 +84,7 @@ let stairsMainCard = document.querySelector('#stairs-main-card');
 let stairsTrendingButton = document.querySelector('.stairs-trending-button');
 let stairsTrendingCard = document.querySelector('#stairs-trending-card');
 let stairsUserStairsToday = document.querySelector('#stairs-user-stairs-today');
+
 let stepsCalendarTotalActiveMinutesWeekly = document.querySelector('#steps-calendar-total-active-minutes-weekly');
 let stepsCalendarTotalStepsWeekly = document.querySelector('#steps-calendar-total-steps-weekly');
 let stepsFriendAverageStepGoal = document.querySelector('#steps-friend-average-step-goal');
@@ -255,20 +259,31 @@ function instantiateData() {
   let usersData = userData.map(user => {
     return new User(user);
   });
+  // let newActivityData = activityData.map((activity) => {
+  //   let newActivity = new Activity(activity);
+  //   return newActivity;
+  // })
 
-  userRepository = new UserRepository(usersData);
+  userRepository = new UserRepository(usersData, sleepData, activityData, hydrationData);
+  // userRepository = new UserRepository(usersData);
 
-  sleepData.forEach(sleep => {
-    sleep = new Sleep(sleep, userRepository);
-  });
 
-  activityData.forEach(activity => {
-    activity = new Activity(activity, userRepository);
-  });
+  userRepository.updateUsersSleep();
+  userRepository.updateUsersActivity();
+  userRepository.updateUsersHydration();
 
-  hydrationData.forEach(hydration => {
-    hydration = new Hydration(hydration, userRepository);
-  });
+
+  // sleepData.forEach(sleep => {
+  //   sleep = new Sleep(sleep, userRepository);
+  // });
+
+  // activityData.forEach(activity => {
+  //   activity = new Activity(activity, userRepository);
+  // });
+  // console.log(userRepository.users[0].activityRecord)
+  // hydrationData.forEach(hydration => {
+  //   hydration = new Hydration(hydration, userRepository);
+  // });
 
   user = userRepository.users[0];
   user.findFriendsNames(userRepository.users);
@@ -292,7 +307,7 @@ function populateFriends() {
 
 function populateUserCard() {
   domUpdates.headerDisplay(headerName, user.getFirstName());
-  domUpdates.cardDisplay(dropdownName, user.name.toUpperCase());
+  domUpdates.cardDisplay(dropdownName, user.name);
   domUpdates.emailDisplay(dropdownEmail, user.email);
   domUpdates.populateDropDown(dropdownGoal, user, userRepository);
   populateFriends()
@@ -307,20 +322,27 @@ function findData(data, property) {
   return found
 }
 
-//Move this to user class
-function findRecord() {
-  let record = user.activityRecord.find(activity => {
-    return (activity.date === todayDate && activity.userId === user.id)
-  }).calculateMiles(userRepository);
-  return record;
-}
+//this just calls calculate miles on user class
+// function find() {
+//   // let record = user.activityRecord.find(activity => {
+//   //   return (activity.date === todayDate && activity.userId === user.id)
+//   // }).calculateMiles(userRepository);
+//   let record = user.calculateMiles(todayDate);
+//   return record;
+// }
 
 //move this to userRepo
 function findSleeper(qualifier) {
-  let found = userRepository.users.find(user => {
-    return user.id === userRepository.getSleeper(todayDate, qualifier, sleepData)
-  }).getFirstName()
-  return found
+  let foundSleepers = userRepository.users.filter(user => {
+    return userRepository.getSleeper(todayDate, qualifier).includes(user.id);
+  })
+  let names = foundSleepers.map((sleeper) => {
+    return sleeper.getFirstName();
+  })
+  if (names.length > 1) {
+    names = names.join(' AND ')
+  }
+  return names;
 }
 
 
@@ -328,6 +350,11 @@ function findSleeper(qualifier) {
 function populateMainCard(element, data) {
   domUpdates.cardDisplay(element, data);
 }
+//   stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive").toFixed(0);
+//
+// //refactored in userRepo class to be calculateAverage
+//   // stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
+//   stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps").toFixed(0);
 
 function populateIterateCard(queries, finds) {
   //iterate through queries and finds to match up the same indexes
@@ -355,7 +382,7 @@ function populateStepCard() {
 //info-card
   // domUpdates.cardDisplay(stepsInfoActiveMinutesToday, findData(activityData, "minutesActive"))
   // domUpdates.cardDisplay(stepsInfoMilesWalkedToday, findRecord())
-  populateIterateCard([stepsInfoActiveMinutesToday, stepsInfoMilesWalkedToday], [findData(activityData, "minutesActive"), findRecord()])
+  populateIterateCard([stepsInfoActiveMinutesToday, stepsInfoMilesWalkedToday], [findData(activityData, "minutesActive"), user.calculateMiles(todayDate)])
 
 //friends card:
   // domUpdates.cardDisplay(stepsFriendActiveMinutesAverageToday, userRepository.calculateAverage(todayDate, "minutesActive"));

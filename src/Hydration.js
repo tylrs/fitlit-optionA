@@ -1,5 +1,8 @@
+import Necessity from '../src/Necessity';
+
 class Hydration {
   constructor(data, userRepository) {
+    // super(userRepository);
     this.userId = data.userID;
     this.date = data.date;
     this.ounces = data.numOunces;

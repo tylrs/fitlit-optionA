@@ -1,0 +1,31 @@
+.button {
+  background-position: center;
+  background-size: 3.4vw;
+  border: none;
+  height: 3.4vw;
+  width: 3.4vw;
+}
+
+.info-button {
+  display: inline;
+  margin-left: $button-spacing;
+}
+
+.friends-button {
+  display: inline;
+  margin-right: $button-spacing;
+}
+
+.calendar-button {
+  display: inline;
+  float: right;
+  margin-right: $button-spacing;
+}
+
+.trending-button {
+  margin-left: $button-spacing;
+}
+
+.go-back-button {
+  margin-left: $button-spacing;
+}
