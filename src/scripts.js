@@ -307,6 +307,7 @@ function findData(data, property) {
   return found
 }
 
+//Move this to user class
 function findRecord() {
   let record = user.activityRecord.find(activity => {
     return (activity.date === todayDate && activity.userId === user.id)
@@ -314,6 +315,7 @@ function findRecord() {
   return record;
 }
 
+//move this to userRepo
 function findSleeper(qualifier) {
   let found = userRepository.users.find(user => {
     return user.id === userRepository.getSleeper(todayDate, qualifier, sleepData)
