@@ -166,6 +166,12 @@ describe('User', function() {
 
     expect(user.compareStepGoal("2019/06/22")).to.equal(true);
   });
+
+  it('should have a method that calculate miles walked', function() {
+    userTestRepository.updateUsersActivity();
+  
+    expect(user.calculateMiles("2019/06/22")).to.equal('8.0');
+  });
   // NOT REQUIRED BY SPEC
   it('should have a method that calculates daily calories burned', function() {
     user.activityRecord = [{date: "2019/09/16", activityRecord: 78}, {date: "2019/09/17", minutesActive: 100}, {date: "2019/09/17", minutesActive: 20}];
