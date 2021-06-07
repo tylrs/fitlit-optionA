@@ -31,7 +31,7 @@ describe('User', function() {
     userTestRepository = new UserRepository(usersData, sleepTestData, activityTestData, hydrationTestData);
     // necessity = new Necessity(userTestRepository);
     // sleepTestData.forEach(sleep => new Sleep(sleep, userTestRepository));
-    activityTestData.forEach(activity => new Activity(activity, userTestRepository));
+    // activityTestData.forEach(activity => new Activity(activity, userTestRepository));
     // hydrationTestData.forEach(hydration => new Hydration(hydration, userTestRepository));
     user = userTestRepository.users[0];
     // user.findFriendsNames(userTestRepository.users);
@@ -153,6 +153,18 @@ describe('User', function() {
   it('should have a method that return the highest climbing record', function() {
     user.activityRecord = [{flightsOfStairs: 10}, {flightsOfStairs: 15}, {flightsOfStairs: 17}]
     expect(user.findClimbingRecord()).to.equal(17)
+  });
+
+  it('should have a compareStepGoal method which should return false if goal isn\'t met', function() {
+    userTestRepository.updateUsersActivity();
+
+    expect(user.compareStepGoal("2019/06/15")).to.equal(false);
+  });
+
+  it('should have a compareStepGoal method which should return true if goal is met', function() {
+    userTestRepository.updateUsersActivity();
+
+    expect(user.compareStepGoal("2019/06/22")).to.equal(true);
   });
   // NOT REQUIRED BY SPEC
   it('should have a method that calculates daily calories burned', function() {

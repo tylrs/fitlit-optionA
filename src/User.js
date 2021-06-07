@@ -30,6 +30,17 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
     return names[0].toUpperCase();
   }
 
+  compareStepGoal(todayDate) {
+    let foundActivity = this.activityRecord.find((activity) => {
+      return activity.date === todayDate;
+    })
+    if (foundActivity.numSteps >= this.dailyStepGoal) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   calculateMiles(todayDate) {
     let foundActivity = this.activityRecord.find((activity) => {
       return activity.date === todayDate;

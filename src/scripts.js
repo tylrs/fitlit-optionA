@@ -14,7 +14,7 @@ import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
-let todayDate = "2019/09/22";
+let todayDate = "2019/09/05";
 let userData, activityData, hydrationData, sleepData, user, userRepository;
 
 let dailyOz = document.querySelectorAll('.daily-oz');
