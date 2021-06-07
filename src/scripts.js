@@ -1,5 +1,6 @@
-import './css/base.scss';
-import './css/styles.scss';
+// import './css/base.scss';
+// import './css/styles.scss';
+import './sass/index.scss';
 import domUpdates from './domUpdates';
 import { fetchApiData, postApiData } from './apiCalls';
 
@@ -240,13 +241,12 @@ function populateDOM() {
 function populateFriends() {
   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
   domUpdates.populateHTMLArray(user.friendsActivityRecords, dropdownFriendsStepsContainer)
-
-  //domUpdates.applyFriendStyling()
+  domUpdates.applyFriendStyling()
 }
 
 function populateUserCard() {
   domUpdates.headerDisplay(headerName, user.getFirstName());
-  domUpdates.cardDisplay(dropdownName, user.name.toUpperCase());
+  domUpdates.cardDisplay(dropdownName, user.name);
   domUpdates.emailDisplay(dropdownEmail, user.email);
   domUpdates.populateDropDown(dropdownGoal, user, userRepository);
   populateFriends()
