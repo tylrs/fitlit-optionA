@@ -58,7 +58,6 @@ let domUpdates = {
     });
   },
 
-//how to resolve this with new post functionality
   facilitateCardChange(event, cards) {
     if (event.target.classList.contains('go-back-button')) {
       event.target.closest('section').classList.add('hide');

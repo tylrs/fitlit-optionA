@@ -211,7 +211,7 @@ function showPostMessage(type, status, responseStatus) {
     sleepFormMessage,
     activityFormMessage
   }
-  domUpates.facilitatePostMessage(type, status, responseStatus, messageSelectors, user)
+  domUpdates.facilitatePostMessage(type, status, responseStatus, messageSelectors, user)
 }
 //////////////////////
 
