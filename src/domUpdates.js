@@ -68,7 +68,52 @@ let domUpdates = {
       let cardToShow = cards[`${event.target.id}Card`]
       cardToShow.classList.remove('hide');
     }
+  },
+
+  // determineShoworSubmit(event) {
+  //   event.preventDefault()
+  //   if (event.target.classList.contains('new-data-submit-button')) {
+  //     sortForm(event);
+  //   } else {
+  //     showInfo(event);
+  //   }
+  // },
+
+  // determinePostData(event, inputFields) {
+  //   let inputData, type;
+  //   if (event.target.id === 'sleepSubmitButton') {
+  //     let hoursSleptInput = parseInt(hoursSleptUserInput.value);
+  //     let sleepQualityInput = parseInt(sleepQualityUserInput.value);
+  //     inputData = {hoursSleptInput, sleepQualityInput};
+  //     type = 'sleep';
+  //   } else if (event.target.id === 'hydrationSubmitButton') {
+  //     let numOuncesInput = parseInt(numOuncesUserInput.value);
+  //     inputData = {numOuncesInput};
+  //     type = 'hydration';
+  //   } else if (event.target.id === 'activitySubmitButton') {
+  //     let numStepsInput = parseInt(numStepsUserInput.value);
+  //     let minutesActiveInput = parseInt(minutesActiveUserInput.value);
+  //     let flightsOfStairsInput = parseInt(flightsOfStairsUserInput.value);
+  //     inputData = {numStepsInput, minutesActiveInput, flightsOfStairsInput};
+  //     type = 'activity';
+  //   }
+  //   postData(type, inputData)
+  // },
+
+  facilitatePostMessage(type, status, responseStatus, messageSelectors, user) {
+    let newMessage;
+    let originalMessage = messageSelectors[`${type}FormMessage`].innerText;
+    if (status === 'success') {
+      newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
+    } else {
+      newMessage = `Sorry ${user.getFirstName()}, there was an ${responseStatus.message}`;
+    }
+    messageSelectors[`${type}FormMessage`].innerText = newMessage;
+    const resetMessage = setTimeout(() => {
+      messageSelectors[`${type}FormMessage`].innerText = originalMessage;
+    }, 5000)
   }
+
 
 }
 

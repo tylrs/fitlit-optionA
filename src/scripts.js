@@ -111,7 +111,11 @@ stairsTrendingButton.addEventListener('click', function () {
 stepsTrendingButton.addEventListener('click', function () {
   updateTrending(trendingStepsPhraseContainer, user.trendingStepDays[0])
 });
-mainPage.addEventListener('click', determineShoworSubmit);
+mainPage.addEventListener('click', function() {
+  determineShoworSubmit(event)
+});
+// mainPage.addEventListener('click', function () {
+//   domUpdates.determineShoworSubmit(event)});
 // profileButton.addEventListener('click', showDropdown);
 
 function determineShoworSubmit(event) {
@@ -158,6 +162,7 @@ function postData(type, inputData) {
     showPostMessage(type, 'fail', error)
   })
 }
+
 function renderSuccessfulPost(type) {
   showPostMessage(type, 'success')
   fetchApiData(type)
@@ -174,24 +179,65 @@ function renderSuccessfulPost(type) {
   })
 }
 
+///////////////New Post stuff below:
+// function sortForm(event) {
+//   let inputFields = {
+//     hoursSleptUserInput,
+//     sleepQualityUserInput,
+//     numOuncesUserInput,
+//     numStepsUserInput,
+//     minutesActiveUserInput,
+//     flightsOfStairsUserInput,
+//   }
+//   domUpdates.determinePostData(event, inputFields);
+  // let inputData, type;
+  // if (event.target.id === 'sleepSubmitButton') {
+  //   let hoursSleptInput = parseInt(hoursSleptUserInput.value);
+  //   let sleepQualityInput = parseInt(sleepQualityUserInput.value);
+  //   inputData = {hoursSleptInput, sleepQualityInput};
+  //   type = 'sleep';
+  // } else if (event.target.id === 'hydrationSubmitButton') {
+  //   let numOuncesInput = parseInt(numOuncesUserInput.value);
+  //   inputData = {numOuncesInput};
+  //   type = 'hydration';
+  // } else if (event.target.id === 'activitySubmitButton') {
+  //   let numStepsInput = parseInt(numStepsUserInput.value);
+  //   let minutesActiveInput = parseInt(minutesActiveUserInput.value);
+  //   let flightsOfStairsInput = parseInt(flightsOfStairsUserInput.value);
+  //   inputData = {numStepsInput, minutesActiveInput, flightsOfStairsInput};
+  //   type = 'activity';
+  // }
+  // postData(type, inputData)
+// }
 function showPostMessage(type, status, responseStatus) {
-  let newMessage;
   let messageSelectors = {
     hydrationFormMessage,
     sleepFormMessage,
     activityFormMessage
   }
-  let originalMessage = messageSelectors[`${type}FormMessage`].innerText;
-  if (status === 'success') {
-    newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
-  } else {
-    newMessage = `Sorry ${user.getFirstName()}, there was an ${responseStatus.message}`;
-  }
-  messageSelectors[`${type}FormMessage`].innerText = newMessage;
-  const resetMessage = setTimeout(() => {
-    messageSelectors[`${type}FormMessage`].innerText = originalMessage;
-  }, 5000)
+  domUpdates.facilitatePostMessage(type, status, responseStatus, messageSelectors, user)
 }
+//////////////////////
+
+//Old stuff below:
+// function showPostMessage(type, status, responseStatus) {
+//   let newMessage;
+//   let messageSelectors = {
+//     hydrationFormMessage,
+//     sleepFormMessage,
+//     activityFormMessage
+//   }
+//   let originalMessage = messageSelectors[`${type}FormMessage`].innerText;
+//   if (status === 'success') {
+//     newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
+//   } else {
+//     newMessage = `Sorry ${user.getFirstName()}, there was an ${responseStatus.message}`;
+//   }
+//   messageSelectors[`${type}FormMessage`].innerText = newMessage;
+//   const resetMessage = setTimeout(() => {
+//     messageSelectors[`${type}FormMessage`].innerText = originalMessage;
+//   }, 5000)
+// }
 
 function getData() {
   return Promise.all([fetchApiData('users'), fetchApiData('sleep'), fetchApiData('activity'), fetchApiData('hydration')]);
@@ -255,6 +301,7 @@ function populateDOM() {
 function populateFriends() {
   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
   domUpdates.populateHTMLArray(user.friendsActivityRecords, dropdownFriendsStepsContainer)
+
   domUpdates.applyFriendStyling()
 }
 
@@ -274,6 +321,7 @@ function findData(data, property) {
   })[property]
   return found
 }
+
 //this just calls calculate miles on user class
 // function find() {
 //   // let record = user.activityRecord.find(activity => {
@@ -283,6 +331,7 @@ function findData(data, property) {
 //   return record;
 // }
 
+//move this to userRepo
 function findSleeper(qualifier) {
   let foundSleepers = userRepository.users.filter(user => {
     return userRepository.getSleeper(todayDate, qualifier).includes(user.id);
