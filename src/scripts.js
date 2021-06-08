@@ -22,7 +22,7 @@ let hydrationMainCard = document.querySelector('#hydration-main-card');
 let hydrationUserOuncesToday = document.querySelector('#hydration-user-ounces-today');
 let mainPage = document.querySelector('main');
 let profileButton = document.querySelector('#profile-button');
-// Form Query Selectors
+
 let sleepSubmitButton = document.querySelector('#sleepSubmitButton');
 let hoursSleptUserInput = document.querySelector('#hoursSlept');
 let sleepQualityUserInput = document.querySelector('#sleepQuality');
@@ -36,12 +36,8 @@ let activitySubmitButton = document.querySelector('#activitySubmitButton');
 let numStepsUserInput = document.querySelector('#numSteps');
 let minutesActiveUserInput = document.querySelector('#minutesActive');
 let flightsOfStairsUserInput = document.querySelector('#flightsOfStairs');
-// let activityFormCard = document.querySelector('#activity-form-card');
 let stepsFormCard = document.querySelector('#steps-form-card');
 
-// let hydrationFormMessage = document.querySelector('.hydration-form h3');
-// let sleepFormMessage = document.querySelector('.sleep-form h3');
-// let activityFormMessage = document.querySelector('.activity-form h3');
 let hydrationFormMessage = document.querySelector('.hydration-form h2');
 let sleepFormMessage = document.querySelector('.sleep-form h2');
 let activityFormMessage = document.querySelector('.activity-form h2');
@@ -96,8 +92,6 @@ window.addEventListener('load', fetchData);
 profileButton.addEventListener('click', function() {
   ariaStateChange()
   domUpdates.showDropdown(userInfoDropdown)});
-// stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
-// stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
 stairsTrendingButton.addEventListener('click', function () {
   updateTrending(trendingStairsPhraseContainer, user.trendingStairsDays[0])
 });
@@ -107,9 +101,8 @@ stepsTrendingButton.addEventListener('click', function () {
 mainPage.addEventListener('click', function() {
   determineShoworSubmit(event)
 });
-// profileButton.addEventListener('click', showDropdown);
 
-//aria function below
+//Aria function below
 function ariaStateChange() {
   let attribute = profileButton.getAttribute("aria-expanded");
   if (attribute === 'true') {
@@ -342,7 +335,6 @@ function showInfo(event) {
     sleepCalendarCard,
     sleepFormCard,
     hydrationFormCard,
-    // activityFormCard
     stepsFormCard
   }
   domUpdates.facilitateCardChange(event, cards)
