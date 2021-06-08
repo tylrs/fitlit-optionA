@@ -94,15 +94,6 @@ class User {
       this.sleepQualityAverage = quality;
     }
   }
-  // calculateAverageHoursThisWeek(todayDate) {
-  //   return (this.sleepHoursRecord.reduce((sum, sleepAct) => {
-  //     let index = this.sleepHoursRecord.indexOf(this.sleepHoursRecord.find(sleep => sleep.date === todayDate));
-  //     if (index <= this.sleepHoursRecord.indexOf(sleepAct) && this.sleepHoursRecord.indexOf(sleepAct) <= (index + 6)) {
-  //       sum += sleepAct.hours;
-  //     }
-  //     return sum;
-  //   }, 0) / 7).toFixed(1);
-  // }
   calculateAverageHoursThisWeek(todayDate) {
     let foundSleeps = this.sleepHoursRecord.filter(sleepRecord => {
       return sleepRecord.date >= this.calculateWeekEarlier(todayDate) && sleepRecord.date <= todayDate})
@@ -111,15 +102,6 @@ class User {
     },0)
     return (totalHours / foundSleeps.length).toFixed(1)
   }
-  // calculateAverageQualityThisWeek(todayDate) {
-  //   return (this.sleepQualityRecord.reduce((sum, sleepAct) => {
-  //     let index = this.sleepQualityRecord.indexOf(this.sleepQualityRecord.find(sleep => sleep.date === todayDate));
-  //     if (index <= this.sleepQualityRecord.indexOf(sleepAct) && this.sleepQualityRecord.indexOf(sleepAct) <= (index + 6)) {
-  //       sum += sleepAct.quality;
-  //     }
-  //     return sum;
-  //   }, 0) / 7).toFixed(1);
-  // }
   calculateAverageQualityThisWeek(todayDate) {
     let foundSleeps = this.sleepQualityRecord.filter(sleepRecord => {
       return sleepRecord.date >= this.calculateWeekEarlier(todayDate) && sleepRecord.date <= todayDate})
