@@ -420,7 +420,7 @@ function populateClimbedCard() {
   //friend card:
   //domUpdates.cardDisplay(stairsFriendFlightsAverageToday, (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1))
 
-  populateIterateCard([stairsFriendFlightsAverageToday], [(userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1)])
+  populateIterateCard([stairsFriendFlightsAverageToday], [userRepository.calculateAverage(todayDate, "flightsOfStairs").toFixed(1)])
 
 //calendarCard:
   //domUpdates.cardDisplay(stairsCalendarFlightsAverageWeekly, user.calculateAverageFlightsThisWeek(todayDate))

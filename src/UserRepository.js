@@ -45,7 +45,7 @@ class UserRepository {
       accumulator += currentUser.dailyStepGoal
       return accumulator
     }, 0)
-    return total / this.users.length;
+    return Math.round(total / this.users.length);
   }
 //Are they using this one on the DOM?? Where is this being called?
 //Where is the data coming from?
@@ -147,7 +147,7 @@ class UserRepository {
       }
       return acc
     },0)
-    return total / activitiesThatDay.length
+    return Math.round(total / activitiesThatDay.length)
   }
 //Test calls this data in a very weird way - how do we access
 // this data? via hydration?
@@ -180,7 +180,7 @@ class UserRepository {
     let mostHoursSleptThatDay = sleepsThatDay.map(currentSleep => {
       return currentSleep.hoursSlept
     }).sort((a, b) => b - a)[0]
-    let bestSleepersThatDay = sleepsThatDay.filter(x => x.hoursSlept === mostHoursSleptThatDay)
+    let bestSleepersThatDay = sleepsThatDay.filter(oneSleep => oneSleep.hoursSlept === mostHoursSleptThatDay)
     return this.users.reduce((newArray, currentUser) => {
       bestSleepersThatDay.forEach(currentBestSleeper => {
         if (currentUser.id === currentBestSleeper.userID) {
@@ -217,8 +217,8 @@ class UserRepository {
     let leastHoursSleptThatDay = sleepsThatDay.map(currentSleep => {
       return currentSleep.hoursSlept
     }).sort((a, b) => a - b)[0]
-    let bestSleepersThatDay = sleepsThatDay.filter(x => x.hoursSlept === mostHoursSleptThatDay)
-    let worstSleepersThatDay = sleepsThatDay.filter(x => x.hoursSlept === leastHoursSleptThatDay)
+    let bestSleepersThatDay = sleepsThatDay.filter(oneSleep => oneSleep.hoursSlept === mostHoursSleptThatDay)
+    let worstSleepersThatDay = sleepsThatDay.filter(oneSleep => oneSleep.hoursSlept === leastHoursSleptThatDay)
   // getSleeper(date, qualifier, sleepData) {
   //   let sleeperData = sleepData.filter(sleep => {
   //     return sleep.date === date;
