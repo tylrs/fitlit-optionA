@@ -52,10 +52,9 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
     this.ouncesRecord.unshift({[date]: amount});
     if (this.ouncesRecord.length) {
       this.ouncesAverage = Math.round((amount + (this.ouncesAverage * (this.ouncesRecord.length - 1))) / this.ouncesRecord.length);
+    } else {
+      this.ouncesAverage = amount;
     }
-    // } else {
-    //   this.ouncesAverage = amount;
-    // }
   }
   //I don't think we need this anymore
   // considering the way calculateAverageDailyWater has been refactored - Alex

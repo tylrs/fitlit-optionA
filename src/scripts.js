@@ -15,7 +15,7 @@ import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
-let todayDate = "2019/09/05";
+let todayDate = "2019/09/12";
 let userData, activityData, hydrationData, sleepData, user, userRepository;
 
 let dailyOz = document.querySelectorAll('.daily-oz');
@@ -250,6 +250,7 @@ function fetchData() {
     sleepData = promiseArray[1].sleepData;
     activityData = promiseArray[2].activityData;
     hydrationData = promiseArray[3].hydrationData;
+    // console.log(hydrationData);
     instantiateData()
     populateDOM()
   });
@@ -263,7 +264,6 @@ function instantiateData() {
   //   let newActivity = new Activity(activity);
   //   return newActivity;
   // })
-
   userRepository = new UserRepository(usersData, sleepData, activityData, hydrationData);
   // userRepository = new UserRepository(usersData);
 
@@ -445,13 +445,18 @@ function populateHydrationCard() {
   populateIterateCard([hydrationFriendOuncesToday], [userRepository.calculateAverageDailyWater(todayDate)]);
 
 //calendar card:
-  let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
-    return Object.keys(b)[0] - Object.keys(a)[0];
-  });
+  let sortedHydrationDataLastWeek = user.ouncesRecord.filter((currentRecord) => {
+    let index = user.ouncesRecord.indexOf(user.ouncesRecord.find(record => Object.keys(record)[0] === todayDate));
+    index += 1;
+    return (index <= user.ouncesRecord.indexOf(currentRecord) && user.ouncesRecord.indexOf(currentRecord) <= (index + 6))
+  })
+  console.log(sortedHydrationDataLastWeek);
+
+
 
 //find index of today's date
 //splice out all elements prior in array
-  domUpdates.populateTextArray(dailyOz, sortedHydrationDataByDate, user)
+  domUpdates.populateTextArray(dailyOz, sortedHydrationDataLastWeek, user)
 }
 
 function populateSleepCard() {
