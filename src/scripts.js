@@ -216,6 +216,7 @@ function populateDOM() {
 function populateFriends() {
   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
   domUpdates.populateHTMLArray(user.friendsActivityRecords, dropdownFriendsStepsContainer)
+  console.log(user.friendsActivityRecords);
   domUpdates.applyFriendStyling()
 }
 
@@ -290,7 +291,6 @@ function populateClimbedCard() {
   populateIterateCard([stairsInfoFlightsToday], [findData(activityData, "flightsOfStairs")])
   populateIterateCard([stairsFriendFlightsAverageToday], [userRepository.calculateAverage(todayDate, "flightsOfStairs").toFixed(1)])
   populateIterateCard([stairsCalendarFlightsAverageWeekly, stairsCalendarStairsAverageWeekly], [user.calculateAverageFlightsThisWeek(todayDate), (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0)]);
-  user.findTrendingStairsDays();
 }
 
 function populateHydrationCard() {

@@ -133,7 +133,7 @@ class User {
     return (this.activityRecord.reduce((sum, activity) => {
       let index = this.activityRecord.indexOf(this.activityRecord.find(activity => activity.date === todayDate));
       if (index <= this.activityRecord.indexOf(activity) && this.activityRecord.indexOf(activity) <= (index + 6)) {
-        sum += activity.steps;
+        sum += activity.numSteps;
       }
       return sum;
     }, 0) / 7).toFixed(0);
@@ -178,7 +178,7 @@ class User {
     this.totalStepsThisWeek = (this.activityRecord.reduce((sum, activity) => {
       let index = this.activityRecord.indexOf(this.activityRecord.find(activity => activity.date === todayDate));
       if (index <= this.activityRecord.indexOf(activity) && this.activityRecord.indexOf(activity) <= (index + 6)) {
-        sum += activity.steps;
+        sum += activity.numSteps;
       }
       return sum;
     }, 0));
@@ -190,16 +190,16 @@ class User {
       this.friendsActivityRecords.push(
         {
           'id': matchedFriend.id,
-          // 'firstName': matchedFriend.name.toUpperCase().split(' ')[0],
+          'firstName': matchedFriend.name.toUpperCase().split(' ')[0],
           'totalWeeklySteps': matchedFriend.totalStepsThisWeek
         })
     })
-    // this.calculateTotalStepsThisWeek(date);
-    // this.friendsActivityRecords.push({
-    //   'id': this.id,
-    //   'firstName': 'YOU',
-    //   'totalWeeklySteps': this.totalStepsThisWeek
-    // });
+    this.calculateTotalStepsThisWeek(date);
+    this.friendsActivityRecords.push({
+      'id': this.id,
+      'firstName': 'YOU',
+      'totalWeeklySteps': this.totalStepsThisWeek
+    });
     this.friendsActivityRecords = this.friendsActivityRecords.sort((a, b) => b.totalWeeklySteps - a.totalWeeklySteps);
   }
 }
