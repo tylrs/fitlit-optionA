@@ -1,8 +1,10 @@
 main {
   display: grid;
   grid-template-areas:
-  'steps hydration'
-  'stairs sleep';
+  'steps'
+  'hydration'
+  'stairs'
+  'sleep';
   height: 100%;
   gap: .5vw;
 }
