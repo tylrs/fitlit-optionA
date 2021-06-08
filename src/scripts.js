@@ -50,9 +50,12 @@ let flightsOfStairsUserInput = document.querySelector('#flightsOfStairs');
 // let activityFormCard = document.querySelector('#activity-form-card');
 let stepsFormCard = document.querySelector('#steps-form-card');
 
-let hydrationFormMessage = document.querySelector('.hydration-form h3');
-let sleepFormMessage = document.querySelector('.sleep-form h3');
-let activityFormMessage = document.querySelector('.activity-form h3');
+// let hydrationFormMessage = document.querySelector('.hydration-form h3');
+// let sleepFormMessage = document.querySelector('.sleep-form h3');
+// let activityFormMessage = document.querySelector('.activity-form h3');
+let hydrationFormMessage = document.querySelector('.hydration-form h2');
+let sleepFormMessage = document.querySelector('.sleep-form h2');
+let activityFormMessage = document.querySelector('.activity-form h2');
 
 //
 let sleepCalendarCard = document.querySelector('#sleep-calendar-card');
