@@ -37,9 +37,7 @@ describe('userRepository', function() {
   })
   it('should update all users info based on activity data', function() {
     expect(userTestRepository.users[0].activityRecord.length).to.equal(0);
-
     userTestRepository.updateUsersActivity()
-
     expect(userTestRepository.users[0].activityRecord.length).to.equal(3);
   })
   it('calculateAverageStepGoal should return average step goal for all users', function() {
