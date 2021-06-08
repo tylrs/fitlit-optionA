@@ -11,9 +11,6 @@ import { fetchApiData, postApiData } from './apiCalls';
 
 import UserRepository from './UserRepository';
 import User from './User';
-import Activity from './Activity';
-import Hydration from './Hydration';
-import Sleep from './Sleep';
 
 let todayDate = "2019/09/12";
 let userData, activityData, hydrationData, sleepData, user, userRepository;

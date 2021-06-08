@@ -1,10 +1,6 @@
 import { expect } from 'chai';
 import UserRepository from '../src/UserRepository';
 import User from '../src/User';
-import Sleep from '../src/Sleep';
-import Activity from '../src/Activity';
-import Hydration from '../src/Hydration';
-import Necessity from '../src/Necessity';
 import { userTestData, sleepTestData, activityTestData, hydrationTestData } from './sampleData';
 
 // describe('User', function() {
