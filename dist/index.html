@@ -19,7 +19,6 @@
         <p class='dropdown-p' id='dropdown-email'></p>
         <p class='dropdown-p' id='dropdown-goal'></p>
         <br />
-        <!-- <p class='dropdown-p' id='dropdown-friends'>FRIENDS TOTAL STEPS THIS WEEK</p> -->
         <p class='dropdown-p' id='dropdown-friends'>friends total steps this week</p>
         <div id='dropdown-friends-steps-container'></div>
         <p class='dropdown-p' id='adtlInfo'></p>
@@ -31,17 +30,17 @@
         <section class='main-card' id='steps-main-card'>
           <div class='main-card-top-row'>
             <button aria-label="Steps info button" type='button' name='button' class='info-button button steps-info-button' id='stepsInfo'></button>
-            <h3>you have walked</h3>
+            <h2>you have walked</h2>
             <button aria-label="Friends' step info button" type='button' name='button' class='friends-button button steps-friends-button' id='stepsFriends'></button>
           </div>
           <div class="main-card-middle-row">
-            <h2 id='steps-user-steps-today'>X</h2>
+            <h3 id='steps-user-steps-today'>X</h3>
             <!-- <button type='button' name='button' class='new-data-button activity-form-button' id='activityForm'>Submit New Data Stairs and Steps</button> -->
             <button type='button' name='button' class='new-data-button activity-form-button' id='stepsForm'>Submit New Data Stairs and Steps</button>
           </div>
           <div class='main-card-top-row'>
             <button aria-label="Trending steps button" type='button' name='button' class='trending-button button steps-trending-button' id='stepsTrending'></button>
-            <h3>steps today</h3>
+            <h2>steps today</h2>
             <button aria-label="Weekly step stats button" type='button' name='button' class='calendar-button button steps-calendar-button' id='stepsCalendar'></button>
           </div>
         </section>
@@ -59,17 +58,14 @@
         <section class='friends-card hide' id='steps-friends-card'>
           <button aria-label="Go back button" type='button' name='button' class='go-back-button button steps-go-back-button'></button>
           <div class='card-data-line'>
-            <!-- <p>ALL USERS' AVERAGE ACTIVE MINUTES TODAY:</p> -->
             <p>all users' average active minutes today:</p>
             <h4 id='steps-friend-active-minutes-average-today'></h4>
           </div>
           <div class='card-data-line'>
-            <!-- <p>ALL USERS' AVERAGE STEPS TODAY:</p> -->
             <p>all users average steps today:</p>
             <h4 id='steps-friend-steps-average-today'></h4>
           </div>
           <div class='card-data-line'>
-            <!-- <p>ALL USERS' AVERAGE STEP GOAL:</p> -->
             <p>all users' average step goal:</p>
             <h4 id='steps-friend-average-step-goal'></h4>
           </div>
@@ -82,12 +78,10 @@
         <section class='calendar-card hide' id='steps-calendar-card'>
           <button aria-label="Go back button" type='button' name='button' class='go-back-button button steps-go-back-button'></button>
           <div class='card-data-line'>
-            <!-- <p>YOUR WEEKLY AVERAGE MINUTES:</p> -->
             <p>your weekly average minutes:</p>
             <h4 id='steps-calendar-total-active-minutes-weekly'></h4>
           </div>
           <div class='card-data-line'>
-            <!-- <p>YOUR TOTAL WEEKLY STEP COUNT:</p> -->
             <p>your total weekly step count:</p>
             <h4 id='steps-calendar-total-steps-weekly'></h4>
           </div>
@@ -96,8 +90,7 @@
         <section class='form-card hide' id='steps-form-card'>
           <button aria-label="Go back button" type='button' name='button' class='go-back-button button steps-go-back-button'></button>
           <form class='activity-form form' action='index.html' method='post'>
-            <!-- <h3>HOW MANY STEPS AND STAIRS TODAY?</h3> -->
-            <h3>how many steps and stairs today?</h3>
+            <h2>how many steps and stairs today?</h2>
             <label for='numSteps'>Number of Steps</label>
             <input type='number' name='numSteps' id='numSteps' value='0' step='1' min='0' max='15000'>
             <label for='minutesActive'>Minutes Active</label>
@@ -113,24 +106,21 @@
         <section class='main-card' id='hydration-main-card'>
           <div class='main-card-top-row'>
             <button aria-label="Hydration info button" type='button' name='button' class='info-button button hydration-info-button' id='hydrationInfo'></button>
-            <!-- <h3>YOU HAVE HAD</h3> -->
-            <h3>you have had</h3>
+            <h2>you have had</h2>
             <button aria-label="Friends' hydration info button" type='button' name='button' class='friends-button button hydration-friends-button' id='hydrationFriends'></button>
           </div>
           <div class="main-card-middle-row">
-            <h2 id='hydration-user-ounces-today'></h2>
+            <h3 id='hydration-user-ounces-today'></h3>
             <button type='button' name='button' class='new-data-button hydration-form-button' id='hydrationForm'>Submit New Data</button>
           </div>
           <div class='main-card-bottom-row'>
-            <!-- <h3>OZ OF WATER TODAY</h3> -->
-            <h3>oz of water today</h3>
+            <h2>oz of water today</h2>
             <button aria-label="Weekly hydration stats button"  type='button' name='button' class='calendar-button button hydration-calendar-button' id='hydrationCalendar'></button>
           </div>
         </section>
         <section class='info-card hide' id='hydration-info-card'>
           <button aria-label="Go back button" type='button' name='button' class='go-back-button button hydration-go-back-button'></button>
           <div class='card-data-line'>
-            <!-- <p>GLASSES OF WATER CONSUMED TODAY:</p> -->
             <p>glasses of water consumed today:</p>
             <h4 id='hydration-info-glasses-today'></h4>
           </div>
@@ -138,7 +128,6 @@
         <section class='friends-card hide' id='hydration-friends-card'>
           <button aria-label="Go back button"  type='button' name='button' class='go-back-button button hydration-go-back-button'></button>
           <div class='card-data-line'>
-            <!-- <p>ALL USERS' AVERAGE DAILY OUNCES:</p> -->
             <p>all users' average daily ounces:</p>
             <h4 id='hydration-friend-ounces-today'></h4>
           </div>
@@ -146,32 +135,26 @@
         <section class='calendar-card hide' id='hydration-calendar-card'>
           <button aria-label="Go back button"  type='button' name='button' class='go-back-button button hydration-go-back-button'></button>
           <div class='hydration-data-line'>
-            <!-- <p class='hydration-weekly-label'>YESTERDAY:</p> -->
             <p class='hydration-weekly-label'>yesterday:</p>
             <h4 class='hydration-weekly-amount'><span class='daily-oz' id='hydration-calendar-ounces-1day'></span> oz</h4>
           </div>
           <div class='hydration-data-line'>
-            <!-- <p class='hydration-weekly-label'>2 DAYS AGO:</p> -->
             <p class='hydration-weekly-label'>2 days ago:</p>
             <h4 class='hydration-weekly-amount'><span class='daily-oz' id='hydration-calendar-ounces-2day'></span> oz</h4>
           </div>
           <div class='hydration-data-line'>
-            <!-- <p class='hydration-weekly-label'>3 DAYS AGO:</p> -->
             <p class='hydration-weekly-label'>3 days ago:</p>
             <h4 class='hydration-weekly-amount'><span class='daily-oz' id='hydration-calendar-ounces-3day'></span> oz</h4>
           </div>
           <div class='hydration-data-line'>
-            <!-- <p class='hydration-weekly-label'>4 DAYS AGO:</p> -->
             <p class='hydration-weekly-label'>4 days ago:</p>
             <h4 class='hydration-weekly-amount'><span class='daily-oz' id='hydration-calendar-ounces-4day'></span> oz</h4>
           </div>
           <div class='hydration-data-line'>
-            <!-- <p class='hydration-weekly-label'>5 DAYS AGO:</p> -->
             <p class='hydration-weekly-label'>5 days ago:</p>
             <h4 class='hydration-weekly-amount'><span class='daily-oz' id='hydration-calendar-ounces-5day'></span> oz</h4>
           </div>
           <div class='hydration-data-line'>
-            <!-- <p class='hydration-weekly-label'>6 DAYS AGO:</p> -->
             <p class='hydration-weekly-label'>6 days ago:</p>
             <h4 class='hydration-weekly-amount'><span class='daily-oz' id='hydration-calendar-ounces-6day'></span> oz</h4>
           </div>
@@ -179,8 +162,7 @@
         <section class='form-card hide' id='hydration-form-card'>
           <button aria-label="Go back button"  type='button' name='button' class='go-back-button button hydration-go-back-button'></button>
           <form class='hydration-form form' action='index.html' method='post'>
-            <!-- <h3>HOW WAS YOUR HYDRATION TODAY?</h3> -->
-            <h3>how was your hydration today?</h3>
+            <h2>how was your hydration today?</h2>
             <label for='numOunces'>Number of Ounces</label>
             <input type='number' name='numOunces' id='numOunces' value='0' step='1' min='0' max='100'>
             <button type='button' name='button' class='new-data-submit-button' id='hydrationSubmitButton'>Submit</button>
@@ -192,22 +174,19 @@
         <section class='main-card' id='stairs-main-card'>
           <div class='main-card-top-row'>
             <button aria-label="Stairs info button" type='button' name='button' class='info-button button stairs-info-button' id='stairsInfo'></button>
-            <!-- <h3>YOU HAVE CLIMBED</h3> -->
-            <h3>you have climbed</h3>
+            <h2>you have climbed</h2>
             <button aria-label="Friends' stairs info button" type='button' name='button' class='friends-button button stairs-friends-button' id='stairsFriends'></button>
           </div>
-            <h2 id='stairs-user-stairs-today'></h2>
+            <h3 id='stairs-user-stairs-today'></h3>
           <div class='main-card-top-row'>
             <button aria-label="Trending stairs button" type='button' name='button' class='trending-button button stairs-trending-button'id='stairsTrending'></button>
-            <!-- <h3>STAIRS TODAY</h3> -->
-            <h3>stairs today</h3>
+            <h2>stairs today</h2>
             <button aria-label="Weekly stairs stats button" type='button' name='button' class='calendar-button button stairs-calendar-button'id='stairsCalendar'></button>
           </div>
         </section>
         <section class='info-card hide' id='stairs-info-card'>
           <button aria-label="Go back button" type='button' name='button' class='go-back-button button stairs-go-back-button'></button>
           <div class='card-data-line'>
-            <!-- <p>FLIGHTS CLIMBED TODAY</p> -->
             <p>flights climbed today</p>
             <h4 id='stairs-info-flights-today'></h4>
           </div>
@@ -215,7 +194,6 @@
         <section class='friends-card hide' id='stairs-friends-card'>
           <button aria-label="Go back button" type='button' name='button' class='go-back-button button stairs-go-back-button'></button>
           <div class='card-data-line'>
-            <!-- <p>ALL USERS' AVERAGE FLIGHTS TODAY</p> -->
               <p>all users' average flights today</p>
             <h4 id='stairs-friend-flights-average-today'></h4>
           </div>
@@ -228,12 +206,10 @@
         <section class='calendar-card hide' id='stairs-calendar-card'>
           <button aria-label="Go back button" type='button' name='button' class='go-back-button button stairs-go-back-button'></button>
           <div class='card-data-line'>
-            <!-- <p>YOUR WEEKLY FLIGHTS CLIMBED</p> -->
             <p>your weekly flights climbed</p>
             <h4 id='stairs-calendar-flights-average-weekly'></h4>
           </div>
           <div class='card-data-line'>
-            <!-- <p>YOUR WEEKLY STAIRS CLIMBED</p> -->
             <p>your weekly stairs climbed</p>
             <h4 id='stairs-calendar-stairs-average-weekly'></h4>
           </div>
@@ -244,34 +220,29 @@
         <section class='main-card' id='sleep-main-card'>
           <div class='main-card-top-row'>
             <button aria-label="Sleep info button" type='button' name='button' class='info-button button sleep-info-button' id='sleepInfo'></button>
-            <!-- <h3>YOU SLEPT</h3> -->
-            <h3>you slept</h3>
+            <h2>you slept</h2>
             <button aria-label="Friends' sleep info button" type='button' name='button' class='friends-button button sleep-friends-button' id='sleepFriends'></button>
           </div>
           <div class="main-card-middle-row">
-            <h2 id='sleep-user-hours-today'></h2>
+            <h3 id='sleep-user-hours-today'></h3>
             <button type='button' name='button' class='new-data-button sleep-form-button' id='sleepForm'>Submit New Data</button>
           </div>
           <div class='main-card-bottom-row'>
-            <!-- <h3>HOURS LAST NIGHT</h3> -->
-            <h3>hours last night</h3>
+            <h2>hours last night</h2>
             <button aria-label="Weekly sleep stats button" type='button' name='button' class='calendar-button button sleep-calendar-button' id='sleepCalendar'></button>
           </div>
         </section>
         <section class='info-card hide' id='sleep-info-card'>
           <button aria-label="Go back button" type='button' name='button' class='go-back-button button sleep-go-back-button'></button>
           <div class='card-data-line'>
-            <!-- <p>SLEEP QUALITY LAST NIGHT</p> -->
             <p>sleep quality last night</p>
             <h4 id='sleep-info-quality-today'></h4>
           </div>
           <div class='card-data-line'>
-            <!-- <p>OVERALL NUMBER OF HOURS AVERAGE</p> -->
             <p>overall number of hours average</p>
             <h4 id='sleep-info-hours-average-alltime'></h4>
           </div>
           <div class='card-data-line'>
-            <!-- <p>OVERALL SLEEP QUALITY AVERAGE</p> -->
             <p>overall sleep quality average</p>
             <h4 id='sleep-info-quality-average-alltime'></h4>
           </div>
@@ -279,12 +250,10 @@
         <section class='friends-card hide' id='sleep-friends-card'>
           <button aria-label="Go back button" type='button' name='button' class='go-back-button button sleep-go-back-button'></button>
           <div class='card-data-line'>
-            <!-- <p>LAST NIGHT'S SUPERIOR SLEEPER</p> -->
             <p>last night's SUPERIOR sleeper(s)</p>
             <h4 id='sleep-friend-longest-sleeper'></h4>
           </div>
           <div class='card-data-line'>
-            <!-- <p>LAST NIGHT'S INFERIOR SLEEPER</p> -->
             <p>last night's inferior sleeper(s)</p>
             <h4 id='sleep-friend-worst-sleeper'></h4>
           </div>
@@ -292,12 +261,10 @@
         <section class='calendar-card hide' id='sleep-calendar-card'>
           <button aria-label="Go back button" type='button' name='button' class='go-back-button button sleep-go-back-button'></button>
           <div class='card-data-line'>
-            <!-- <p>LAST WEEK'S HOURLY AVERAGE</p> -->
             <p>last week's hourly average</p>
             <h4 id='sleep-calendar-hours-average-weekly'></h4>
           </div>
           <div class='card-data-line'>
-            <!-- <p>LAST WEEK'S QUALITY AVERAGE</p> -->
             <p>last week's quality average</p>
             <h4 id='sleep-calendar-quality-average-weekly'></h4>
           </div>
@@ -305,8 +272,7 @@
         <section class='form-card hide' id='sleep-form-card'>
           <button aria-label="Go back button" type='button' name='button' class='go-back-button button sleep-go-back-button'></button>
           <form class='sleep-form form' action='index.html' method='post'>
-            <!-- <h3>HOW'D YOU SLEEP LAST NIGHT?</h3> -->
-            <h3>how'd you sleep last night?</h3>
+            <h2>how'd you sleep last night?</h2>
             <label for='hoursSlept'>Hours Slept</label>
             <input type='number' name='hoursSlept' id='hoursSlept' value='0' step='0.1' min='0' max='24'>
             <label for='sleepQuality'>Sleep Quality (on a scale of 0 to 5)</label>
