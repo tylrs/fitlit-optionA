@@ -15,7 +15,7 @@ import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 
-let todayDate = "2019/09/05";
+let todayDate = "2019/09/12";
 let userData, activityData, hydrationData, sleepData, user, userRepository;
 
 let dailyOz = document.querySelectorAll('.daily-oz');
@@ -263,7 +263,6 @@ function instantiateData() {
   //   let newActivity = new Activity(activity);
   //   return newActivity;
   // })
-
   userRepository = new UserRepository(usersData, sleepData, activityData, hydrationData);
   // userRepository = new UserRepository(usersData);
 
@@ -286,6 +285,8 @@ function instantiateData() {
   // });
 
   user = userRepository.users[0];
+  user.findTrendingStepDays();
+  user.findTrendingStairsDays();
   user.findFriendsNames(userRepository.users);
 }
 
@@ -319,7 +320,7 @@ function findData(data, property) {
   let found = data.find(activity => {
     return activity.userID === user.id && activity.date === todayDate;
   })[property]
-  return found
+  return found;
 }
 
 //this just calls calculate miles on user class
@@ -375,6 +376,7 @@ function populateIterateCard(queries, finds) {
 
 //Individual Card functions
 function populateStepCard() {
+
   //main card:
   // domUpdates.cardDisplay(stepsUserStepsToday, findData(activityData, "numSteps"))
   populateMainCard(stepsUserStepsToday, findData(activityData, "numSteps"))
@@ -403,7 +405,7 @@ function populateStepCard() {
 
 //trending card
 //Is there DOM shit in the user class method below?
-  user.findTrendingStepDays();
+
 }
 
 function populateClimbedCard() {
@@ -445,13 +447,18 @@ function populateHydrationCard() {
   populateIterateCard([hydrationFriendOuncesToday], [userRepository.calculateAverageDailyWater(todayDate)]);
 
 //calendar card:
-  let sortedHydrationDataByDate = user.ouncesRecord.sort((a, b) => {
-    return Object.keys(b)[0] - Object.keys(a)[0];
-  });
+  let sortedHydrationDataLastWeek = user.ouncesRecord.filter((currentRecord) => {
+    let index = user.ouncesRecord.indexOf(user.ouncesRecord.find(record => Object.keys(record)[0] === todayDate));
+    index += 1;
+    return (index <= user.ouncesRecord.indexOf(currentRecord) && user.ouncesRecord.indexOf(currentRecord) <= (index + 6))
+  })
+  console.log(sortedHydrationDataLastWeek);
+
+
 
 //find index of today's date
 //splice out all elements prior in array
-  domUpdates.populateTextArray(dailyOz, sortedHydrationDataByDate, user)
+  domUpdates.populateTextArray(dailyOz, sortedHydrationDataLastWeek, user)
 }
 
 function populateSleepCard() {
@@ -512,12 +519,12 @@ function showInfo(event) {
 
 //is there a way we can refactor these without having the event listeners?
 // function updateTrendingStepsDOM() {
-  //   domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
-  // }
-  //
-  // function updateTrendingStairsDOM() {
-    //   domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
-    // }
+//     domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
+//   }
+//
+//   function updateTrendingStairsDOM() {
+//       domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
+//     }
 /////////////
 
 

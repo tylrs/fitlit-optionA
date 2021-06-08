@@ -52,10 +52,9 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
     this.ouncesRecord.unshift({[date]: amount});
     if (this.ouncesRecord.length) {
       this.ouncesAverage = Math.round((amount + (this.ouncesAverage * (this.ouncesRecord.length - 1))) / this.ouncesRecord.length);
+    } else {
+      this.ouncesAverage = amount;
     }
-    // } else {
-    //   this.ouncesAverage = amount;
-    // }
   }
   //I don't think we need this anymore
   // considering the way calculateAverageDailyWater has been refactored - Alex
@@ -180,7 +179,7 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
   findTrendingStepDays() {
     let positiveDays = [];
     for (var i = 0; i < this.activityRecord.length; i++) {
-      if (this.activityRecord[i + 1] && this.activityRecord[i].steps > this.activityRecord[i + 1].steps) {
+      if (this.activityRecord[i + 1] && this.activityRecord[i].numSteps > this.activityRecord[i + 1].numSteps) {
         positiveDays.unshift(this.activityRecord[i].date);
       } else if (positiveDays.length > 2) {
         this.trendingStepDays.push(`Your most recent positive step streak was ${positiveDays[0]} - ${positiveDays[positiveDays.length - 1]}!`);
