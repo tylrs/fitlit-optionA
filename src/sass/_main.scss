@@ -10,16 +10,14 @@ main {
 }
 
 .main-card {
-  align-items: center;
-  display: flex;
+  @include alignCentered();
   flex-direction: column;
   height: 20vw;
   justify-content: center;
 }
 
 .main-card-top-row {
-  align-items: center;
-  display: flex;
+  @include alignCentered();
   justify-content: space-between;
   width: 100%;
 }
@@ -50,8 +48,7 @@ main {
 }
 
 .card-data-line {
-  display: flex;
-  justify-content: center;
+  @include justifyCentered();
   margin-bottom: 2vw;
 }
 
@@ -65,8 +62,7 @@ main {
 }
 
 .hydration-data-line {
-  display: flex;
-  justify-content: center;
+  @include justifyCentered();
   margin-bottom: .2vw;
 }
 

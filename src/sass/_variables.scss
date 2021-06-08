@@ -16,3 +16,14 @@ $secondary-font: 'Work Sans', sans-serif;
 
 // Spacing
 $button-spacing: 1vw;
+
+// Mixins
+@mixin alignCentered() {
+  display: flex;
+  align-items: center;
+}
+
+@mixin justifyCentered() {
+  display: flex;
+  justify-content: center;
+}
