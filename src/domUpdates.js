@@ -5,7 +5,7 @@ let domUpdates = {
 
   emailDisplay(element, data) {
     // element.innerText = `EMAIL | ${data}`
-    element.innerText = `email | ${data}`
+    element.innerText = `email: ${data}`
   },
 
   cardDisplay(element, data) {
@@ -36,9 +36,9 @@ let domUpdates = {
   },
 
   populateDropDown(element, data, collectiveData) {
-    element.innerHTML = `DAILY STEP GOAL | ${data.dailyStepGoal}
-    <br>average step goal amongst all users | ${collectiveData.calculateAverageStepGoal()}
-    <br>your goal/average of all users goal | ${((data.dailyStepGoal / collectiveData.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
+    element.innerHTML = `daily step goal: ${data.dailyStepGoal}
+    <br>average step goal amongst all users: ${collectiveData.calculateAverageStepGoal()}
+    <br>your goal/average of all users goal: ${((data.dailyStepGoal / collectiveData.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
   },
 
   populateAdditionalInfo(element, user) {
@@ -54,7 +54,7 @@ let domUpdates = {
   populateHTMLArray(array, location) {
     array.forEach(element => {
       location.innerHTML += `
-      <p class='dropdown-p friends-steps'>${element.firstName} |  ${element.totalWeeklySteps}</p>
+      <p class='dropdown-p friends-steps'>${element.firstName}:  ${element.totalWeeklySteps}</p>
       `;
     });
   },
