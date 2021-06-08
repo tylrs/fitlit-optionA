@@ -9,7 +9,6 @@ describe('User', function() {
     usersData = userTestData.map(user => new User(user));
     userTestRepository = new UserRepository(usersData, sleepTestData, activityTestData, hydrationTestData);
     user = userTestRepository.users[0];
-    // user.findFriendsNames(userTestRepository.users);
   });
   it('should be a function', function() {
     expect(User).to.be.a('function');
