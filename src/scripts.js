@@ -47,7 +47,8 @@ let activitySubmitButton = document.querySelector('#activitySubmitButton');
 let numStepsUserInput = document.querySelector('#numSteps');
 let minutesActiveUserInput = document.querySelector('#minutesActive');
 let flightsOfStairsUserInput = document.querySelector('#flightsOfStairs');
-let activityFormCard = document.querySelector('#activity-form-card');
+// let activityFormCard = document.querySelector('#activity-form-card');
+let stepsFormCard = document.querySelector('#steps-form-card');
 
 let hydrationFormMessage = document.querySelector('.hydration-form h3');
 let sleepFormMessage = document.querySelector('.sleep-form h3');
@@ -505,7 +506,8 @@ function showInfo(event) {
     sleepCalendarCard,
     sleepFormCard,
     hydrationFormCard,
-    activityFormCard
+    // activityFormCard
+    stepsFormCard
   }
   domUpdates.facilitateCardChange(event, cards)
 }
