@@ -141,14 +141,22 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
     },0)
     return (totalHours / foundSleeps.length).toFixed(1)
   }
+  // calculateAverageQualityThisWeek(todayDate) {
+  //   return (this.sleepQualityRecord.reduce((sum, sleepAct) => {
+  //     let index = this.sleepQualityRecord.indexOf(this.sleepQualityRecord.find(sleep => sleep.date === todayDate));
+  //     if (index <= this.sleepQualityRecord.indexOf(sleepAct) && this.sleepQualityRecord.indexOf(sleepAct) <= (index + 6)) {
+  //       sum += sleepAct.quality;
+  //     }
+  //     return sum;
+  //   }, 0) / 7).toFixed(1);
+  // }
   calculateAverageQualityThisWeek(todayDate) {
-    return (this.sleepQualityRecord.reduce((sum, sleepAct) => {
-      let index = this.sleepQualityRecord.indexOf(this.sleepQualityRecord.find(sleep => sleep.date === todayDate));
-      if (index <= this.sleepQualityRecord.indexOf(sleepAct) && this.sleepQualityRecord.indexOf(sleepAct) <= (index + 6)) {
-        sum += sleepAct.quality;
-      }
-      return sum;
-    }, 0) / 7).toFixed(1);
+    let foundSleeps = this.sleepQualityRecord.filter(sleepRecord => {
+      return sleepRecord.date >= this.calculateWeekEarlier(todayDate) && sleepRecord.date <= todayDate})
+    let totalQuality = foundSleeps.reduce((acc, currentSleep) => {
+      return acc + currentSleep.quality
+    },0)
+    return (totalQuality / foundSleeps.length).toFixed(1)
   }
   updateActivities(activity) {
     this.activityRecord.unshift(activity);
