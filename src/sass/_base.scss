@@ -85,6 +85,10 @@ main {
   width: 100%;
 }
 
+.card-container {
+  text-transform: uppercase;
+}
+
 .steps-card-container {
   background-color: $step-card-bgcolor;
   grid-area: steps;
