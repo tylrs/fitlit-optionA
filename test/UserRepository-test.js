@@ -5,113 +5,27 @@ import { userTestData, sleepTestData, activityTestData, hydrationTestData } from
 
 describe('userRepository', function() {
   let user, usersData, userTestRepository, necessity;
-  // let necessity, user1, user2, user3, userTestRepository, sleep1, sleep2, sleep3, sleepData, userTestData;
   beforeEach(() => {
     usersData = userTestData.map(user => new User(user));
 
     userTestRepository = new UserRepository(usersData, sleepTestData, activityTestData, hydrationTestData);
-    // necessity = new Necessity(userTestRepository);
-      // console.log(userTestRepository);
-    // sleepTestData.forEach(sleep => new Sleep(sleep, userTestRepository));
-    // activityTestData.forEach(activity => new Activity(activity, userTestRepository));
-    // console.log(activityTestData[0])
-    // hydrationTestData.forEach(hydration => new Hydration(hydration, userTestRepository));
     user = userTestRepository.users[0];
     // user.findFriendsNames(userTestRepository.users);
   });
-    // user1 = new User({
-    //   'id': 1,
-    //   'name': 'Luisa Hane',
-    //   'address': '15195 Nakia Tunnel, Erdmanport VA 19901-1697',
-    //   'email': 'Diana.Hayes1@hotmail.com',
-    //   'strideLength': 4.3,
-    //   'dailyStepGoal': 10000,
-    //   'friends': [
-    //     16,
-    //     4,
-    //     8
-    //   ]
-    // })
-    // user2 = new User({
-    //   "id": 2,
-    //   "name": "Jarvis Considine",
-    //   "address": "30086 Kathryn Port, Ciceroland NE 07273",
-    //   "email": "Dimitri.Bechtelar11@gmail.com",
-    //   "strideLength": 4.5,
-    //   "dailyStepGoal": 5000,
-    //   "friends": [
-    //     9,
-    //     18,
-    //     24,
-    //     19
-    //   ]
-    // })
-    // user3 = new User({
-    //   "id": 3,
-    //   "name": "Herminia Witting",
-    //   "address": "85823 Bosco Fork, East Oscarstad MI 85126-5660",
-    //   "email": "Elwin.Tromp@yahoo.com",
-    //   "strideLength": 4.4,
-    //   "dailyStepGoal": 15000,
-    //   "friends": [
-    //     19,
-    //     11,
-    //     42,
-    //     33
-    //   ]
-    // })
-    //OG code below:
-    // userTestRepository = new userTestRepository();
-    //userTestRepository.users.push(user1, user2, user3);
-    // userTestData = [user1, user2, user3];
-    // userTestRepository = new userRepository(userTestData);
-
-    // sleep1 = new Sleep({
-    //   "userID": 1,
-    //   "date": "2019/06/16",
-    //   "hoursSlept": 6.1,
-    //   "sleepQuality": 1000
-    // });
-    // sleep2 = new Sleep({
-    //   "userID": 2,
-    //   "date": "2019/06/15",
-    //   "hoursSlept": 7.3,
-    //   "sleepQuality": 500
-    // });
-    // sleep3 = new Sleep({
-    //   "userID": 3,
-    //   "date": "2019/06/15",
-    //   "hoursSlept": 9.3,
-    //   "sleepQuality": 1.4
-    // });
-
-    // sleepData = [{
-    //   "userID": 1,
-    //   "date": "2019/06/15",
-    //   "hoursSlept": 6.1,
-    //   "sleepQuality": 100
-    // }, {
-    //   "userID": 2,
-    //   "date": "2019/06/15",
-    //   "hoursSlept": 7.3,
-    //   "sleepQuality": 1500
-    // }, {
-    //   "userID": 3,
-    //   "date": "2019/06/15",
-    //   "hoursSlept": 9.3,
-    //   "sleepQuality": 1.4
-    // }];
 
   it('should be a function', function() {
     expect(UserRepository).to.be.a('function');
   });
+
   it('should be an instance of user repository', function() {
     expect(userTestRepository).to.be.an.instanceof(UserRepository);
   });
+
   it('should hold an array of users', function() {
     expect(userTestRepository.users).to.deep.equal(usersData);
     expect(userTestRepository.users.length).to.equal(3);
   });
+
   it('should return user when given a user id', function() {
     expect(userTestRepository.getUser(2)).to.equal(usersData[1]);
   })
@@ -155,14 +69,6 @@ describe('userRepository', function() {
   it('For a given day, find the users who slept the most number of hours (one or more if they tied)', function() {
     expect(userTestRepository.findBestSleepers("2019/06/15")).to.deep.equal([userTestRepository.users[1], userTestRepository.users[2]]);
   });
-  //Original getLongestSleepers and getWorstSleepers functions
-  // it('should have a method that finds the longest sleepers', function() {
-  //   expect(userTestRepository.getLongestSleepers("2019/06/15")).to.equal(3);
-  // });
-  //
-  // it('should have a method that finds the worst sleepers', function() {
-  //   expect(userTestRepository.getWorstSleepers("2019/06/15")).to.equal(1);
-  // });
 
   it('should have a method that finds the longest sleepers', function() {
     expect(userTestRepository.getSleeper("2019/06/15", "best")).to.deep.equal([userTestRepository.users[1].id, userTestRepository.users[2].id]);
