@@ -66,8 +66,14 @@ describe('userRepository', function() {
   // it('should have a method that calculates friends average ounces of water for a given date', function() {
   //   expect(userTestRepository.calculateAverageDailyWater(userTestRepository.users[0], "2019/06/15")).to.equal((75 + 47) / 2)
   // });
+  it('Find all users who average a sleep quality greater than 3 for a given week (7 days))', function() {
+    userTestRepository.users[0].sleepQualityRecord = [{date: "2019/09/22", quality: 0.6}, {date: "2019/09/21", quality: 0.2}, {date: "2019/09/20", quality: 0.9}, {date: "2019/09/19", quality: 0.2}, {date: "2019/09/18", quality: 0.5}, {date: "2019/09/17", quality: 0.8}, {date: "2019/09/16", quality: 0.2}, {date: "2019/09/15", quality: 0.7}, {date: "2019/09/14", quality: 0.8}, {date: "2019/09/13", quality: 0.6}, {date: "2019/09/12", quality: 0.3}];
+    userTestRepository.users[1].sleepQualityRecord = [{date: "2019/09/22", quality: 9.6}, {date: "2019/09/21", quality: 8.2}, {date: "2019/09/20", quality: 9.9}, {date: "2019/09/19", quality: 4.2}, {date: "2019/09/18", quality: 9.5}, {date: "2019/09/17", quality: 7.8}, {date: "2019/09/16", quality: 10.2}, {date: "2019/09/15", quality: 5.7}, {date: "2019/09/14", quality: 8.8}, {date: "2019/09/13", quality: 4.6}, {date: "2019/09/12", quality: 5.3}];
+    userTestRepository.users[2].sleepQualityRecord = [{date: "2019/09/22", quality: 9.6}, {date: "2019/09/21", quality: 8.2}];
+    expect(userTestRepository.findBestSleepersWeek("2019/09/22")).to.deep.equal([userTestRepository.users[1], userTestRepository.users[2]]);
+  });
   it('For a given day, find the users who slept the most number of hours (one or more if they tied)', function() {
-    expect(userTestRepository.findBestSleepers("2019/06/15")).to.deep.equal([userTestRepository.users[1], userTestRepository.users[2]]);
+    expect(userTestRepository.findBestSleepersDay("2019/06/15")).to.deep.equal([userTestRepository.users[1], userTestRepository.users[2]]);
   });
 
   it('should have a method that finds the longest sleepers', function() {

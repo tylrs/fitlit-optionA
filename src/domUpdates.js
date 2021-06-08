@@ -1,10 +1,11 @@
 let domUpdates = {
   headerDisplay(element, data) {
-    element.innerText = `${data}'S `
+    element.innerText = `${data}'s fitlit`
   },
 
   emailDisplay(element, data) {
-    element.innerText = `EMAIL | ${data}`
+    // element.innerText = `EMAIL | ${data}`
+    element.innerText = `email: ${data}`
   },
 
   cardDisplay(element, data) {
@@ -35,9 +36,9 @@ let domUpdates = {
   },
 
   populateDropDown(element, data, collectiveData) {
-    element.innerHTML = `DAILY STEP GOAL | ${data.dailyStepGoal}
-    <br>average step goal amongst all users | ${collectiveData.calculateAverageStepGoal()}
-    <br>your goal/average of all users goal | ${((data.dailyStepGoal / collectiveData.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
+    element.innerHTML = `daily step goal: ${data.dailyStepGoal}
+    <br>average step goal amongst all users: ${collectiveData.calculateAverageStepGoal()}
+    <br>your goal/average of all users goal: ${((data.dailyStepGoal / collectiveData.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
   },
 
   populateAdditionalInfo(element, user) {
@@ -53,7 +54,7 @@ let domUpdates = {
   populateHTMLArray(array, location) {
     array.forEach(element => {
       location.innerHTML += `
-      <p class='dropdown-p friends-steps'>${element.firstName} |  ${element.totalWeeklySteps}</p>
+      <p class='dropdown-p friends-steps'>${element.firstName}:  ${element.totalWeeklySteps}</p>
       `;
     });
   },
@@ -74,7 +75,8 @@ let domUpdates = {
     let newMessage;
     let originalMessage = messageSelectors[`${type}FormMessage`].innerText;
     if (status === 'success') {
-      newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
+      // newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
+      newMessage = `data recieved! thank you for submitting ${user.getFirstName()}.`;
     } else {
       newMessage = `Sorry ${user.getFirstName()}, there was an ${responseStatus.message}`;
     }

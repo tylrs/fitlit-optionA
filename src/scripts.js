@@ -36,11 +36,15 @@ let activitySubmitButton = document.querySelector('#activitySubmitButton');
 let numStepsUserInput = document.querySelector('#numSteps');
 let minutesActiveUserInput = document.querySelector('#minutesActive');
 let flightsOfStairsUserInput = document.querySelector('#flightsOfStairs');
-let activityFormCard = document.querySelector('#activity-form-card');
+// let activityFormCard = document.querySelector('#activity-form-card');
+let stepsFormCard = document.querySelector('#steps-form-card');
 
-let hydrationFormMessage = document.querySelector('.hydration-form h3');
-let sleepFormMessage = document.querySelector('.sleep-form h3');
-let activityFormMessage = document.querySelector('.activity-form h3');
+// let hydrationFormMessage = document.querySelector('.hydration-form h3');
+// let sleepFormMessage = document.querySelector('.sleep-form h3');
+// let activityFormMessage = document.querySelector('.activity-form h3');
+let hydrationFormMessage = document.querySelector('.hydration-form h2');
+let sleepFormMessage = document.querySelector('.sleep-form h2');
+let activityFormMessage = document.querySelector('.activity-form h2');
 
 let sleepCalendarCard = document.querySelector('#sleep-calendar-card');
 let sleepCalendarHoursAverageWeekly = document.querySelector('#sleep-calendar-hours-average-weekly');
@@ -90,6 +94,7 @@ let adtlInfo = document.querySelector('#adtlInfo');
 window.addEventListener('load', fetchData);
 
 profileButton.addEventListener('click', function() {
+  ariaStateChange()
   domUpdates.showDropdown(userInfoDropdown)});
 // stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
 // stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
@@ -103,6 +108,16 @@ mainPage.addEventListener('click', function() {
   determineShoworSubmit(event)
 });
 // profileButton.addEventListener('click', showDropdown);
+
+//aria function below
+function ariaStateChange() {
+  let attribute = profileButton.getAttribute("aria-expanded");
+  if (attribute === 'true') {
+   profileButton.setAttribute("aria-expanded", false);
+ } else {
+   profileButton.setAttribute("aria-expanded", true);
+ }
+}
 
 function determineShoworSubmit(event) {
   event.preventDefault()
@@ -327,7 +342,8 @@ function showInfo(event) {
     sleepCalendarCard,
     sleepFormCard,
     hydrationFormCard,
-    activityFormCard
+    // activityFormCard
+    stepsFormCard
   }
   domUpdates.facilitateCardChange(event, cards)
 }
