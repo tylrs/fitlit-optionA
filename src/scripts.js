@@ -216,7 +216,6 @@ function populateDOM() {
 function populateFriends() {
   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
   domUpdates.populateHTMLArray(user.friendsActivityRecords, dropdownFriendsStepsContainer)
-  console.log(user.friendsActivityRecords);
   domUpdates.applyFriendStyling()
 }
 
@@ -255,14 +254,8 @@ function findSleeper(qualifier) {
 function populateMainCard(element, data) {
   domUpdates.cardDisplay(element, data);
 }
-//   stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive").toFixed(0);
-//
-
-//   // stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
-//   stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps").toFixed(0);
 
 function populateIterateCard(queries, finds) {
-  //iterate through queries and finds to match up the same indexes
   queries.forEach((query, queryIndex) => {
     finds.forEach((find, findIndex) => {
       if (queryIndex === findIndex) {
@@ -271,12 +264,6 @@ function populateIterateCard(queries, finds) {
     })
   })
 }
-
-// function populateFriendCard(friendInfo) {
-//   for (const query in friendInfo) {
-//     domUpdates.cardDisplay(query, friendInfo[query])
-//   }
-// }
 
 //Individual Card functions
 function populateStepCard() {
@@ -344,147 +331,3 @@ function showInfo(event) {
   }
   domUpdates.facilitateCardChange(event, cards)
 }
-
-//is there a way we can refactor these without having the event listeners?
-// function updateTrendingStepsDOM() {
-//     domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
-//   }
-//
-//   function updateTrendingStairsDOM() {
-//       domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
-//     }
-/////////////
-
-
-// function populateFriends() {
-//   user.findFriendsTotalStepsForWeek(userRepository.users, todayDate);
-//
-//   // user.friendsActivityRecords.forEach(friend => {
-//   //   dropdownFriendsStepsContainer.innerHTML += `
-//   //   <p class='dropdown-p friends-steps'>${friend.firstName} |  ${friend.totalWeeklySteps}</p>
-//   //   `;
-//   // });
-//   domUpdates.populateHTMLArray(user.friendsActivityRecords, dropdownFriendsStepsContainer)
-//
-//   domUpdates.applyFriendStyling()
-// }
-// function populateUserCard() {
-//   //headerName.innerText = `${user.getFirstName()}'S `;
-//
-//   //dropdownName.innerText = user.name.toUpperCase();
-//
-//   //dropdownEmail.innerText = `EMAIL | ${user.email}`;
-//
-//   // dropdownGoal.innerHTML = `DAILY STEP GOAL | ${user.dailyStepGoal}
-//   // <br>average step goal amongst all users | ${userRepository.calculateAverageStepGoal()}
-//   // <br>your goal/average of all users goal | ${((user.dailyStepGoal / userRepository.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
-//
-//   // adtlInfo.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
-//
-// }
-
-
-// function applyFriendStyling() {
-//   let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
-//   friendsStepsParagraphs.forEach(paragraph => {
-//     if (friendsStepsParagraphs[0] === paragraph) {
-//       paragraph.classList.add('green-text');
-//     }
-//     if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
-//       paragraph.classList.add('red-text');
-//     }
-//     if (paragraph.innerText.includes('YOU')) {
-//       paragraph.classList.add('yellow-text');
-//     }
-//   });
-// }
-
-
-// function populateStepCard() {
-//   stepsUserStepsToday.innerText = activityData.find(activity => {
-//     return activity.userID === user.id && activity.date === todayDate;
-//   }).numSteps;
-//
-//   stepsInfoActiveMinutesToday.innerText = activityData.find(activity => {
-//     return activity.userID === user.id && activity.date === todayDate;
-//   }).minutesActive;
-//
-//   stepsInfoMilesWalkedToday.innerText = user.activityRecord.find(activity => {
-//     return (activity.date === todayDate && activity.userId === user.id)
-//   }).calculateMiles(userRepository);
-//
-//   //refactored this function in userRepo
-//   // stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverageMinutesActive(todayDate);
-//
-//   stepsFriendActiveMinutesAverageToday.innerText = userRepository.calculateAverage(todayDate, "minutesActive");
-//
-// //refactored in userRepo class to be calculateAverage
-//   // stepsFriendStepsAverageToday.innerText = userRepository.calculateAverageSteps(todayDate);
-//   stepsFriendStepsAverageToday.innerText = userRepository.calculateAverage(todayDate, "steps");
-//
-//   stepsFriendAverageStepGoal.innerText = `${userRepository.calculateAverageStepGoal()}`;
-//
-//   stepsCalendarTotalActiveMinutesWeekly.innerText = user.calculateAverageMinutesActiveThisWeek(todayDate);
-//
-//   stepsCalendarTotalStepsWeekly.innerText = user.calculateAverageStepsThisWeek(todayDate);
-//
-//   user.findTrendingStepDays();
-// }
-
-// function updateTrendingStepDays() {
-//   user.findTrendingStepDays();
-//   trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
-// }
-
-// stepsTrendingButton.addEventListener('click', function () {
-//   user.findTrendingStepDays();
-//   trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
-// });
-
-// function populateClimbedCard() {
-//   // stairsUserStairsToday.innerText = activityData.find(activity => {
-//   //   return activity.userID === user.id && activity.date === todayDate;
-//   // }).flightsOfStairs * 12;
-//
-//   stairsUserStairsToday.innerText = (findData(activityData, "flightsOfStairs") * 12);
-//
-//   // stairsInfoFlightsToday.innerText = activityData.find(activity => {
-//   //   return activity.userID === user.id && activity.date === todayDate;
-//   // }).flightsOfStairs;
-//
-//   stairsInfoFlightsToday.innerText = findData(activityData, "flightsOfStairs");
-//
-// //refactored in userRepo class to be calculateAverage
-//   // stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverageStairs(todayDate) / 12).toFixed(1);
-//   stairsFriendFlightsAverageToday.innerText = (userRepository.calculateAverage(todayDate, "flightsOfStairs") / 12).toFixed(1);
-//
-//
-//   stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
-//   // stairsCalendarFlightsAverageWeekly.innerText = user.calculateAverageFlightsThisWeek(todayDate);
-//   stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
-//   // stairsCalendarStairsAverageWeekly.innerText = (user.calculateAverageFlightsThisWeek(todayDate) * 12).toFixed(0);
-//
-//   user.findTrendingStairsDays();
-// }
-
-// function updateTrendingStairsDays() {
-//   console.log(user)
-//   user.findTrendingStairsDays();
-//   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
-// }
-// function updateTrendingStepsDOM() {
-//   trendingStepsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStepDays[0]}</p>`;
-// }
-
-// function updateTrendingStepsDOM() {
-//   domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
-// }
-//
-// function updateTrendingStairsDOM() {
-//   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
-// }
-
-//  stairsTrendingButton.addEventListener('click', function () {
-//   user.findTrendingStairsDays();
-//   trendingStairsPhraseContainer.innerHTML = `<p class='trend-line'>${user.trendingStairsDays[0]}</p>`;
-// });
