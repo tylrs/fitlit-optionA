@@ -1,6 +1,6 @@
 let domUpdates = {
   headerDisplay(element, data) {
-    element.innerText = `${data}'S `
+    element.innerText = `${data}'s fitlit`
   },
 
   emailDisplay(element, data) {
