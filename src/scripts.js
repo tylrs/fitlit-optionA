@@ -286,6 +286,8 @@ function instantiateData() {
   // });
 
   user = userRepository.users[0];
+  user.findTrendingStepDays();
+  user.findTrendingStairsDays();
   user.findFriendsNames(userRepository.users);
 }
 
@@ -375,6 +377,7 @@ function populateIterateCard(queries, finds) {
 
 //Individual Card functions
 function populateStepCard() {
+
   //main card:
   // domUpdates.cardDisplay(stepsUserStepsToday, findData(activityData, "numSteps"))
   populateMainCard(stepsUserStepsToday, findData(activityData, "numSteps"))
@@ -403,7 +406,7 @@ function populateStepCard() {
 
 //trending card
 //Is there DOM shit in the user class method below?
-  user.findTrendingStepDays();
+
 }
 
 function populateClimbedCard() {
@@ -517,12 +520,12 @@ function showInfo(event) {
 
 //is there a way we can refactor these without having the event listeners?
 // function updateTrendingStepsDOM() {
-  //   domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
-  // }
-  //
-  // function updateTrendingStairsDOM() {
-    //   domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
-    // }
+//     domUpdates.trendingDisplay(trendingStepsPhraseContainer, user.trendingStepDays[0])
+//   }
+//
+//   function updateTrendingStairsDOM() {
+//       domUpdates.trendingDisplay(trendingStairsPhraseContainer, user.trendingStairsDays[0])
+//     }
 /////////////
 
 
