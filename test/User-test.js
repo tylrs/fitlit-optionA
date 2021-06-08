@@ -66,13 +66,14 @@ describe('User', function() {
   it('getFirstName should return the first name of the user', function () {
     expect(user.getFirstName()).to.equal('LUISA');
   });
-  it('addDailyOunces should show the last week of water', function() {
+  it('addDailyOunces should show total ounces for one day', function() {
     user.ouncesRecord = [
+      {"2019/06/15": 2},
       {"2019/06/15": 1},
       {"2019/06/15": 1},
       {"2019/06/16": 4}
     ]
-    expect(user.addDailyOunces("2019/06/15")).to.equal(2);
+    expect(user.addDailyOunces("2019/06/15")).to.equal(4);
   });
 
   it('should have a default ouncesAverage of 0', function() {
@@ -169,7 +170,7 @@ describe('User', function() {
 
   it('should have a method that calculate miles walked', function() {
     userTestRepository.updateUsersActivity();
-  
+
     expect(user.calculateMiles("2019/06/22")).to.equal('8.0');
   });
   // NOT REQUIRED BY SPEC

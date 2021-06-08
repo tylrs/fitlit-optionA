@@ -52,10 +52,9 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
     this.ouncesRecord.unshift({[date]: amount});
     if (this.ouncesRecord.length) {
       this.ouncesAverage = Math.round((amount + (this.ouncesAverage * (this.ouncesRecord.length - 1))) / this.ouncesRecord.length);
+    } else {
+      this.ouncesAverage = amount;
     }
-    // } else {
-    //   this.ouncesAverage = amount;
-    // }
   }
   //I don't think we need this anymore
   // considering the way calculateAverageDailyWater has been refactored - Alex
@@ -67,6 +66,18 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
       }
       return sum
     }, 0)
+  }
+  calculateWeekEarlier(date) {
+    let aWeekEarlier = new Date(date)
+    aWeekEarlier.setDate(aWeekEarlier.getDate()-6)
+    let string = aWeekEarlier.toLocaleDateString()
+    let split = string.split('/')
+    let month = split[0]
+    let day = split[1]
+    let formattedMonth = ("0" + month).slice(-2);
+    let formattedDay = ("0" + day).slice(-2);
+    let newDate = `${split[2]}/${formattedMonth}/${formattedDay}`
+    return newDate
   }
   //Alex's attempt to solve a test that was misleading
   //(given a date show the past weeks average consumption of water)
@@ -113,23 +124,39 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
       this.sleepQualityAverage = quality;
     }
   }
+  // calculateAverageHoursThisWeek(todayDate) {
+  //   return (this.sleepHoursRecord.reduce((sum, sleepAct) => {
+  //     let index = this.sleepHoursRecord.indexOf(this.sleepHoursRecord.find(sleep => sleep.date === todayDate));
+  //     if (index <= this.sleepHoursRecord.indexOf(sleepAct) && this.sleepHoursRecord.indexOf(sleepAct) <= (index + 6)) {
+  //       sum += sleepAct.hours;
+  //     }
+  //     return sum;
+  //   }, 0) / 7).toFixed(1);
+  // }
   calculateAverageHoursThisWeek(todayDate) {
-    return (this.sleepHoursRecord.reduce((sum, sleepAct) => {
-      let index = this.sleepHoursRecord.indexOf(this.sleepHoursRecord.find(sleep => sleep.date === todayDate));
-      if (index <= this.sleepHoursRecord.indexOf(sleepAct) && this.sleepHoursRecord.indexOf(sleepAct) <= (index + 6)) {
-        sum += sleepAct.hours;
-      }
-      return sum;
-    }, 0) / 7).toFixed(1);
+    let foundSleeps = this.sleepHoursRecord.filter(sleepRecord => {
+      return sleepRecord.date >= this.calculateWeekEarlier(todayDate) && sleepRecord.date <= todayDate})
+    let totalHours = foundSleeps.reduce((acc, currentSleep) => {
+      return acc + currentSleep.hours
+    },0)
+    return (totalHours / foundSleeps.length).toFixed(1)
   }
+  // calculateAverageQualityThisWeek(todayDate) {
+  //   return (this.sleepQualityRecord.reduce((sum, sleepAct) => {
+  //     let index = this.sleepQualityRecord.indexOf(this.sleepQualityRecord.find(sleep => sleep.date === todayDate));
+  //     if (index <= this.sleepQualityRecord.indexOf(sleepAct) && this.sleepQualityRecord.indexOf(sleepAct) <= (index + 6)) {
+  //       sum += sleepAct.quality;
+  //     }
+  //     return sum;
+  //   }, 0) / 7).toFixed(1);
+  // }
   calculateAverageQualityThisWeek(todayDate) {
-    return (this.sleepQualityRecord.reduce((sum, sleepAct) => {
-      let index = this.sleepQualityRecord.indexOf(this.sleepQualityRecord.find(sleep => sleep.date === todayDate));
-      if (index <= this.sleepQualityRecord.indexOf(sleepAct) && this.sleepQualityRecord.indexOf(sleepAct) <= (index + 6)) {
-        sum += sleepAct.quality;
-      }
-      return sum;
-    }, 0) / 7).toFixed(1);
+    let foundSleeps = this.sleepQualityRecord.filter(sleepRecord => {
+      return sleepRecord.date >= this.calculateWeekEarlier(todayDate) && sleepRecord.date <= todayDate})
+    let totalQuality = foundSleeps.reduce((acc, currentSleep) => {
+      return acc + currentSleep.quality
+    },0)
+    return (totalQuality / foundSleeps.length).toFixed(1)
   }
   updateActivities(activity) {
     this.activityRecord.unshift(activity);
@@ -180,7 +207,7 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
   findTrendingStepDays() {
     let positiveDays = [];
     for (var i = 0; i < this.activityRecord.length; i++) {
-      if (this.activityRecord[i + 1] && this.activityRecord[i].steps > this.activityRecord[i + 1].steps) {
+      if (this.activityRecord[i + 1] && this.activityRecord[i].numSteps > this.activityRecord[i + 1].numSteps) {
         positiveDays.unshift(this.activityRecord[i].date);
       } else if (positiveDays.length > 2) {
         this.trendingStepDays.push(`Your most recent positive step streak was ${positiveDays[0]} - ${positiveDays[positiveDays.length - 1]}!`);
