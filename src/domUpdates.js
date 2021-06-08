@@ -1,10 +1,11 @@
 let domUpdates = {
   headerDisplay(element, data) {
-    element.innerText = `${data}'S `
+    element.innerText = `${data}'s fitlit`
   },
 
   emailDisplay(element, data) {
-    element.innerText = `EMAIL | ${data}`
+    // element.innerText = `EMAIL | ${data}`
+    element.innerText = `email: ${data}`
   },
 
   cardDisplay(element, data) {
@@ -22,7 +23,7 @@ let domUpdates = {
   applyFriendStyling() {
     let friendsStepsParagraphs = document.querySelectorAll('.friends-steps');
     friendsStepsParagraphs.forEach(paragraph => {
-      if (friendsStepsParagraphs[0] === paragraph) {
+      if (friendsStepsParagraphs[friendsStepsParagraphs.length - 2] === paragraph) {
         paragraph.classList.add('green-text');
       }
       if (friendsStepsParagraphs[friendsStepsParagraphs.length - 1] === paragraph) {
@@ -35,15 +36,15 @@ let domUpdates = {
   },
 
   populateDropDown(element, data, collectiveData) {
-    element.innerHTML = `DAILY STEP GOAL | ${data.dailyStepGoal}
-    <br>average step goal amongst all users | ${collectiveData.calculateAverageStepGoal()}
-    <br>your goal/average of all users goal | ${((data.dailyStepGoal / collectiveData.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
+    element.innerHTML = `daily step goal: ${data.dailyStepGoal}
+    <br>average step goal amongst all users: ${collectiveData.calculateAverageStepGoal()}
+    <br>your goal/average of all users goal: ${((data.dailyStepGoal / collectiveData.calculateAverageStepGoal()) * 100).toFixed(0)}%`;
   },
 
   populateAdditionalInfo(element, user) {
     element.innerHTML = `Your ID: ${user.id}<br>Your Addy: ${user.address}<br>Your Stride Length: ${user.strideLength}<br>`
   },
-  //refactor to make more dynamic?
+
   populateTextArray(element, data, user) {
     element.forEach((ounce, index) => {
       ounce.innerText = user.addDailyOunces(Object.keys(data[index])[0])
@@ -53,7 +54,7 @@ let domUpdates = {
   populateHTMLArray(array, location) {
     array.forEach(element => {
       location.innerHTML += `
-      <p class='dropdown-p friends-steps'>${element.firstName} |  ${element.totalWeeklySteps}</p>
+      <p class='dropdown-p friends-steps'>${element.firstName}:  ${element.totalWeeklySteps}</p>
       `;
     });
   },
@@ -70,41 +71,12 @@ let domUpdates = {
     }
   },
 
-  // determineShoworSubmit(event) {
-  //   event.preventDefault()
-  //   if (event.target.classList.contains('new-data-submit-button')) {
-  //     sortForm(event);
-  //   } else {
-  //     showInfo(event);
-  //   }
-  // },
-
-  // determinePostData(event, inputFields) {
-  //   let inputData, type;
-  //   if (event.target.id === 'sleepSubmitButton') {
-  //     let hoursSleptInput = parseInt(hoursSleptUserInput.value);
-  //     let sleepQualityInput = parseInt(sleepQualityUserInput.value);
-  //     inputData = {hoursSleptInput, sleepQualityInput};
-  //     type = 'sleep';
-  //   } else if (event.target.id === 'hydrationSubmitButton') {
-  //     let numOuncesInput = parseInt(numOuncesUserInput.value);
-  //     inputData = {numOuncesInput};
-  //     type = 'hydration';
-  //   } else if (event.target.id === 'activitySubmitButton') {
-  //     let numStepsInput = parseInt(numStepsUserInput.value);
-  //     let minutesActiveInput = parseInt(minutesActiveUserInput.value);
-  //     let flightsOfStairsInput = parseInt(flightsOfStairsUserInput.value);
-  //     inputData = {numStepsInput, minutesActiveInput, flightsOfStairsInput};
-  //     type = 'activity';
-  //   }
-  //   postData(type, inputData)
-  // },
-
   facilitatePostMessage(type, status, responseStatus, messageSelectors, user) {
     let newMessage;
     let originalMessage = messageSelectors[`${type}FormMessage`].innerText;
     if (status === 'success') {
-      newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
+      // newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
+      newMessage = `data recieved! thank you for submitting ${user.getFirstName()}.`;
     } else {
       newMessage = `Sorry ${user.getFirstName()}, there was an ${responseStatus.message}`;
     }
@@ -113,8 +85,6 @@ let domUpdates = {
       messageSelectors[`${type}FormMessage`].innerText = originalMessage;
     }, 5000)
   }
-
-
 }
 
 export default domUpdates;
