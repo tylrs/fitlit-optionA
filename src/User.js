@@ -67,6 +67,18 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
       return sum
     }, 0)
   }
+  calculateWeekEarlier(date) {
+    let aWeekEarlier = new Date(date)
+    aWeekEarlier.setDate(aWeekEarlier.getDate()-6)
+    let string = aWeekEarlier.toLocaleDateString()
+    let split = string.split('/')
+    let month = split[0]
+    let day = split[1]
+    let formattedMonth = ("0" + month).slice(-2);
+    let formattedDay = ("0" + day).slice(-2);
+    let newDate = `${split[2]}/${formattedMonth}/${formattedDay}`
+    return newDate
+  }
   //Alex's attempt to solve a test that was misleading
   //(given a date show the past weeks average consumption of water)
   // addDailyOunces(date) {
