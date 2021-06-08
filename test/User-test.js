@@ -1,38 +1,13 @@
 import { expect } from 'chai';
 import UserRepository from '../src/UserRepository';
 import User from '../src/User';
-import Sleep from '../src/Sleep';
-import Activity from '../src/Activity';
-import Hydration from '../src/Hydration';
-import Necessity from '../src/Necessity';
 import { userTestData, sleepTestData, activityTestData, hydrationTestData } from './sampleData';
 
-// describe('User', function() {
-//   let user;
-//   beforeEach(() => {
-//     user = new User({
-//       'id': 1,
-//       'name': 'Luisa Hane',
-//       'address': '15195 Nakia Tunnel, Erdmanport VA 19901-1697',
-//       'email': 'Diana.Hayes1@hotmail.com',
-//       'strideLength': 4.3,
-//       'dailyStepGoal': 10000,
-//       'friends': [
-//         16,
-//         4,
-//         8
-//       ]
-//     })
-//   })
 describe('User', function() {
   let user, usersData, userTestRepository, necessity;
   beforeEach(() => {
     usersData = userTestData.map(user => new User(user));
     userTestRepository = new UserRepository(usersData, sleepTestData, activityTestData, hydrationTestData);
-    // necessity = new Necessity(userTestRepository);
-    // sleepTestData.forEach(sleep => new Sleep(sleep, userTestRepository));
-    // activityTestData.forEach(activity => new Activity(activity, userTestRepository));
-    // hydrationTestData.forEach(hydration => new Hydration(hydration, userTestRepository));
     user = userTestRepository.users[0];
     // user.findFriendsNames(userTestRepository.users);
   });
@@ -173,7 +148,7 @@ describe('User', function() {
 
     expect(user.calculateMiles("2019/06/22")).to.equal('8.0');
   });
-  // NOT REQUIRED BY SPEC
+
   it('should have a method that calculates daily calories burned', function() {
     user.activityRecord = [{date: "2019/09/16", activityRecord: 78}, {date: "2019/09/17", minutesActive: 100}, {date: "2019/09/17", minutesActive: 20}];
     expect(user.calculateDailyCalories("2019/09/17")).to.equal(912)

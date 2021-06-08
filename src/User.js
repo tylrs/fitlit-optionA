@@ -1,8 +1,4 @@
-import UserRepository from '../src/UserRepository';
-import { userTestData, sleepTestData, activityTestData, hydrationTestData } from '../test/sampleData.js';
-let userTestRepository = new UserRepository(userTestData, sleepTestData, activityTestData, hydrationTestData);
-
- class User {
+class User {
   constructor(userData) {
     this.id = userData.id;
     this.name = userData.name;
@@ -56,8 +52,7 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
       this.ouncesAverage = amount;
     }
   }
-  //I don't think we need this anymore
-  // considering the way calculateAverageDailyWater has been refactored - Alex
+
   addDailyOunces(date) {
     return this.ouncesRecord.reduce((sum, record) => {
       let amount = record[date];
@@ -79,31 +74,6 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
     let newDate = `${split[2]}/${formattedMonth}/${formattedDay}`
     return newDate
   }
-  //Alex's attempt to solve a test that was misleading
-  //(given a date show the past weeks average consumption of water)
-  // addDailyOunces(date) {
-  //   let aWeekEarlier = new Date(date)
-  //   aWeekEarlier.setDate(aWeekEarlier.getDate()-7)
-  //   let string = aWeekEarlier.toLocaleDateString()
-  //   let split = string.split('/')
-  //   let month = split[0]
-  //   let day = split[1]
-  //   let formattedMonth = ("0" + month).slice(-2);
-  //   let formattedDay = ("0" + day).slice(-2);
-  //   let newDate = `${split[2]}/${formattedMonth}/${formattedDay}`
-  //   this.ouncesRecord = userTestRepository.hydrations.reduce((newArray, currentHydration) => {
-  //     let newObj = {}
-  //     if (currentHydration.date <= date & currentHydration.date >= newDate) {
-  //       newObj[currentHydration.date] = currentHydration.numOunces
-  //       newArray.push(newObj)
-  //     }
-  //     return newArray
-  //   },[])
-  //   let total = this.ouncesRecord.reduce((acc, currentRecord) => {
-  //     return acc + currentRecord
-  //   },0)
-  //   console.log(Object.values(this.ouncesRecord))
-  // }
   updateSleep(date, hours, quality) {
     this.sleepHoursRecord.unshift({
       'date': date,
@@ -190,7 +160,7 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
     return (this.activityRecord.reduce((sum, activity) => {
       let index = this.activityRecord.indexOf(this.activityRecord.find(activity => activity.date === todayDate));
       if (index <= this.activityRecord.indexOf(activity) && this.activityRecord.indexOf(activity) <= (index + 6)) {
-        sum += activity.steps;
+        sum += activity.numSteps;
       }
       return sum;
     }, 0) / 7).toFixed(0);
@@ -235,7 +205,7 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
     this.totalStepsThisWeek = (this.activityRecord.reduce((sum, activity) => {
       let index = this.activityRecord.indexOf(this.activityRecord.find(activity => activity.date === todayDate));
       if (index <= this.activityRecord.indexOf(activity) && this.activityRecord.indexOf(activity) <= (index + 6)) {
-        sum += activity.steps;
+        sum += activity.numSteps;
       }
       return sum;
     }, 0));
@@ -247,16 +217,16 @@ let userTestRepository = new UserRepository(userTestData, sleepTestData, activit
       this.friendsActivityRecords.push(
         {
           'id': matchedFriend.id,
-          // 'firstName': matchedFriend.name.toUpperCase().split(' ')[0],
+          'firstName': matchedFriend.name.toUpperCase().split(' ')[0],
           'totalWeeklySteps': matchedFriend.totalStepsThisWeek
         })
     })
-    // this.calculateTotalStepsThisWeek(date);
-    // this.friendsActivityRecords.push({
-    //   'id': this.id,
-    //   'firstName': 'YOU',
-    //   'totalWeeklySteps': this.totalStepsThisWeek
-    // });
+    this.calculateTotalStepsThisWeek(date);
+    this.friendsActivityRecords.push({
+      'id': this.id,
+      'firstName': 'YOU',
+      'totalWeeklySteps': this.totalStepsThisWeek
+    });
     this.friendsActivityRecords = this.friendsActivityRecords.sort((a, b) => b.totalWeeklySteps - a.totalWeeklySteps);
   }
 }
