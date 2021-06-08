@@ -27,7 +27,7 @@ class UserRepository {
       let userToUpdate = this.users.find((user) => {
         return user.id === hydration.userID
       })
-      userToUpdate.updateHydration(hydration.date, hydration.ounces);
+      userToUpdate.updateHydration(hydration.date, hydration.numOunces);
     })
   }
 
