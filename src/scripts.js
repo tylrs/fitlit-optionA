@@ -250,7 +250,6 @@ function fetchData() {
     sleepData = promiseArray[1].sleepData;
     activityData = promiseArray[2].activityData;
     hydrationData = promiseArray[3].hydrationData;
-    // console.log(hydrationData);
     instantiateData()
     populateDOM()
   });
@@ -321,7 +320,7 @@ function findData(data, property) {
   let found = data.find(activity => {
     return activity.userID === user.id && activity.date === todayDate;
   })[property]
-  return found
+  return found;
 }
 
 //this just calls calculate miles on user class
