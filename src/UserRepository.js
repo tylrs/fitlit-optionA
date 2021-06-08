@@ -170,12 +170,17 @@ class UserRepository {
   // }
 
 //Not called on DOM
-  // findBestSleepers(date) {
+  // findBestSleepersWeek(date) {
   //   return this.users.filter(user => {
   //     return user.calculateAverageQualityThisWeek(date) > 3;
   //   })
   // }
-  findBestSleepers(date) {
+  findBestSleepersWeek(date) {
+    return this.users.filter(user => {
+       return user.calculateAverageQualityThisWeek(date) > 3;
+    })
+  }
+  findBestSleepersDay(date) {
     let sleepsThatDay = this.sleeps.filter(currentSleep => currentSleep.date === date)
     let mostHoursSleptThatDay = sleepsThatDay.map(currentSleep => {
       return currentSleep.hoursSlept
