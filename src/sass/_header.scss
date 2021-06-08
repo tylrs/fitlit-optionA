@@ -3,9 +3,12 @@ header {
   height: 9vw;
 }
 
-button:active {
-  border: none;
-  outline: none;
+button {
+
+  &:active { 
+    border: none;
+    outline: none;
+  }
 }
 
 .profile-button {
