@@ -147,7 +147,7 @@ class UserRepository {
       }
       return acc
     },0)
-    return total / activitiesThatDay.length
+    return Math.round(total / activitiesThatDay.length)
   }
 //Test calls this data in a very weird way - how do we access
 // this data? via hydration?
