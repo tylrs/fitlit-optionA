@@ -143,7 +143,7 @@ describe('userRepository', function() {
   })
 
   it('calculateAverageStepGoal should return average step goal for all users', function() {
-    expect(userTestRepository.calculateAverageStepGoal()).to.equal(20000 / 3);
+    expect(userTestRepository.calculateAverageStepGoal()).to.equal(Math.round(20000 / 3));
   })
   it('calculateAverageSleepQuality should return average sleep quality for all users', function() {
     // userTestRepository.updateUsersSleep()
@@ -188,12 +188,12 @@ describe('userRepository', function() {
   // })
   ///////Testers
   it('What is the average number of active minutes among all users for a given day', function() {
-    expect(userTestRepository.calculateAverage("2019/06/15", "minutesActive")).to.equal((140 + 138 + 116) / 3);
+    expect(userTestRepository.calculateAverage("2019/06/15", "minutesActive")).to.equal(Math.floor((140 + 138 + 116) / 3));
   })
   it('What is the average number of steps among all users for a given day', function() {
     expect(userTestRepository.calculateAverage("2019/06/15", "steps")).to.equal((3577 + 4294 + 7402) / 3);
   })
   it('What is the average number of stairs among all users for a given day', function() {
-    expect(userTestRepository.calculateAverage("2019/06/15", "flightsOfStairs")).to.equal((16 + 10 + 33) / 3);
+    expect(userTestRepository.calculateAverage("2019/06/15", "flightsOfStairs")).to.equal(Math.round((16 + 10 + 33) / 3));
   })
 });
