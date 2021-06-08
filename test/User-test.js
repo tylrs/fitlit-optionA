@@ -9,7 +9,6 @@ describe('User', function() {
     usersData = userTestData.map(user => new User(user));
     userTestRepository = new UserRepository(usersData, sleepTestData, activityTestData, hydrationTestData);
     user = userTestRepository.users[0];
-    // user.findFriendsNames(userTestRepository.users);
   });
   it('should be a function', function() {
     expect(User).to.be.a('function');
@@ -154,7 +153,7 @@ describe('User', function() {
     expect(user.calculateDailyCalories("2019/09/17")).to.equal(912)
   });
   it('calculateAverageStepsThisWeek should calculate the average steps taken in a given week', function() {
-    user.activityRecord = [{date: "2019/09/18", steps: 1178}, {date: "2019/09/17", steps: 1080}, {date: "2019/09/16", steps: 120}, {date: "2019/09/15", steps: 891}, {date: "2019/09/14", steps: 380}, {date: "2019/09/13", steps: 3234}, {date: "2019/06/12", steps: 1111}, {date: "2019/09/11", steps: 18}, {date: "2019/09/10", steps: 345}, {date: "2019/09/09", steps: 81}];
+    user.activityRecord = [{date: "2019/09/18", numSteps: 1178}, {date: "2019/09/17", numSteps: 1080}, {date: "2019/09/16", numSteps: 120}, {date: "2019/09/15", numSteps: 891}, {date: "2019/09/14", numSteps: 380}, {date: "2019/09/13", numSteps: 3234}, {date: "2019/06/12", numSteps: 1111}, {date: "2019/09/11", numSteps: 18}, {date: "2019/09/10", numSteps: 345}, {date: "2019/09/09", numSteps: 81}];
     expect(user.calculateAverageStepsThisWeek("2019/09/17")).to.equal('976')
   });
   it('calculateAverageFlightsThisWeek should calculate the average flights of stairs taken in a given week', function() {
@@ -163,18 +162,18 @@ describe('User', function() {
   });
   it('findTrendingStepDays should find 3+ days with positive trend', function() {
     user.activityRecord = [{
-    "date": "2019/06/29", "steps": 2},
-    {"date": "2019/06/28", "steps": 1},
-    {"date": "2019/06/27", "steps": 4},
-    {"date": "2019/06/26", "steps": 3},
-    {"date": "2019/06/25", "steps": 1},
-    {"date": "2019/06/24", "steps": 12},
-    {"date": "2019/06/23", "steps": 11},
-    {"date": "2019/06/22", "steps": 10},
-    {"date": "2019/06/21", "steps": 9},
-    {"date": "2019/06/20", "steps": 8},
-    {"date": "2019/06/19", "steps": 11},
-    {"date": "2019/06/18", "steps": 10}];
+    "date": "2019/06/29", "numSteps": 2},
+    {"date": "2019/06/28", "numSteps": 1},
+    {"date": "2019/06/27", "numSteps": 4},
+    {"date": "2019/06/26", "numSteps": 3},
+    {"date": "2019/06/25", "numSteps": 1},
+    {"date": "2019/06/24", "numSteps": 12},
+    {"date": "2019/06/23", "numSteps": 11},
+    {"date": "2019/06/22", "numSteps": 10},
+    {"date": "2019/06/21", "numSteps": 9},
+    {"date": "2019/06/20", "numSteps": 8},
+    {"date": "2019/06/19", "numSteps": 11},
+    {"date": "2019/06/18", "numSteps": 10}];
     user.findTrendingStepDays()
     expect(user.trendingStepDays).to.deep.equal(['Your most recent positive step streak was 2019/06/26 - 2019/06/29!', 'Your most recent positive step streak was 2019/06/21 - 2019/06/24!']);
   });
@@ -214,18 +213,18 @@ describe('User', function() {
   });
   it('calculateTotalStepsThisWeek should add users steps for week', function() {
     user.activityRecord = [{
-    "date": "2019/06/29", "steps": 2},
-    {"date": "2019/06/28", "steps": 1},
-    {"date": "2019/06/27", "steps": 4},
-    {"date": "2019/06/26", "steps": 3},
-    {"date": "2019/06/25", "steps": 1},
-    {"date": "2019/06/24", "steps": 12},
-    {"date": "2019/06/23", "steps": 11},
-    {"date": "2019/06/22", "steps": 10},
-    {"date": "2019/06/21", "steps": 9},
-    {"date": "2019/06/20", "steps": 8},
-    {"date": "2019/06/19", "steps": 11},
-    {"date": "2019/06/18", "steps": 10}];
+    "date": "2019/06/29", "numSteps": 2},
+    {"date": "2019/06/28", "numSteps": 1},
+    {"date": "2019/06/27", "numSteps": 4},
+    {"date": "2019/06/26", "numSteps": 3},
+    {"date": "2019/06/25", "numSteps": 1},
+    {"date": "2019/06/24", "numSteps": 12},
+    {"date": "2019/06/23", "numSteps": 11},
+    {"date": "2019/06/22", "numSteps": 10},
+    {"date": "2019/06/21", "numSteps": 9},
+    {"date": "2019/06/20", "numSteps": 8},
+    {"date": "2019/06/19", "numSteps": 11},
+    {"date": "2019/06/18", "numSteps": 10}];
     user.calculateTotalStepsThisWeek('2019/06/29');
     expect(user.totalStepsThisWeek).to.equal(34);
   });
@@ -243,46 +242,51 @@ describe('User', function() {
       'name': 'Nick Adams',
     })
     user2.activityRecord = [{
-    "date": "2019/06/29", "steps": 25},
-    {"date": "2019/06/28", "steps": 1},
-    {"date": "2019/06/27", "steps": 43},
-    {"date": "2019/06/26", "steps": 35},
-    {"date": "2019/06/25", "steps": 1},
-    {"date": "2019/06/24", "steps": 132},
-    {"date": "2019/06/23", "steps": 11},
-    {"date": "2019/06/22", "steps": 1025},
-    {"date": "2019/06/21", "steps": 9},
-    {"date": "2019/06/20", "steps": 85},
-    {"date": "2019/06/19", "steps": 11},
-    {"date": "2019/06/18", "steps": 10}];
+    "date": "2019/06/29", "numSteps": 25},
+    {"date": "2019/06/28", "numSteps": 1},
+    {"date": "2019/06/27", "numSteps": 43},
+    {"date": "2019/06/26", "numSteps": 35},
+    {"date": "2019/06/25", "numSteps": 1},
+    {"date": "2019/06/24", "numSteps": 132},
+    {"date": "2019/06/23", "numSteps": 11},
+    {"date": "2019/06/22", "numSteps": 1025},
+    {"date": "2019/06/21", "numSteps": 9},
+    {"date": "2019/06/20", "numSteps": 85},
+    {"date": "2019/06/19", "numSteps": 11},
+    {"date": "2019/06/18", "numSteps": 10}];
   user3.activityRecord = [{
-    "date": "2019/06/29", "steps": 2},
-    {"date": "2019/06/28", "steps": 21},
-    {"date": "2019/06/27", "steps": 24},
-    {"date": "2019/06/26", "steps": 23},
-    {"date": "2019/06/25", "steps": 31},
-    {"date": "2019/06/24", "steps": 512},
-    {"date": "2019/06/23", "steps": 121},
-    {"date": "2019/06/22", "steps": 120},
-    {"date": "2019/06/21", "steps": 92},
-    {"date": "2019/06/20", "steps": 82},
-    {"date": "2019/06/19", "steps": 141},
-    {"date": "2019/06/18", "steps": 10}];
+    "date": "2019/06/29", "numSteps": 2},
+    {"date": "2019/06/28", "numSteps": 21},
+    {"date": "2019/06/27", "numSteps": 24},
+    {"date": "2019/06/26", "numSteps": 23},
+    {"date": "2019/06/25", "numSteps": 31},
+    {"date": "2019/06/24", "numSteps": 512},
+    {"date": "2019/06/23", "numSteps": 121},
+    {"date": "2019/06/22", "numSteps": 120},
+    {"date": "2019/06/21", "numSteps": 92},
+    {"date": "2019/06/20", "numSteps": 82},
+    {"date": "2019/06/19", "numSteps": 141},
+    {"date": "2019/06/18", "numSteps": 10}];
   user4.activityRecord = [{
-    "date": "2019/06/29", "steps": 2},
-    {"date": "2019/06/28", "steps": 1},
-    {"date": "2019/06/27", "steps": 4},
-    {"date": "2019/06/26", "steps": 3},
-    {"date": "2019/06/25", "steps": 1},
-    {"date": "2019/06/24", "steps": 12},
-    {"date": "2019/06/23", "steps": 11},
-    {"date": "2019/06/22", "steps": 10},
-    {"date": "2019/06/21", "steps": 9},
-    {"date": "2019/06/20", "steps": 8},
-    {"date": "2019/06/19", "steps": 11},
-    {"date": "2019/06/18", "steps": 10}];
+    "date": "2019/06/29", "numSteps": 2},
+    {"date": "2019/06/28", "numSteps": 1},
+    {"date": "2019/06/27", "numSteps": 4},
+    {"date": "2019/06/26", "numSteps": 3},
+    {"date": "2019/06/25", "numSteps": 1},
+    {"date": "2019/06/24", "numSteps": 12},
+    {"date": "2019/06/23", "numSteps": 11},
+    {"date": "2019/06/22", "numSteps": 10},
+    {"date": "2019/06/21", "numSteps": 9},
+    {"date": "2019/06/20", "numSteps": 8},
+    {"date": "2019/06/19", "numSteps": 11},
+    {"date": "2019/06/18", "numSteps": 10}];
     let users = [user2, user3, user4];
     user.findFriendsTotalStepsForWeek(users, '2019/06/29');
-    expect(user.friendsActivityRecords).to.deep.equal([{"id": 4, "totalWeeklySteps": 734}, {"id": 16, "totalWeeklySteps": 248}, {"id": 8, "totalWeeklySteps": 34}]);
+    expect(user.friendsActivityRecords).to.deep.equal([
+      { id: 4, firstName: 'JOHN', totalWeeklySteps: 734 },
+      { id: 16, firstName: 'BEN', totalWeeklySteps: 248 },
+      { id: 8, firstName: 'NICK', totalWeeklySteps: 34 },
+      { id: 1, firstName: 'YOU', totalWeeklySteps: 0 }
+    ]);
   });
 });

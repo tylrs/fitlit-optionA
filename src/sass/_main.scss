@@ -27,6 +27,10 @@ main {
   width: 100%;
 }
 
+.card-container {
+  text-transform: uppercase;
+}
+
 .steps-card-container {
   background-color: $step-card-bgcolor;
   grid-area: steps;
@@ -70,4 +74,14 @@ main {
   font-size: 2vw;
   text-align: center;
   width: 20vw;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  width: 20%;
 }

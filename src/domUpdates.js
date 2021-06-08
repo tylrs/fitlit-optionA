@@ -4,7 +4,6 @@ let domUpdates = {
   },
 
   emailDisplay(element, data) {
-    // element.innerText = `EMAIL | ${data}`
     element.innerText = `email: ${data}`
   },
 
@@ -75,10 +74,9 @@ let domUpdates = {
     let newMessage;
     let originalMessage = messageSelectors[`${type}FormMessage`].innerText;
     if (status === 'success') {
-      // newMessage = `DATA RECEIVED! THANK YOU FOR SUBMITTING ${user.getFirstName()}.`;
       newMessage = `data recieved! thank you for submitting ${user.getFirstName()}.`;
     } else {
-      newMessage = `Sorry ${user.getFirstName()}, there was an ${responseStatus.message}`;
+      newMessage = `Sorry ${user.getFirstName()}, we are experiencing this error: ${responseStatus.message}`;
     }
     messageSelectors[`${type}FormMessage`].innerText = newMessage;
     const resetMessage = setTimeout(() => {
