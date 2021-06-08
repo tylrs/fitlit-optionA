@@ -103,6 +103,7 @@ let adtlInfo = document.querySelector('#adtlInfo');
 window.addEventListener('load', fetchData);
 
 profileButton.addEventListener('click', function() {
+  ariaStateChange()
   domUpdates.showDropdown(userInfoDropdown)});
 // stairsTrendingButton.addEventListener('click', updateTrendingStairsDOM);
 // stepsTrendingButton.addEventListener('click', updateTrendingStepsDOM);
@@ -118,6 +119,16 @@ mainPage.addEventListener('click', function() {
 // mainPage.addEventListener('click', function () {
 //   domUpdates.determineShoworSubmit(event)});
 // profileButton.addEventListener('click', showDropdown);
+
+//aria function below
+function ariaStateChange() {
+  let attribute = profileButton.getAttribute("aria-expanded");
+  if (attribute === 'true') {
+   profileButton.setAttribute("aria-expanded", false);
+ } else {
+   profileButton.setAttribute("aria-expanded", true);
+ }
+}
 
 function determineShoworSubmit(event) {
   event.preventDefault()
