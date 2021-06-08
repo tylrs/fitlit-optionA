@@ -45,7 +45,7 @@ class UserRepository {
       accumulator += currentUser.dailyStepGoal
       return accumulator
     }, 0)
-    return total / this.users.length;
+    return Math.round(total / this.users.length);
   }
 //Are they using this one on the DOM?? Where is this being called?
 //Where is the data coming from?
