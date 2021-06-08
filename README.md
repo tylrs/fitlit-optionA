@@ -27,9 +27,20 @@ The original project spec can be found [here](https://frontend.turing.edu/projec
 
 ## Features
 
-![Screenshot of]()
-* 
-* 
+### Screenshot showing responsive app
+![Screenshot showing responsive app](src/readme/01.gif)
+
+### Screenshot showing post working for steps
+![Screenshot showing post working for steps](src/readme/02.gif)
+
+### Screenshot showing post not working for steps
+![Screenshot showing post not working for steps](src/readme/03.gif)
+
+### Screenshot showing post working for hydration
+![Screenshot showing post working for hydration](src/readme/04.gif)
+
+### Screenshot showing post working for sleep
+![Screenshot showing post working for sleep](src/readme/05.gif)
 
 ## Contributors
 
@@ -39,12 +50,10 @@ This application was written by [Ash O'Brien](https://github.com/AshleyOh-bit), 
 
 This application uses vanilla JavaScript, HTML, and SCSS. Mocha and Chai are used as the testing suite. Webpack is used to bundle the javascript and as the SASS compiler. GitHub and Git are used for version control and collaboration. HTTP Request is being used to Get and Fetch data.
 
-## Reflections on Challenges and Wins
-* Win: 
-* Challenge: 
-
 ## Future Additions
 
 We are unlikely to add any future functionality to this application, but here are some ideas for features that might improve it:
-* 
-* 
+* Update methods that use find to use filter
+* Separate methods into more classes
+* Refactor all methods that use indexOf and divide by 7 instead of array.length
+* Update styling and organization of how data is presented to the user
